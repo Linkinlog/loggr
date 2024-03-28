@@ -1,8 +1,21 @@
 bin := loggr
 main := cmd/loggr/main.go
+gcp_url := us-east5-docker.pkg.dev/loggr-418603/loggr/$(bin)
 
 build:
 	@go build -o $(bin) $(main)
+build.docker:
+	@docker build -t $(bin) -f ./build/Dockerfile .
+build.tag:
+	@docker tag $(bin) $(gcp_url)
+build.push:
+	@docker push $(gcp_url)
+release:
+	@make lint || exit 1
+	@make test || exit 1
+	@make build.docker
+	@make build.tag
+	@make build.push
 
 gen:
 	@go generate ./...

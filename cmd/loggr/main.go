@@ -7,7 +7,7 @@ import (
 	"github.com/Linkinlog/loggr/internal/handlers"
 )
 
-const addr = ":1420"
+const addr = ":8080"
 
 func main() {
 	l := slog.New(slog.NewJSONHandler(os.Stdout, nil))
