@@ -1,0 +1,70 @@
+package web
+
+css siginInContainer() {
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	border-radius: var(--border-radius);
+	margin-top: 15vh;
+	min-height: 50vh;
+	padding: 1rem;
+	box-shadow: var(--box-shadow);
+}
+
+css signInForm() {
+	display: flex;
+	flex-direction: column;
+}
+
+css signInBtn() {
+	align-self: center;
+	width: 7rem;
+	height: 3rem;
+	margin: 2rem;
+	font-size: var(--font-size);
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+}
+
+css input() {
+	border-radius: var(--border-radius);
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	height: 2rem;
+	padding: 0.5rem;
+	width: -webkit-fill-available;
+	display: block;
+	box-shadow: var(--box-shadow);
+}
+
+css inputLabel() {
+	align-self: flex-start;
+	padding-left: 0.5rem;
+	margin-top: 1rem;
+}
+
+css signUpLink() {
+	color: var(--color-secondary);
+	float: left;
+}
+
+css passwordLink() {
+	color: var(--color-primary);
+	align-self: flex-start;
+}
+
+templ SignIn() {
+	<div class={ siginInContainer }>
+		<h1>Sign In</h1>
+		<form class={ signInForm } action="/signin" method="post">
+			<label class={ inputLabel } for="email">Email</label>
+			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ input } required/>
+			<label class={ inputLabel } for="password">Password</label>
+			<input type="password" id="password" name="password" placeholder="hunter2" class={ input } required/>
+			<a class={ passwordLink } href="/auth/forgot-password">Forgot Password?</a>
+			<button class={ signInBtn } type="submit">Sign In</button>
+		</form>
+	</div>
+	<a class={ signUpLink } href="/auth/sign-up">Don't have an account? Sign up here</a>
+}

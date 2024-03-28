@@ -23,7 +23,9 @@ templ (p Page) Layout(content templ.Component) {
 	<html lang="en" itemscope="" itemtype="http://schema.org/Webpage">
 		@p.head()
 		<body>
-			@content
+			@Base() {
+				@content
+			}
 		</body>
 	</html>
 }

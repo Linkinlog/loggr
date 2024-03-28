@@ -10,10 +10,10 @@ import (
 const addr = ":8080"
 
 func main() {
-	l := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	l := slog.New(slog.NewTextHandler(os.Stdout, nil))
 	ssr := handlers.NewSSR(l, addr)
 
-	l.Info("starting server", slog.String("addr", addr))
+	l.Info("its_alive!", slog.String("addr", addr))
 
 	if err := ssr.ServeHTTP(); err != nil {
 		l.Error("error serving http", err)

@@ -2,12 +2,24 @@ package handlers
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"github.com/Linkinlog/loggr/assets"
 	"github.com/Linkinlog/loggr/web"
 )
+
+type wrapper struct {
+	http.ResponseWriter
+	s int
+}
+
+func (w *wrapper) WriteHeader(statusCode int) {
+	w.ResponseWriter.WriteHeader(statusCode)
+	w.s = statusCode
+}
 
 func NewSSR(l *slog.Logger, a string) *SSR {
 	return &SSR{
@@ -21,11 +33,26 @@ type SSR struct {
 	addr   string
 }
 
+func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		wr := &wrapper{ResponseWriter: w}
+		err := handler(wr, r)
+		execTime := time.Since(start)
+		if err != nil {
+			s.logger.Error("error handling request", err, "time", execTime)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		}
+		s.logger.Info("hit", "status", wr.s, "method", r.Method, "path", r.URL.Path, "time", execTime.String())
+	}
+}
+
 func (s *SSR) ServeHTTP() error {
 	mux := http.NewServeMux()
 
 	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))
 
+	mux.Handle("GET /auth/", http.StripPrefix("/auth", s.serveAuth()))
 	mux.HandleFunc("GET /about", s.wrapHandler(handleAbout))
 	mux.HandleFunc("GET /", s.wrapHandler(handleLanding))
 
@@ -37,14 +64,30 @@ func (s *SSR) ServeHTTP() error {
 	return server.ListenAndServe()
 }
 
-func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		err := handler(w, r)
-		if err != nil {
-			s.logger.Error("error handling request", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		}
-	}
+func (s *SSR) serveAuth() http.Handler {
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /sign-in", s.wrapHandler(handleSignIn))
+	mux.HandleFunc("GET /sign-out", s.wrapHandler(handleSignOut))
+	mux.HandleFunc("GET /sign-up", s.wrapHandler(handleSignUp))
+
+	return mux
+}
+
+func handleSignIn(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("Sign In", "Welcome to the sign in page")
+
+	return p.Layout(web.SignIn()).Render(context.Background(), w)
+}
+
+func handleSignOut(w http.ResponseWriter, _ *http.Request) error {
+	// todo
+	return errors.New("not implemented")
+}
+
+func handleSignUp(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("Sign Up", "Welcome to the sign up page")
+
+	return p.Layout(web.SignUp()).Render(context.Background(), w)
 }
 
 func handleLanding(w http.ResponseWriter, r *http.Request) error {
