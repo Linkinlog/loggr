@@ -38,6 +38,7 @@ templ (p Page) head() {
 		<title>{ p.Title }</title>
 		<link rel="icon" type="image/png" href="/assets/logo.webp"/>
 		<meta name="description" content={ p.Description }/>
+		@ga()
 		<!-- Schema.org (For Google+) -->
 		<meta itemprop="name" content={ p.Title }/>
 		<meta itemprop="description" content={ p.Description }/>
@@ -67,4 +68,16 @@ templ (p Page) head() {
 		<!-- Styles -->
 		@globalStyles()
 	</head>
+}
+
+templ ga() {
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-4MFGB0YFV9"></script>
+	<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4MFGB0YFV9');
+    </script>
 }

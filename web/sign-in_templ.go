@@ -63,6 +63,7 @@ func input() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`height:2rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:5px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`width:-webkit-fill-available;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
