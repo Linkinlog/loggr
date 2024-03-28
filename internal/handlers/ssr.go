@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/Linkinlog/loggr/assets"
 	"github.com/Linkinlog/loggr/web"
 )
 
@@ -23,7 +24,10 @@ type SSR struct {
 func (s *SSR) ServeHTTP() error {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", s.wrapHandler(handleLanding))
+	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))
+
+	mux.HandleFunc("GET /about", s.wrapHandler(handleAbout))
+	mux.HandleFunc("GET /", s.wrapHandler(handleLanding))
 
 	server := &http.Server{
 		Addr:    s.addr,
@@ -43,8 +47,19 @@ func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error
 	}
 }
 
-func handleLanding(w http.ResponseWriter, _ *http.Request) error {
+func handleLanding(w http.ResponseWriter, r *http.Request) error {
+	if r.URL.Path != "/" {
+		// TODO we didnt add a 404 page :/
+		http.NotFound(w, r)
+		return nil
+	}
 	p := web.NewPage("Landing", "Welcome to the landing page")
 
 	return p.Layout(web.Landing()).Render(context.Background(), w)
+}
+
+func handleAbout(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("About", "Welcome to the about page")
+
+	return p.Layout(web.About()).Render(context.Background(), w)
 }

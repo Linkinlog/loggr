@@ -62,7 +62,7 @@ func nav() templ.CSSClass {
 func link() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`font-weight:200;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-weight:300;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`link`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
