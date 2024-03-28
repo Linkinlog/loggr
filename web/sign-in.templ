@@ -1,6 +1,6 @@
 package web
 
-css siginInContainer() {
+css signInContainer() {
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
 	border-radius: var(--border-radius);
@@ -55,9 +55,9 @@ css passwordLink() {
 }
 
 templ SignIn() {
-	<div class={ siginInContainer }>
+	<div class={ signInContainer }>
 		<h1>Sign In</h1>
-		<form class={ signInForm } action="/signin" method="post">
+		<form class={ signInForm } action="/sign-in" method="post">
 			<label class={ inputLabel } for="email">Email</label>
 			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ input } required/>
 			<label class={ inputLabel } for="password">Password</label>

@@ -1,5 +1,44 @@
 package web
 
+css signUpContainer() {
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	border-radius: var(--border-radius);
+	margin-top: 15vh;
+	min-height: 50vh;
+	padding: 1rem;
+	box-shadow: var(--box-shadow);
+}
+
+css signUpForm() {
+	display: flex;
+	flex-direction: column;
+}
+
+css signUpBtn() {
+	align-self: center;
+	width: 7rem;
+	height: 3rem;
+	margin: 2rem;
+	font-size: var(--font-size);
+	background-color: var(--color-primary);
+	color: var(--color-secondary);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+}
+
 templ SignUp() {
-	<form action="/signup" method="post"></form>
+	<div class={ signUpContainer }>
+		<h1>Sign Up</h1>
+		<form class={ signUpForm } action="/sign-up" method="post">
+			<label class={ inputLabel } for="name">Name</label>
+			<input type="text" id="name" name="name" placeholder="Rick Astley" class={ input } required/>
+			<label class={ inputLabel } for="email">Email</label>
+			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ input } required/>
+			<label class={ inputLabel } for="password">Password</label>
+			<input type="password" id="password" name="password" placeholder="hunter2" class={ input } required/>
+			<a class={ passwordLink } href="/auth/sign-in">Already have an account? Sign in here</a>
+			<button class={ signInBtn } type="submit">Sign Up</button>
+		</form>
+	</div>
 }

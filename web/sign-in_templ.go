@@ -11,7 +11,7 @@ import "io"
 import "bytes"
 import "strings"
 
-func siginInContainer() templ.CSSClass {
+func signInContainer() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
@@ -20,7 +20,7 @@ func siginInContainer() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:50vh;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:1rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
-	templ_7745c5c3_CSSID := templ.CSSID(`siginInContainer`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`signInContainer`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -120,7 +120,7 @@ func SignIn() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{siginInContainer}
+		var templ_7745c5c3_Var2 = []any{signInContainer}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -160,7 +160,7 @@ func SignIn() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" action=\"/signin\" method=\"post\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" action=\"/sign-in\" method=\"post\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
