@@ -28,7 +28,7 @@ css signUpBtn() {
 }
 
 templ SignUp() {
-	<div class={ signUpContainer }>
+	<section class={ signUpContainer }>
 		<h1>Sign Up</h1>
 		<form class={ signUpForm } action="/sign-up" method="post">
 			<label class={ inputLabel } for="name">Name</label>
@@ -40,5 +40,5 @@ templ SignUp() {
 			<a class={ passwordLink } href="/auth/sign-in">Already have an account? Sign in here</a>
 			<button class={ signInBtn } type="submit">Sign Up</button>
 		</form>
-	</div>
+	</section>
 }

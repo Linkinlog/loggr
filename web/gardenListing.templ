@@ -1,0 +1,38 @@
+package web
+
+css gardens() {
+	display: flex;
+	flex-direction: column;
+}
+
+css gardensNav() {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+css gardenCreateLink() {
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-accent-green);
+	min-width: 5rem;
+	min-height: 1.5rem;
+	padding-top: 0.25rem;
+}
+
+css noGardens() {
+	margin-top: 4rem;
+}
+
+templ GardenListing() {
+	<section class={ gardens }>
+		<nav class={ gardensNav }>
+			@Search()
+			<a class={ gardenCreateLink } href="/gardens/new">Add</a>
+		</nav>
+		<section>
+			<p class={ noGardens }>No gardens yet, click "Add" to get started!</p>
+		</section>
+	</section>
+}

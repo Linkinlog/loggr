@@ -63,7 +63,7 @@ func input() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`height:2rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:0.5rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:5px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:5px 0px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`width:-webkit-fill-available;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
@@ -126,7 +126,7 @@ func SignIn() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -293,7 +293,7 @@ func SignIn() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" type=\"submit\">Sign In</button></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" type=\"submit\">Sign In</button></form></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

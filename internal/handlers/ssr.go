@@ -54,6 +54,7 @@ func (s *SSR) ServeHTTP() error {
 
 	mux.Handle("GET /auth/", http.StripPrefix("/auth", s.serveAuth()))
 	mux.HandleFunc("GET /about", s.wrapHandler(handleAbout))
+	mux.HandleFunc("GET /gardens", s.wrapHandler(handleGardenListing))
 	mux.HandleFunc("GET /", s.wrapHandler(handleLanding))
 
 	server := &http.Server{
@@ -71,6 +72,12 @@ func (s *SSR) serveAuth() http.Handler {
 	mux.HandleFunc("GET /sign-up", s.wrapHandler(handleSignUp))
 
 	return mux
+}
+
+func handleGardenListing(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("Gardens", "Welcome to the gardens page")
+
+	return p.Layout(web.GardenListing()).Render(context.Background(), w)
 }
 
 func handleSignIn(w http.ResponseWriter, _ *http.Request) error {
