@@ -1,0 +1,34 @@
+package web
+
+templ Base() {
+	<main id="app">
+		@Header()
+		{ children... }
+	</main>
+}
+
+css nav() {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+}
+
+css link() {
+	color: var(--color-secondary);
+	font-weight: 200;
+}
+
+css brand() {
+	font-weight: bold;
+}
+
+templ Header() {
+	<header>
+		<nav class={ nav }>
+			<a class={ link, brand } href="/">Loggr</a>
+			<a class={ link } href="/about">About</a>
+			<a class={ link } href="/gardens">Gardens</a>
+			<a class={ link } href="/sign-in">Sign in</a>
+		</nav>
+	</header>
+}

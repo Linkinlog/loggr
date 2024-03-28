@@ -1,0 +1,67 @@
+package web
+
+func NewPage(title, description string) *Page {
+	url := "https://loggr.dahlton.org"
+	img := "https://loggr.dahlton.org/assets/logo.png"
+	return &Page{
+		Title:       title,
+		Description: description,
+		Img:         img,
+		URL:         url,
+	}
+}
+
+type Page struct {
+	Title       string
+	Description string
+	Img         string
+	URL         string
+}
+
+templ (p Page) Layout(content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en" itemscope="" itemtype="http://schema.org/Webpage">
+		@p.head()
+		<body>
+			@content
+		</body>
+	</html>
+}
+
+templ (p Page) head() {
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimal-ui"/>
+		<title>{ p.Title }</title>
+		<meta name="description" content={ p.Description }/>
+		<!-- Schema.org (For Google+) -->
+		<meta itemprop="name" content={ p.Title }/>
+		<meta itemprop="description" content={ p.Description }/>
+		<meta itemprop="image" content={ p.Img }/>
+		<!-- Twitter Card markup-->
+		<meta name="twitter:card" content="summary"/>
+		<meta name="twitter:creator" content="@linkinlog"/>
+		<meta name="twitter:url" content={ p.URL }/>
+		<meta name="twitter:title" content={ p.Title }/>
+		<meta name="twitter:description" content={ p.Description }/>
+		<meta name="twitter:site" content="@linkinlog"/>
+		<!-- The image must be a minimum size of 120px by 120px and must be less than 1MB in file size. The image will be cropped to a square on all platforms.	 -->
+		<meta name="twitter:image" content={ p.Img }/>
+		<meta name="twitter:image:alt" content={ p.Description }/>
+		<!-- Open Graph markup (Facebook) -->
+		<meta property="og:url" content={ p.URL }/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:title" content={ p.Title }/>
+		<meta property="og:description" content={ p.Description }/>
+		<meta property="og:image" content={ p.Img }/>
+		<meta property="og:locale" content="en_US"/>
+		<meta property="og:site_name" content="Loggr"/>
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"/>
+		<!-- Styles -->
+		@globalStyles()
+	</head>
+}
