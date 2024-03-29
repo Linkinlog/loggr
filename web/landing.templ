@@ -2,6 +2,17 @@ package web
 
 css landing() {
 	min-height: 82vh;
+	font-size: 1.3rem;
+}
+
+css featureDescriptor() {
+	text-align: start;
+	margin-bottom: 0;
+}
+
+css features() {
+	margin-top: 0.5rem;
+	text-align: start;
 }
 
 css cta() {
@@ -14,26 +25,42 @@ css cta() {
 	transition: background-color 0.3s;
 	box-shadow: var(--box-shadow);
 	text-decoration: none;
+	max-width: 5rem;
+	align-self: center;
 }
 
 templ Landing() {
 	<section class={ containerSecondary, landing }>
-		<h1>Something Really Catchy!!!</h1>
+		<h1>Loggr: Your Green Thumb's Best Friend</h1>
 		<p>
-			Bacon ipsum dolor amet drumstick ribeye in, shoulder officia kielbasa pig laboris tempor culpa reprehenderit occaecat aliquip cupim. Alcatra fatback occaecat proident ullamco tempor laborum, pastrami corned beef ea sirloin doner. Biltong excepteur bresaola sed, ipsum meatball tail sint in ut. Occaecat magna pariatur tenderloin dolor ham boudin. Ea excepteur sausage, rump anim brisket aliqua jerky buffalo. Shoulder dolor aliquip in reprehenderit.
+			Welcome to Loggr - Your Ultimate Gardening Companion!
 		</p>
 		<p>
-			Alcatra enim magna, in ham hock brisket incididunt shoulder ex adipisicing leberkas turducken esse salami. Burgdoggen dolor picanha proident officia aliquip est prosciutto jowl pork belly landjaeger chicken. Venison tail meatball rump, tenderloin flank sed officia andouille shankle aute capicola ground round dolor elit. Capicola tongue strip steak dolore aliquip. Bresaola esse enim fatback flank, picanha meatloaf pariatur eu cupidatat pig ham hock nulla minim nisi. Exercitation cupim fatback dolor, pork belly ham hock deserunt venison swine biltong meatball picanha dolore corned beef lorem.
+			Elevate your gardening game with Loggr - the perfect tool for managing your garden projects effortlessly. Say goodbye to chaos and hello to organized bliss!
 		</p>
-		<p>
-			Short ribs ut nulla laborum salami non, magna ball tip sausage commodo in filet mignon duis turkey. Burgdoggen officia minim meatball hamburger. In culpa ground round strip steak shankle chislic beef in sausage boudin elit jowl consectetur brisket buffalo. Turducken pastrami prosciutto elit landjaeger incididunt bacon picanha.
-		</p>
-		<p>
-			Landjaeger cow rump, tongue leberkas kielbasa excepteur tail incididunt proident est pork belly commodo buffalo. Aliquip elit ut, andouille ad nisi boudin proident ball tip. Fatback meatloaf chuck pork chop, lorem cupim frankfurter do anim shank cow pork beef ribs. Leberkas reprehenderit tempor, aute est ad ex jerky frankfurter sunt.
-		</p>
-		<p>
-			Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!
-		</p>
-		<a href="/auth/sign-in" class={ cta }>Do it!</a>
+		<h2 class={ featureDescriptor }>
+			Features:
+		</h2>
+		<ul class={ features }>
+			<li>
+				Create personalized gardens with ease
+			</li>
+			<li>
+				Track inventory items efficiently
+			</li>
+			<li>
+				Store location and description for each garden
+			</li>
+			<li>
+				Flexible fields for customizable inventory items
+			</li>
+			<li>
+				Collaborate with ease, whether you're a solo gardener or part of a team
+			</li>
+		</ul>
+		<h2>
+			Join us today and watch your garden dreams blossom into reality!
+		</h2>
+		<a href="/auth/sign-up" class={ cta }>Sign Up!</a>
 	</section>
 }

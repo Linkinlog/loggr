@@ -14,7 +14,30 @@ import "strings"
 func landing() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:82vh;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1.3rem;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`landing`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func featureDescriptor() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`text-align:start;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-bottom:0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`featureDescriptor`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func features() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-align:start;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`features`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -32,6 +55,8 @@ func cta() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`transition:background-color 0.3s;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:none;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`max-width:5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`align-self:center;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`cta`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -70,16 +95,16 @@ func Landing() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h1>Something Really Catchy!!!</h1><p>Bacon ipsum dolor amet drumstick ribeye in, shoulder officia kielbasa pig laboris tempor culpa reprehenderit occaecat aliquip cupim. Alcatra fatback occaecat proident ullamco tempor laborum, pastrami corned beef ea sirloin doner. Biltong excepteur bresaola sed, ipsum meatball tail sint in ut. Occaecat magna pariatur tenderloin dolor ham boudin. Ea excepteur sausage, rump anim brisket aliqua jerky buffalo. Shoulder dolor aliquip in reprehenderit.</p><p>Alcatra enim magna, in ham hock brisket incididunt shoulder ex adipisicing leberkas turducken esse salami. Burgdoggen dolor picanha proident officia aliquip est prosciutto jowl pork belly landjaeger chicken. Venison tail meatball rump, tenderloin flank sed officia andouille shankle aute capicola ground round dolor elit. Capicola tongue strip steak dolore aliquip. Bresaola esse enim fatback flank, picanha meatloaf pariatur eu cupidatat pig ham hock nulla minim nisi. Exercitation cupim fatback dolor, pork belly ham hock deserunt venison swine biltong meatball picanha dolore corned beef lorem.</p><p>Short ribs ut nulla laborum salami non, magna ball tip sausage commodo in filet mignon duis turkey. Burgdoggen officia minim meatball hamburger. In culpa ground round strip steak shankle chislic beef in sausage boudin elit jowl consectetur brisket buffalo. Turducken pastrami prosciutto elit landjaeger incididunt bacon picanha.</p><p>Landjaeger cow rump, tongue leberkas kielbasa excepteur tail incididunt proident est pork belly commodo buffalo. Aliquip elit ut, andouille ad nisi boudin proident ball tip. Fatback meatloaf chuck pork chop, lorem cupim frankfurter do anim shank cow pork beef ribs. Leberkas reprehenderit tempor, aute est ad ex jerky frankfurter sunt.</p><p>Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</p>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h1>Loggr: Your Green Thumb's Best Friend</h1><p>Welcome to Loggr - Your Ultimate Gardening Companion!</p><p>Elevate your gardening game with Loggr - the perfect tool for managing your garden projects effortlessly. Say goodbye to chaos and hello to organized bliss!</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{cta}
+		var templ_7745c5c3_Var4 = []any{featureDescriptor}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/auth/sign-in\" class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h2 class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -92,7 +117,51 @@ func Landing() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Do it!</a></section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Features:</h2>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 = []any{features}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<ul class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var6).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/landing.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li>Create personalized gardens with ease</li><li>Track inventory items efficiently</li><li>Store location and description for each garden</li><li>Flexible fields for customizable inventory items</li><li>Collaborate with ease, whether you're a solo gardener or part of a team</li></ul><h2>Join us today and watch your garden dreams blossom into reality!</h2>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var8 = []any{cta}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var8...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/auth/sign-up\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var8).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/landing.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Sign Up!</a></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
