@@ -1,13 +1,8 @@
 package web
 
 css signInContainer() {
-	background-color: var(--color-secondary);
-	color: var(--color-primary);
-	border-radius: var(--border-radius);
 	margin-top: 15vh;
 	min-height: 50vh;
-	padding: 1rem;
-	box-shadow: var(--box-shadow);
 }
 
 css signInForm() {
@@ -27,24 +22,6 @@ css signInBtn() {
 	box-shadow: var(--box-shadow);
 }
 
-css input() {
-	border-radius: var(--border-radius);
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	height: 2rem;
-	padding: 0.5rem;
-	margin: 5px 0px;
-	width: -webkit-fill-available;
-	display: block;
-	box-shadow: var(--box-shadow);
-}
-
-css inputLabel() {
-	align-self: flex-start;
-	padding-left: 0.5rem;
-	margin-top: 1rem;
-}
-
 css signUpLink() {
 	color: var(--color-secondary);
 	float: left;
@@ -56,7 +33,7 @@ css passwordLink() {
 }
 
 templ SignIn() {
-	<section class={ signInContainer }>
+	<section class={ containerSecondary, signInContainer }>
 		<h1>Sign In</h1>
 		<form class={ signInForm } action="/sign-in" method="post">
 			<label class={ inputLabel } for="email">Email</label>

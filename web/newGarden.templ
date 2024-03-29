@@ -1,0 +1,45 @@
+package web
+
+css gardenContainer() {
+	display: flex;
+}
+
+css fieldDescriptor() {
+	display: flex;
+	align-self: flex-start;
+	padding-left: 0.5rem;
+	margin: 0.25rem 0;
+}
+
+css createBtn() {
+	align-self: center;
+	max-width: 7rem;
+	font-size: 1.25rem;
+}
+
+css inputBig() {
+	height: 5rem;
+}
+
+templ NewGarden() {
+	<section class={ containerSecondary, gardenContainer }>
+		<h1>New Garden</h1>
+		<form action="/gardens" method="post">
+			@ImageUploader()
+			<label class={ inputLabel } for="name">Name</label>
+			<input class={ input } type="text" id="name" name="name" placeholder="placeholder text..." required/>
+			<p class={ fieldDescriptor }>Fields</p>
+			<section class={ containerPrimary }>
+				@gardenFields()
+				<button class={ containerSecondary, createBtn } type="submit">Create</button>
+			</section>
+		</form>
+	</section>
+}
+
+templ gardenFields() {
+	<label class={ inputLabel } for="location">Location</label>
+	<input class={ inputSecondary } type="number" id="location" name="location" placeholder="placeholder text..." required/>
+	<label class={ inputLabel } for="description">Description</label>
+	<textarea class={ inputSecondary, inputBig } type="number" id="description" name="description" placeholder="placeholder text..." required></textarea>
+}

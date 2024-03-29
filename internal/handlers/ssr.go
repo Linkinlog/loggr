@@ -53,8 +53,8 @@ func (s *SSR) ServeHTTP() error {
 	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))
 
 	mux.Handle("GET /auth/", http.StripPrefix("/auth", s.serveAuth()))
+	mux.Handle("GET /gardens/", http.StripPrefix("/gardens", s.serveGardens()))
 	mux.HandleFunc("GET /about", s.wrapHandler(handleAbout))
-	mux.HandleFunc("GET /gardens", s.wrapHandler(handleGardenListing))
 	mux.HandleFunc("GET /", s.wrapHandler(handleLanding))
 
 	server := &http.Server{
@@ -65,6 +65,14 @@ func (s *SSR) ServeHTTP() error {
 	return server.ListenAndServe()
 }
 
+func (s *SSR) serveGardens() http.Handler {
+	mux := http.NewServeMux()
+	mux.HandleFunc("GET /", s.wrapHandler(handleGardenListing))
+	mux.HandleFunc("GET /new", s.wrapHandler(handleNewGarden))
+
+	return mux
+}
+
 func (s *SSR) serveAuth() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /sign-in", s.wrapHandler(handleSignIn))
@@ -72,6 +80,12 @@ func (s *SSR) serveAuth() http.Handler {
 	mux.HandleFunc("GET /sign-up", s.wrapHandler(handleSignUp))
 
 	return mux
+}
+
+func handleNewGarden(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("New Garden", "Welcome to the new garden page")
+
+	return p.Layout(web.NewGarden()).Render(context.Background(), w)
 }
 
 func handleGardenListing(w http.ResponseWriter, _ *http.Request) error {
@@ -87,7 +101,7 @@ func handleSignIn(w http.ResponseWriter, _ *http.Request) error {
 }
 
 func handleSignOut(w http.ResponseWriter, _ *http.Request) error {
-	// todo
+	// TODO
 	return errors.New("not implemented")
 }
 

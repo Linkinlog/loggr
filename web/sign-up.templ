@@ -1,13 +1,8 @@
 package web
 
 css signUpContainer() {
-	background-color: var(--color-secondary);
-	color: var(--color-primary);
-	border-radius: var(--border-radius);
 	margin-top: 15vh;
 	min-height: 50vh;
-	padding: 1rem;
-	box-shadow: var(--box-shadow);
 }
 
 css signUpForm() {
@@ -28,7 +23,7 @@ css signUpBtn() {
 }
 
 templ SignUp() {
-	<section class={ signUpContainer }>
+	<section class={ containerSecondary, signUpContainer }>
 		<h1>Sign Up</h1>
 		<form class={ signUpForm } action="/sign-up" method="post">
 			<label class={ inputLabel } for="name">Name</label>

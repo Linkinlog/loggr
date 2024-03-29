@@ -1,0 +1,37 @@
+package web
+
+css imageUploader() {
+	background-color: var(--color-primary);
+	border: 1px solid var(--color-accent-red);
+	color: var(--color-secondary);
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	height: 2.25rem;
+	width: 8rem;
+	padding-top: 0.75rem;
+	display: inline-block;
+}
+
+css uploaderContainer() {
+	margin: 4rem 0;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+css gardenPic() {
+	width: 4rem;
+	height: 4rem;
+	object-fit: cover;
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	border: 1px solid var(--color-accent-red);
+}
+
+templ ImageUploader() {
+	<section class={ uploaderContainer }>
+		<label class={ imageUploader } for="gardenPic">Upload Photo</label>
+		<input id="gardenPic" type="file" accept="image/*" hidden/>
+		<img class={ gardenPic } src="/assets/imageNotFound.webp" alt="Garden Picture"/>
+	</section>
+}
