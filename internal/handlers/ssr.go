@@ -50,12 +50,12 @@ func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error
 func (s *SSR) ServeHTTP() error {
 	mux := http.NewServeMux()
 
-	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))
-
+	mux.Handle("GET /", s.wrapHandler(handleLanding))
 	mux.Handle("GET /auth/", http.StripPrefix("/auth", s.serveAuth()))
 	mux.Handle("GET /gardens/", http.StripPrefix("/gardens", s.serveGardens()))
-	mux.HandleFunc("GET /about", s.wrapHandler(handleAbout))
-	mux.HandleFunc("GET /", s.wrapHandler(handleLanding))
+	mux.Handle("GET /about", s.wrapHandler(handleAbout))
+
+	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))
 
 	server := &http.Server{
 		Addr:    s.addr,
@@ -75,9 +75,11 @@ func (s *SSR) serveGardens() http.Handler {
 
 func (s *SSR) serveAuth() http.Handler {
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /", s.wrapHandler(handleNotFound))
 	mux.HandleFunc("GET /sign-in", s.wrapHandler(handleSignIn))
 	mux.HandleFunc("GET /sign-out", s.wrapHandler(handleSignOut))
 	mux.HandleFunc("GET /sign-up", s.wrapHandler(handleSignUp))
+	mux.HandleFunc("GET /forgot-password", s.wrapHandler(handleForgotPassword))
 
 	return mux
 }
@@ -88,7 +90,10 @@ func handleNewGarden(w http.ResponseWriter, _ *http.Request) error {
 	return p.Layout(web.NewGarden()).Render(context.Background(), w)
 }
 
-func handleGardenListing(w http.ResponseWriter, _ *http.Request) error {
+func handleGardenListing(w http.ResponseWriter, r *http.Request) error {
+	if r.URL.Path != "/" {
+		return handleNotFound(w, r)
+	}
 	p := web.NewPage("Gardens", "Welcome to the gardens page")
 
 	return p.Layout(web.GardenListing()).Render(context.Background(), w)
@@ -111,11 +116,15 @@ func handleSignUp(w http.ResponseWriter, _ *http.Request) error {
 	return p.Layout(web.SignUp()).Render(context.Background(), w)
 }
 
+func handleForgotPassword(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("Forgot Password", "Welcome to the forgot password page")
+
+	return p.Layout(web.ForgotPassword()).Render(context.Background(), w)
+}
+
 func handleLanding(w http.ResponseWriter, r *http.Request) error {
 	if r.URL.Path != "/" {
-		// TODO we didnt add a 404 page :/
-		http.NotFound(w, r)
-		return nil
+		return handleNotFound(w, r)
 	}
 	p := web.NewPage("Landing", "Welcome to the landing page")
 
@@ -126,4 +135,11 @@ func handleAbout(w http.ResponseWriter, _ *http.Request) error {
 	p := web.NewPage("About", "Welcome to the about page")
 
 	return p.Layout(web.About()).Render(context.Background(), w)
+}
+
+func handleNotFound(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("404", "Page not found")
+
+	w.WriteHeader(http.StatusNotFound)
+	return p.Layout(web.NotFoundPage()).Render(context.Background(), w)
 }
