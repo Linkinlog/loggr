@@ -1,13 +1,8 @@
 package web
 
 css imageUploader() {
-	background-color: var(--color-primary);
-	border: 1px solid var(--color-accent-red);
-	color: var(--color-secondary);
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-	height: 2.25rem;
-	width: 8rem;
+	min-height: 2.25rem;
+	min-width: 9rem;
 	padding-top: 0.75rem;
 	display: inline-block;
 }
@@ -30,7 +25,7 @@ css gardenPic() {
 
 templ ImageUploader() {
 	<section class={ uploaderContainer }>
-		<label class={ imageUploader } for="gardenPic">Upload Photo</label>
+		<label class={ btn, imageUploader, "hover-secondary" } for="gardenPic">Upload Photo</label>
 		<input id="gardenPic" type="file" accept="image/*" hidden/>
 		<img class={ gardenPic } src="/assets/imageNotFound.webp" alt="Garden Picture"/>
 	</section>

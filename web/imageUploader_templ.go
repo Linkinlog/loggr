@@ -13,13 +13,8 @@ import "strings"
 
 func imageUploader() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-primary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`height:2.25rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`width:8rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:2.25rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-width:9rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding-top:0.75rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:inline-block;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`imageUploader`, templ_7745c5c3_CSSBuilder.String())
@@ -92,7 +87,7 @@ func ImageUploader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{imageUploader}
+		var templ_7745c5c3_Var4 = []any{btn, imageUploader, "hover-secondary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

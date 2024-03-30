@@ -12,7 +12,9 @@ css fieldDescriptor() {
 }
 
 css createBtn() {
-	align-self: center;
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	border: 1px solid var(--color-accent-green);
 	max-width: 7rem;
 	font-size: 1.25rem;
 }
@@ -31,7 +33,7 @@ templ NewGarden() {
 			<p class={ fieldDescriptor }>Fields</p>
 			<section class={ containerPrimary }>
 				@gardenFields()
-				<button class={ containerSecondary, createBtn } type="submit">Create</button>
+				<button class={ btn, createBtn, "hover-primary" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>

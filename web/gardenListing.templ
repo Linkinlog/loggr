@@ -14,11 +14,12 @@ css gardensNav() {
 css gardenCreateLink() {
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
-	border-radius: var(--border-radius);
 	border: 1px solid var(--color-accent-green);
 	min-width: 5rem;
 	min-height: 1.5rem;
+	font-size: 1rem;
 	padding-top: 0.25rem;
+	margin: 0;
 }
 
 css noGardens() {
@@ -29,7 +30,7 @@ templ GardenListing() {
 	<section class={ gardens }>
 		<nav class={ gardensNav }>
 			@Search()
-			<a class={ gardenCreateLink } href="/gardens/new">Add</a>
+			<a class={ btn, gardenCreateLink, "hover-primary" } href="/gardens/new">Add</a>
 		</nav>
 		<section>
 			<p class={ noGardens }>No gardens yet, click "Add" to get started!</p>

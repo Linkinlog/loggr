@@ -33,24 +33,6 @@ func signUpForm() templ.CSSClass {
 	}
 }
 
-func signUpBtn() templ.CSSClass {
-	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`align-self:center;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`width:7rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`height:3rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`margin:2rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`font-size:var(--font-size);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-primary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
-	templ_7745c5c3_CSSID := templ.CSSID(`signUpBtn`, templ_7745c5c3_CSSBuilder.String())
-	return templ.ComponentCSSClass{
-		ID:    templ_7745c5c3_CSSID,
-		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
-	}
-}
-
 func SignUp() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -262,7 +244,7 @@ func SignUp() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var20 = []any{signInBtn}
+		var templ_7745c5c3_Var20 = []any{btn, "hover-secondary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var20...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

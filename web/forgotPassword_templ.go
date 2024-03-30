@@ -13,15 +13,7 @@ import "strings"
 
 func forgotPasswordBtn() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`align-self:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:10rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`height:3rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`margin:2rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`font-size:var(--font-size);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-primary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
 	templ_7745c5c3_CSSID := templ.CSSID(`forgotPasswordBtn`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -108,7 +100,7 @@ func ForgotPassword() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 = []any{forgotPasswordBtn}
+		var templ_7745c5c3_Var8 = []any{btn, forgotPasswordBtn, "hover-secondary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var8...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

@@ -38,11 +38,12 @@ func gardenCreateLink() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-green);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:1.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding-top:0.25rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:0;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`gardenCreateLink`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -121,7 +122,7 @@ func GardenListing() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{gardenCreateLink}
+		var templ_7745c5c3_Var6 = []any{btn, gardenCreateLink, "hover-primary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

@@ -16,17 +16,10 @@ css features() {
 }
 
 css cta() {
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
 	padding: 0.5rem 1rem;
-	border-radius: var(--border-radius);
 	display: inline-block;
-	cursor: pointer;
-	transition: background-color 0.3s;
-	box-shadow: var(--box-shadow);
-	text-decoration: none;
 	max-width: 5rem;
-	align-self: center;
+	min-height: 2rem;
 }
 
 templ Landing() {
@@ -61,6 +54,6 @@ templ Landing() {
 		<h2>
 			Join us today and watch your garden dreams blossom into reality!
 		</h2>
-		<a href="/auth/sign-up" class={ cta }>Sign Up!</a>
+		<a href="/auth/sign-up" class={ btn, cta, "hover-secondary" }>Sign Up!</a>
 	</section>
 }

@@ -10,18 +10,6 @@ css signUpForm() {
 	flex-direction: column;
 }
 
-css signUpBtn() {
-	align-self: center;
-	width: 7rem;
-	height: 3rem;
-	margin: 2rem;
-	font-size: var(--font-size);
-	background-color: var(--color-primary);
-	color: var(--color-secondary);
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-}
-
 templ SignUp() {
 	<section class={ containerSecondary, signUpContainer }>
 		<h1>Sign Up</h1>
@@ -33,7 +21,7 @@ templ SignUp() {
 			<label class={ inputLabel } for="password">Password</label>
 			<input type="password" id="password" name="password" placeholder="hunter2" class={ input } required/>
 			<a class={ passwordLink } href="/auth/sign-in">Already have an account? Sign in here</a>
-			<button class={ signInBtn } type="submit">Sign Up</button>
+			<button class={ btn, "hover-secondary" } type="submit">Sign Up</button>
 		</form>
 	</section>
 }
