@@ -12,6 +12,7 @@ import "bytes"
 import "strings"
 
 import "github.com/Linkinlog/loggr/internal/models"
+import "fmt"
 
 func cardImg() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
@@ -22,6 +23,20 @@ func cardImg() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
 	templ_7745c5c3_CSSID := templ.CSSID(`cardImg`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func noOverFlow() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`overflow:hidden;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-overflow:ellipsis;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`white-space:nowrap;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`max-width:10rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`noOverFlow`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -47,6 +62,7 @@ func cardTitle() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:.75rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
 	templ_7745c5c3_CSSID := templ.CSSID(`cardTitle`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -70,6 +86,26 @@ func cardDescription() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:0.5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`cardDescription`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardDetailsSection() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`width:50%;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardDetailsSection`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardImgSection() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:0.5rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardImgSection`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -107,16 +143,16 @@ func GardenCard(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{cardTitle}
+		var templ_7745c5c3_Var4 = []any{cardDetailsSection}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -133,30 +169,26 @@ func GardenCard(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(g.Name)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 41, Col: 35}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		var templ_7745c5c3_Var6 = []any{noOverFlow, cardTitle}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var7 = []any{cardLocation}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var7...)
+		var templ_7745c5c3_Var7 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s", g.Id()))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var7)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var8 string
-		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var7).String())
+		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var6).String())
 		if templ_7745c5c3_Err != nil {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 1, Col: 0}
 		}
@@ -169,19 +201,19 @@ func GardenCard(g *models.Garden) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
-		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(g.Location)
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(g.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 42, Col: 41}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 59, Col: 101}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 = []any{cardDescription}
+		var templ_7745c5c3_Var10 = []any{noOverFlow, cardLocation}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var10...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -204,24 +236,24 @@ func GardenCard(g *models.Garden) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var12 string
-		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(g.Description)
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(g.Location)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 43, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 60, Col: 53}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></section><section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var13 = []any{cardImg}
+		var templ_7745c5c3_Var13 = []any{noOverFlow, cardDescription}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var13...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -234,16 +266,73 @@ func GardenCard(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" src=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var15 string
-		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(g.Image.Thumbnail)
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(g.Description)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 46, Col: 49}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 61, Col: 59}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></section>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var16 = []any{cardImgSection}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var16...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var17 string
+		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var16).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var18 = []any{cardImg}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var18...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var19 string
+		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var18).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" src=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var20 string
+		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(g.Image.Thumbnail)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 64, Col: 49}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -251,12 +340,12 @@ func GardenCard(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var16 string
-		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(g.Name)
+		var templ_7745c5c3_Var21 string
+		templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(g.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 46, Col: 64}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenCard.templ`, Line: 64, Col: 64}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

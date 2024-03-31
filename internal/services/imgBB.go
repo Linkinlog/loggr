@@ -73,6 +73,7 @@ func (i *ImageBB) StoreImage(image io.Reader, name string) (*models.Image, error
 func parseResponse(resp *http.Response) (*models.Image, error) {
 	type imageBBResponse struct {
 		Data struct {
+			URL    string `json:"url"`
 			Medium struct {
 				URL string `json:"url"`
 			} `json:"medium"`
@@ -96,7 +97,7 @@ func parseResponse(resp *http.Response) (*models.Image, error) {
 	}
 
 	return &models.Image{
-		URL:       ibb.Data.Medium.URL,
+		URL:       ibb.Data.URL,
 		DeleteURL: ibb.Data.DeleteURL,
 		Thumbnail: ibb.Data.Thumb.URL,
 		Id:        ibb.Data.Id,

@@ -19,7 +19,7 @@ func TestInMemory_ListGardens(t *testing.T) {
 	t.Parallel()
 
 	im := stores.NewInMemory(nil)
-	image := models.NewImage("id", "https://example.com")
+	image := models.NewImage("id", "https://example.com", "", "")
 	g1 := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
 	g2 := models.NewGarden("garden 2", "location 2", "description 2", image, []*models.Item{})
 	g3 := models.NewGarden("garden 3", "location 3", "description 3", image, []*models.Item{})

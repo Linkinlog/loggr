@@ -10,6 +10,6 @@ import (
 func TestNewImage(t *testing.T) {
 	t.Parallel()
 
-	image := models.NewImage("id", "https://example.com")
+	image := models.NewImage("id", "https://example.com", "", "")
 	assert.NotNil(t, image)
 }

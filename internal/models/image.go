@@ -1,9 +1,11 @@
 package models
 
-func NewImage(id, url string) *Image {
+func NewImage(id, url, thumb, deleteUrl string) *Image {
 	return &Image{
-		Id:  id,
-		URL: url,
+		Id:        id,
+		URL:       url,
+		Thumbnail: thumb,
+		DeleteURL: deleteUrl,
 	}
 }
 

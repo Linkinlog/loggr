@@ -2,22 +2,11 @@ package web
 
 import "github.com/Linkinlog/loggr/internal/models"
 
-css gardens() {
-	display: flex;
-	flex-direction: column;
-}
-
 css listing() {
 	display: grid;
 	grid-template-columns: var(--grid-cols);
 	grid-gap: 1rem;
 	margin-top: 1rem;
-}
-
-css gardensNav() {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 }
 
 css gardenCreateLink() {
@@ -36,8 +25,8 @@ css noGardens() {
 }
 
 templ GardenListing(gardens []*models.Garden) {
-	<section class={ gardens }>
-		<nav class={ gardensNav }>
+	<section>
+		<nav class={ nav }>
 			@Search()
 			<a class={ btn, gardenCreateLink, "hover-primary" } href="/gardens/new">Add</a>
 		</nav>

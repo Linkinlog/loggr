@@ -46,7 +46,7 @@ func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error
 		err := handler(wr, r)
 		execTime := time.Since(start)
 		if err != nil {
-			s.logger.Error("error handling request", err, "time", execTime)
+			s.logger.Error("error handling request", "error", err.Error(), "time", execTime)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		}
 		s.logger.Info("hit", "status", wr.s, "method", r.Method, "path", r.URL.Path, "time", execTime.String())
@@ -75,6 +75,7 @@ func (s *SSR) ServeHTTP() error {
 func (s *SSR) serveGardens() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", s.wrapHandler(s.handleGardenListing))
+	mux.HandleFunc("GET /{id}", s.wrapHandler(s.handleGarden))
 	mux.HandleFunc("POST /", s.wrapHandler(s.handleNewGarden))
 	mux.HandleFunc("GET /new", s.wrapHandler(handleNewGardenForm))
 
@@ -90,6 +91,22 @@ func (s *SSR) serveAuth() http.Handler {
 	mux.HandleFunc("GET /forgot-password", s.wrapHandler(handleForgotPassword))
 
 	return mux
+}
+
+func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
+	id := r.PathValue("id")
+	repo := repositories.NewGardenRepository(s.s)
+	g, err := repo.GetGarden(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNotFound) {
+			return handleNotFound(w, r)
+		}
+		return err
+	}
+
+	p := web.NewPage(g.Name, "Welcome to the garden page")
+
+	return p.Layout(web.Garden(g)).Render(context.Background(), w)
 }
 
 func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {

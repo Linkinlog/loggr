@@ -1,4 +1,5 @@
 loggr
+!/cmd/loggr
 .DS_Store
 .idea/
 .env

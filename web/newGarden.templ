@@ -32,14 +32,14 @@ templ NewGarden() {
 			<input class={ input } type="text" id="name" name="name" placeholder="placeholder text..." required/>
 			<p class={ fieldDescriptor }>Fields</p>
 			<section class={ containerPrimary }>
-				@gardenFields()
+				@gardenFieldsInputs()
 				<button class={ btn, createBtn, "hover-primary" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>
 }
 
-templ gardenFields() {
+templ gardenFieldsInputs() {
 	<label class={ inputLabel } for="location">Location</label>
 	<input class={ inputSecondary } type="text" id="location" name="location" placeholder="placeholder text..." required/>
 	<label class={ inputLabel } for="description">Description</label>

@@ -47,18 +47,6 @@ func Base() templ.Component {
 	})
 }
 
-func nav() templ.CSSClass {
-	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:space-between;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`margin-bottom:1rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`nav`, templ_7745c5c3_CSSBuilder.String())
-	return templ.ComponentCSSClass{
-		ID:    templ_7745c5c3_CSSID,
-		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
-	}
-}
-
 func link() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)

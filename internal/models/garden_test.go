@@ -12,15 +12,15 @@ func TestNewGarden(t *testing.T) {
 	name := "garden 1"
 	location := "location 1"
 	description := "description 1"
-	image := models.NewImage("id", "https://example.com")
+	image := models.NewImage("id", "https://example.com", "", "")
 	inventory := []*models.Item{
-		models.NewItem("item 1", image, [5]*models.Field{
+		models.NewItem("item 1", image, models.Plant, [5]*models.Field{
 			models.NewField("field 1", "field 1 description"),
 			models.NewField("field 2", "field 2 description"),
 			models.NewField("field 3", "field 3 description"),
 			models.NewField("field 4", "field 4 description"),
 		}),
-		models.NewItem("item 2", image, [5]*models.Field{}),
+		models.NewItem("item 2", image, models.Plant, [5]*models.Field{}),
 	}
 
 	g := models.NewGarden(name, location, description, image, inventory)
@@ -33,7 +33,7 @@ func TestNewGarden(t *testing.T) {
 
 func TestGarden_Id(t *testing.T) {
 	t.Parallel()
-	image := models.NewImage("id", "https://example.com")
+	image := models.NewImage("id", "https://example.com", "", "")
 	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
 	g1 := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
 
@@ -44,9 +44,9 @@ func TestGarden_Id(t *testing.T) {
 
 func TestGarden_AddItem(t *testing.T) {
 	t.Parallel()
-	image := models.NewImage("id", "https://example.com")
+	image := models.NewImage("id", "https://example.com", "", "")
 	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
-	item := models.NewItem("item 1", image, [5]*models.Field{})
+	item := models.NewItem("item 1", image, models.Plant, [5]*models.Field{})
 
 	g.AddItem(item)
 

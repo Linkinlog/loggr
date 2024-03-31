@@ -1,6 +1,7 @@
 package web
 
 import "github.com/Linkinlog/loggr/internal/models"
+import "fmt"
 
 css cardImg() {
 	width: 4rem;
@@ -9,6 +10,14 @@ css cardImg() {
 	border-radius: var(--border-radius);
 	box-shadow: var(--box-shadow);
 	border: 1px solid var(--color-accent-red);
+}
+
+css noOverFlow() {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+	max-width: 10rem;
 }
 
 css gardenCard() {
@@ -23,6 +32,7 @@ css gardenCard() {
 css cardTitle() {
 	font-size: .75rem;
 	margin: 0 0 0.5rem 0;
+	color: var(--color-primary);
 }
 
 css cardLocation() {
@@ -35,14 +45,22 @@ css cardDescription() {
 	margin: 0 0 0.5rem 0;
 }
 
+css cardDetailsSection() {
+	width: 50%;
+}
+
+css cardImgSection() {
+	margin-left: 0.5rem;
+}
+
 templ GardenCard(g *models.Garden) {
 	<section class={ containerSecondary, gardenCard }>
-		<section>
-			<h1 class={ cardTitle }>{ g.Name }</h1>
-			<p class={ cardLocation }>{ g.Location }</p>
-			<p class={ cardDescription }>{ g.Description }</p>
+		<section class={ cardDetailsSection }>
+			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id())) } class={ noOverFlow, cardTitle }>{ g.Name }</a>
+			<p class={ noOverFlow, cardLocation }>{ g.Location }</p>
+			<p class={ noOverFlow, cardDescription }>{ g.Description }</p>
 		</section>
-		<section>
+		<section class={ cardImgSection }>
 			<img class={ cardImg } src={ g.Image.Thumbnail } alt={ g.Name }/>
 		</section>
 	</section>
