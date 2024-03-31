@@ -26,7 +26,7 @@ css inputBig() {
 templ NewGarden() {
 	<section class={ containerSecondary, gardenContainer }>
 		<h1>New Garden</h1>
-		<form action="/gardens" method="post">
+		<form action="/gardens/" method="post" enctype="multipart/form-data">
 			@ImageUploader()
 			<label class={ inputLabel } for="name">Name</label>
 			<input class={ input } type="text" id="name" name="name" placeholder="placeholder text..." required/>
@@ -41,7 +41,7 @@ templ NewGarden() {
 
 templ gardenFields() {
 	<label class={ inputLabel } for="location">Location</label>
-	<input class={ inputSecondary } type="number" id="location" name="location" placeholder="placeholder text..." required/>
+	<input class={ inputSecondary } type="text" id="location" name="location" placeholder="placeholder text..." required/>
 	<label class={ inputLabel } for="description">Description</label>
-	<textarea class={ inputSecondary, inputBig } type="number" id="description" name="description" placeholder="placeholder text..." required></textarea>
+	<textarea class={ inputSecondary, inputBig } type="number" id="description" name="description" placeholder="placeholder text..."></textarea>
 }

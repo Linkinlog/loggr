@@ -81,6 +81,7 @@ templ globalStyles() {
             --border-radius: 0.5rem;
             --box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
             --font-size: 1rem;
+            --grid-cols: 1fr;
 
             color: var(--color-secondary);
             background-color: var(--color-primary);
@@ -107,6 +108,7 @@ templ globalStyles() {
         @media (min-width: 768px) {
             :root {
                 --font-size: 1.2rem;
+                --grid-cols: 1fr 1fr;
             }
 
             body {

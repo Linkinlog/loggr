@@ -1,6 +1,6 @@
 package models
 
-func NewItem(n, i string, f [5]*Field) *Item {
+func NewItem(n string, i *Image, f [5]*Field) *Item {
 	return &Item{
 		id:     genId(),
 		Name:   n,
@@ -12,7 +12,7 @@ func NewItem(n, i string, f [5]*Field) *Item {
 type Item struct {
 	id     string
 	Name   string
-	Image  string
+	Image  *Image
 	Fields [5]*Field // Only 5 for now
 }
 

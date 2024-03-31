@@ -11,17 +11,18 @@ import (
 func TestNewInMemory(t *testing.T) {
 	t.Parallel()
 
-	im := stores.NewInMemory()
+	im := stores.NewInMemory(nil)
 	assert.NotNil(t, im)
 }
 
 func TestInMemory_ListGardens(t *testing.T) {
 	t.Parallel()
 
-	im := stores.NewInMemory()
-	g1 := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
-	g2 := models.NewGarden("garden 2", "location 2", "description 2", []*models.Item{})
-	g3 := models.NewGarden("garden 3", "location 3", "description 3", []*models.Item{})
+	im := stores.NewInMemory(nil)
+	image := models.NewImage("id", "https://example.com")
+	g1 := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
+	g2 := models.NewGarden("garden 2", "location 2", "description 2", image, []*models.Item{})
+	g3 := models.NewGarden("garden 3", "location 3", "description 3", image, []*models.Item{})
 	im.Gardens = []*models.Garden{g1, g2, g3}
 
 	got, err := im.ListGardens()
@@ -45,14 +46,14 @@ func TestInMemory_AddGarden(t *testing.T) {
 			expectedError: models.ErrEmptyID,
 		},
 		"valid garden": {
-			garden:        models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{}),
+			garden:        models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{}),
 			expectedError: nil,
 		},
 	}
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory()
+			im := stores.NewInMemory(nil)
 			id, err := im.AddGarden(tc.garden)
 
 			if tc.expectedError != nil {
@@ -89,8 +90,8 @@ func TestInMemory_GetGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory()
-			g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+			im := stores.NewInMemory(nil)
+			g := models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{})
 			_, _ = im.AddGarden(g)
 
 			tc.modFunc(im)
@@ -120,12 +121,12 @@ func TestInMemory_UpdateGarden(t *testing.T) {
 	}{
 		"valid garden": {
 			expectedError: nil,
-			newGarden:     models.NewGarden("garden 2", "location 2", "description 2", []*models.Item{}),
+			newGarden:     models.NewGarden("garden 2", "location 2", "description 2", nil, []*models.Item{}),
 			modFunc:       func(im *stores.InMemory) {},
 		},
 		"valid garden, not found": {
 			expectedError: models.ErrNotFound,
-			newGarden:     models.NewGarden("garden 2", "location 2", "description 2", []*models.Item{}),
+			newGarden:     models.NewGarden("garden 2", "location 2", "description 2", nil, []*models.Item{}),
 			modFunc: func(im *stores.InMemory) {
 				im.Gardens = []*models.Garden{}
 			},
@@ -134,8 +135,8 @@ func TestInMemory_UpdateGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory()
-			g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+			im := stores.NewInMemory(nil)
+			g := models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{})
 			_, _ = im.AddGarden(g)
 
 			tc.modFunc(im)
@@ -179,8 +180,8 @@ func TestInMemory_DeleteGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory()
-			g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+			im := stores.NewInMemory(nil)
+			g := models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{})
 			_, _ = im.AddGarden(g)
 
 			tc.modFunc(im)

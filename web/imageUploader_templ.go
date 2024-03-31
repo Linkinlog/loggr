@@ -105,7 +105,7 @@ func ImageUploader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" for=\"gardenPic\">Upload Photo</label> <input id=\"gardenPic\" type=\"file\" accept=\"image/*\" hidden> ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" for=\"gardenPic\">Upload Photo</label> <input id=\"gardenPic\" type=\"file\" accept=\"image/*\" name=\"image\" hidden> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

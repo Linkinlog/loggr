@@ -26,7 +26,7 @@ css gardenPic() {
 templ ImageUploader() {
 	<section class={ uploaderContainer }>
 		<label class={ btn, imageUploader, "hover-secondary" } for="gardenPic">Upload Photo</label>
-		<input id="gardenPic" type="file" accept="image/*" hidden/>
+		<input id="gardenPic" type="file" accept="image/*" name="image" hidden/>
 		<img class={ gardenPic } src="/assets/imageNotFound.webp" alt="Garden Picture"/>
 	</section>
 }

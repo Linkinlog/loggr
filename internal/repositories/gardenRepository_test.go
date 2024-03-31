@@ -28,14 +28,14 @@ func TestGardenRepository_AddGarden(t *testing.T) {
 			expectedError: models.ErrEmptyID,
 		},
 		"valid garden": {
-			garden:        models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{}),
+			garden:        models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{}),
 			expectedError: nil,
 		},
 	}
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			store := stores.NewInMemory()
+			store := stores.NewInMemory(nil)
 			gr := repositories.NewGardenRepository(store)
 
 			id, err := gr.AddGarden(tc.garden)
@@ -49,10 +49,10 @@ func TestGardenRepository_AddGarden(t *testing.T) {
 func TestGardenRepository_GetGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
 	got, err := gr.GetGarden(id)
@@ -64,10 +64,10 @@ func TestGardenRepository_GetGarden(t *testing.T) {
 func TestGardenRepository_UpdateGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
 	g.Name = "garden 2"
@@ -85,10 +85,10 @@ func TestGardenRepository_UpdateGarden(t *testing.T) {
 func TestGardenRepository_DeleteGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
 	err := gr.DeleteGarden(id)
@@ -103,10 +103,10 @@ func TestGardenRepository_DeleteGarden(t *testing.T) {
 func TestGardenRepository_ListGardens(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	_, _ = gr.AddGarden(g)
 
 	gardens, err := gr.ListGardens()
@@ -119,13 +119,14 @@ func TestGardenRepository_ListGardens(t *testing.T) {
 func TestGardenRepository_AddItemToGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
-	item := models.NewItem("item 1", "image 1", [5]*models.Field{})
+	image := models.NewImage("id", "https://example.com")
+	item := models.NewItem("item 1", image, [5]*models.Field{})
 
 	err := gr.AddItemToGarden(id, item)
 
@@ -139,10 +140,10 @@ func TestGardenRepository_AddItemToGarden(t *testing.T) {
 func TestGardenRepository_ListGardenInventory(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
 	inventory, err := gr.ListGardenInventory(id)
@@ -154,13 +155,14 @@ func TestGardenRepository_ListGardenInventory(t *testing.T) {
 func TestGardenRepository_RemoveItemFromGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
-	item := models.NewItem("item 1", "image 1", [5]*models.Field{})
+	image := models.NewImage("id", "https://example.com")
+	item := models.NewItem("item 1", image, [5]*models.Field{})
 	_ = gr.AddItemToGarden(id, item)
 
 	err := gr.RemoveItemFromGarden(id, item.Id())
@@ -174,13 +176,14 @@ func TestGardenRepository_RemoveItemFromGarden(t *testing.T) {
 func TestGardenRepository_GetItemFromGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
-	item := models.NewItem("item 1", "image 1", [5]*models.Field{})
+	image := models.NewImage("id", "https://example.com")
+	item := models.NewItem("item 1", image, [5]*models.Field{})
 	_ = gr.AddItemToGarden(id, item)
 
 	got, err := gr.GetItemFromGarden(id, item.Id())
@@ -192,17 +195,18 @@ func TestGardenRepository_GetItemFromGarden(t *testing.T) {
 func TestGardenRepository_UpdateItemInGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory()
+	store := stores.NewInMemory(nil)
 	gr := repositories.NewGardenRepository(store)
 
-	g := models.NewGarden("garden 1", "location 1", "description 1", []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url"), []*models.Item{})
 	id, _ := gr.AddGarden(g)
 
-	item := models.NewItem("item 1", "image 1", [5]*models.Field{})
+	image := models.NewImage("id", "https://example.com")
+	item := models.NewItem("item 1", image, [5]*models.Field{})
 	_ = gr.AddItemToGarden(id, item)
 
 	item.Name = "item 2"
-	item.Image = "image 2"
+	item.Image = models.NewImage("id", "https://example.com")
 
 	err := gr.UpdateItemInGarden(id, item.Id(), item)
 

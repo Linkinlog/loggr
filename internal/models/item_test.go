@@ -10,7 +10,7 @@ import (
 func TestNewItem(t *testing.T) {
 	t.Parallel()
 	name := "item 1"
-	image := "image 1"
+	image := models.NewImage("id", "https://example.com")
 	fields := [5]*models.Field{
 		models.NewField("field 1", "field 1 description"),
 		models.NewField("field 2", "field 2 description"),

@@ -2,7 +2,7 @@ package repositories
 
 import "github.com/Linkinlog/loggr/internal/models"
 
-type storer interface {
+type Storer interface {
 	AddGarden(g *models.Garden) (string, error)
 	GetGarden(id string) (*models.Garden, error)
 	UpdateGarden(id string, g *models.Garden) error
@@ -10,14 +10,14 @@ type storer interface {
 	ListGardens() ([]*models.Garden, error)
 }
 
-func NewGardenRepository(s storer) *GardenRepository {
+func NewGardenRepository(s Storer) *GardenRepository {
 	return &GardenRepository{
 		store: s,
 	}
 }
 
 type GardenRepository struct {
-	store storer
+	store Storer
 }
 
 func (gr *GardenRepository) AddGarden(g *models.Garden) (string, error) {

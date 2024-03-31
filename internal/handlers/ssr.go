@@ -8,6 +8,10 @@ import (
 	"time"
 
 	"github.com/Linkinlog/loggr/assets"
+	"github.com/Linkinlog/loggr/internal/env"
+	"github.com/Linkinlog/loggr/internal/models"
+	"github.com/Linkinlog/loggr/internal/repositories"
+	"github.com/Linkinlog/loggr/internal/services"
 	"github.com/Linkinlog/loggr/web"
 )
 
@@ -21,16 +25,18 @@ func (w *wrapper) WriteHeader(statusCode int) {
 	w.s = statusCode
 }
 
-func NewSSR(l *slog.Logger, a string) *SSR {
+func NewSSR(l *slog.Logger, a string, s repositories.Storer) *SSR {
 	return &SSR{
 		logger: l,
 		addr:   a,
+		s:      s,
 	}
 }
 
 type SSR struct {
 	logger *slog.Logger
 	addr   string
+	s      repositories.Storer
 }
 
 func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error) http.HandlerFunc {
@@ -53,6 +59,7 @@ func (s *SSR) ServeHTTP() error {
 	mux.Handle("GET /", s.wrapHandler(handleLanding))
 	mux.Handle("GET /auth/", http.StripPrefix("/auth", s.serveAuth()))
 	mux.Handle("GET /gardens/", http.StripPrefix("/gardens", s.serveGardens()))
+	mux.Handle("POST /gardens/", http.StripPrefix("/gardens", s.serveGardens()))
 	mux.Handle("GET /about", s.wrapHandler(handleAbout))
 
 	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))
@@ -67,8 +74,9 @@ func (s *SSR) ServeHTTP() error {
 
 func (s *SSR) serveGardens() http.Handler {
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /", s.wrapHandler(handleGardenListing))
-	mux.HandleFunc("GET /new", s.wrapHandler(handleNewGarden))
+	mux.HandleFunc("GET /", s.wrapHandler(s.handleGardenListing))
+	mux.HandleFunc("POST /", s.wrapHandler(s.handleNewGarden))
+	mux.HandleFunc("GET /new", s.wrapHandler(handleNewGardenForm))
 
 	return mux
 }
@@ -84,19 +92,56 @@ func (s *SSR) serveAuth() http.Handler {
 	return mux
 }
 
-func handleNewGarden(w http.ResponseWriter, _ *http.Request) error {
-	p := web.NewPage("New Garden", "Welcome to the new garden page")
+func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
+	if err := r.ParseMultipartForm(10 << 20); err != nil {
+		return err
+	}
+	name := r.FormValue("name")
+	location := r.FormValue("location")
+	description := r.FormValue("description")
+	imageFile, handler, err := r.FormFile("image")
+	if err != nil {
+		return err
+	}
 
-	return p.Layout(web.NewGarden()).Render(context.Background(), w)
+	bbKey := env.NewEnv().Get("IMG_BB_KEY")
+	img, err := services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
+	if err != nil {
+		return err
+	}
+
+	g := models.NewGarden(name, location, description, img, []*models.Item{})
+
+	repo := repositories.NewGardenRepository(s.s)
+
+	_, err = repo.AddGarden(g)
+	if err != nil {
+		return err
+	}
+
+	http.Redirect(w, r, "/gardens/", http.StatusSeeOther)
+	return nil
 }
 
-func handleGardenListing(w http.ResponseWriter, r *http.Request) error {
+func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error {
 	if r.URL.Path != "/" {
 		return handleNotFound(w, r)
 	}
 	p := web.NewPage("Gardens", "Welcome to the gardens page")
 
-	return p.Layout(web.GardenListing()).Render(context.Background(), w)
+	repo := repositories.NewGardenRepository(s.s)
+	gardens, err := repo.ListGardens()
+	if err != nil {
+		return err
+	}
+
+	return p.Layout(web.GardenListing(gardens)).Render(context.Background(), w)
+}
+
+func handleNewGardenForm(w http.ResponseWriter, _ *http.Request) error {
+	p := web.NewPage("New Garden", "Welcome to the new garden page")
+
+	return p.Layout(web.NewGarden()).Render(context.Background(), w)
 }
 
 func handleSignIn(w http.ResponseWriter, _ *http.Request) error {

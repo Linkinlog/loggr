@@ -10,6 +10,7 @@ build.tag:
 	@docker tag $(bin) $(gcp_url)
 build.push:
 	@docker push $(gcp_url)
+
 release:
 	@make lint || exit 1
 	@make test || exit 1
@@ -39,8 +40,7 @@ lint:
 
 dev:
 	@make gen
-	@make build
-	@./$(bin)
+	@bash -c 'source .env; go run ./cmd/loggr/main.go'
 
 done:
 	@make clean || exit 1

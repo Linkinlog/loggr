@@ -14,6 +14,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/loggr/main.go
 
 FROM alpine:latest
 
+ARG IMG_BB_KEY
+ENV IMG_BB_KEY=$IMG_BB_KEY
+
 WORKDIR /root/
 
 COPY --from=builder /app/main .

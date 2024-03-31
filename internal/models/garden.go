@@ -1,17 +1,19 @@
 package models
 
-func NewGarden(n, l, d string, i []*Item) *Garden {
+func NewGarden(n, l, d string, img *Image, i []*Item) *Garden {
 	return &Garden{
 		id:          genId(),
 		Name:        n,
 		Location:    l,
 		Description: d,
+		Image:       img,
 		Inventory:   i,
 	}
 }
 
 type Garden struct {
 	id          string
+	Image       *Image
 	Name        string
 	Location    string
 	Description string

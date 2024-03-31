@@ -2,8 +2,10 @@ package stores
 
 import "github.com/Linkinlog/loggr/internal/models"
 
-func NewInMemory() *InMemory {
-	return &InMemory{}
+func NewInMemory(g []*models.Garden) *InMemory {
+	return &InMemory{
+		Gardens: g,
+	}
 }
 
 type InMemory struct {
