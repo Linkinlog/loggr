@@ -75,9 +75,13 @@ func (s *SSR) ServeHTTP() error {
 func (s *SSR) serveGardens() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", s.wrapHandler(s.handleGardenListing))
-	mux.HandleFunc("GET /{id}", s.wrapHandler(s.handleGarden))
 	mux.HandleFunc("POST /", s.wrapHandler(s.handleNewGarden))
 	mux.HandleFunc("GET /new", s.wrapHandler(handleNewGardenForm))
+	mux.HandleFunc("GET /{id}", s.wrapHandler(s.handleGarden))
+	mux.HandleFunc("GET /{id}/inventory", s.wrapHandler(s.handleGardenInventory))
+	// mux.HandleFunc("POST /{id}/inventory", s.wrapHandler(s.handleNewGardenInventoryItem))
+	mux.HandleFunc("GET /{id}/inventory/new", s.wrapHandler(s.handleNewGardenInventoryItemForm))
+	// mux.HandleFunc("GET /{id}/inventory/{itemId}", s.wrapHandler(s.handleGardenInventoryItem))
 
 	return mux
 }
@@ -93,10 +97,46 @@ func (s *SSR) serveAuth() http.Handler {
 	return mux
 }
 
-func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
+func (s *SSR) getGarden(r *http.Request) (*models.Garden, error) {
 	id := r.PathValue("id")
 	repo := repositories.NewGardenRepository(s.s)
 	g, err := repo.GetGarden(id)
+	if err != nil {
+		return nil, err
+	}
+	return g, nil
+}
+
+func (s *SSR) handleNewGardenInventoryItemForm(w http.ResponseWriter, r *http.Request) error {
+	g, err := s.getGarden(r)
+	if err != nil {
+		if errors.Is(err, models.ErrNotFound) {
+			return handleNotFound(w, r)
+		}
+		return err
+	}
+
+	p := web.NewPage("New Inventory Item", "Welcome to the new inventory item page")
+
+	return p.Layout(web.NewGardenInventoryItemForm(g.Id())).Render(context.Background(), w)
+}
+
+func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) error {
+	g, err := s.getGarden(r)
+	if err != nil {
+		if errors.Is(err, models.ErrNotFound) {
+			return handleNotFound(w, r)
+		}
+		return err
+	}
+
+	p := web.NewPage(g.Name, "Welcome to the garden inventory page")
+
+	return p.Layout(web.GardenInventory(g)).Render(context.Background(), w)
+}
+
+func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
+	g, err := s.getGarden(r)
 	if err != nil {
 		if errors.Is(err, models.ErrNotFound) {
 			return handleNotFound(w, r)

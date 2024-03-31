@@ -1,0 +1,21 @@
+package web
+
+import "github.com/Linkinlog/loggr/internal/models"
+import "fmt"
+
+templ GardenInventory(g *models.Garden) {
+	<section class={ containerPrimary }>
+		<nav class={ nav }>
+			@Search()
+			<a class={ btn, gardenCreateLink, "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", g.Id())) }>Add</a>
+		</nav>
+		<div>
+			if len(g.Inventory) == 0 {
+				<p>No inventory items, click "Add" to get started!</p>
+			}
+			for _, i := range g.Inventory {
+				<p>{ i.Name }</p>
+			}
+		</div>
+	</section>
+}

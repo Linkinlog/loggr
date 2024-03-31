@@ -1,0 +1,49 @@
+package web
+
+import "fmt"
+import "github.com/Linkinlog/loggr/internal/models"
+
+css inventoryItemNameAndType() {
+	display: flex;
+}
+
+css inventoryItemName() {
+	height: 1rem;
+}
+
+templ NewGardenInventoryItemForm(id string) {
+	<section class={ containerSecondary }>
+		<h2>New Garden Inventory Item</h2>
+		<form action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory", id)) } method="post" enctype="multipart/form-data">
+			@ImageUploader()
+			<section class={ inventoryItemNameAndType }>
+				<label class={ inputLabel } for="name">Name</label>
+				<input class={ input, inventoryItemName } type="text" id="name" name="name" placeholder="placeholder text..." required/>
+				<label class={ inputLabel } for="type">Type</label>
+				<select class={ input } id="type" name="type" required>
+					for _, t := range models.ItemTypes {
+						<option value={ fmt.Sprintf("%d", t) }>{  fmt.Sprint(t) }</option>
+					}
+				</select>
+			</section>
+			<p class={ fieldDescriptor }>Fields</p>
+			<section class={ containerPrimary }>
+				@inventoryItemFieldInputs()
+				<button class={ btn, createBtn, "hover-primary" } type="submit">Create</button>
+			</section>
+		</form>
+	</section>
+}
+
+templ inventoryItemFieldInputs() {
+	<label class={ inputLabel } for="field-1">Field 1</label>
+	<input type="text" class={ inputSecondary } id="field-1" name="field-1" placeholder="placeholder text..."/>
+	<label class={ inputLabel } for="field-2">Field 2</label>
+	<input type="text" class={ inputSecondary } id="field-2" name="field-2" placeholder="placeholder text..."/>
+	<label class={ inputLabel } for="field-3">Field 3</label>
+	<input type="text" class={ inputSecondary } id="field-3" name="field-3" placeholder="placeholder text..."/>
+	<label class={ inputLabel } for="field-4">Field 4</label>
+	<input type="text" class={ inputSecondary } id="field-4" name="field-4" placeholder="placeholder text..."/>
+	<label class={ inputLabel } for="field-5">Field 5</label>
+	<input type="text" class={ inputSecondary } id="field-5" name="field-5" placeholder="placeholder text..."/>
+}

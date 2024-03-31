@@ -10,15 +10,6 @@ func NewItem(n string, i *Image, t ItemType, f [5]*Field) *Item {
 	}
 }
 
-type ItemType int
-
-const (
-	_ ItemType = iota
-	Plant
-	Tool
-	Seed
-)
-
 type Item struct {
 	id     string
 	Name   string
