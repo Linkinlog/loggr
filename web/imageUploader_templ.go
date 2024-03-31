@@ -65,6 +65,10 @@ func ImageUploader() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script type=\"text/javascript\">\n        function previewImage(e) {\n            const output = document.getElementById('previewGarden');\n            output.src = URL.createObjectURL(e.target.files[0]);\n            output.onload = function() {\n              URL.revokeObjectURL(output.src)\n            }\n        }\n    </script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		var templ_7745c5c3_Var2 = []any{uploaderContainer}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
@@ -105,7 +109,7 @@ func ImageUploader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" for=\"gardenPic\">Upload Photo</label> <input id=\"gardenPic\" type=\"file\" accept=\"image/*\" name=\"image\" hidden> ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" for=\"gardenPic\">Upload Photo</label> <input onchange=\"previewImage(event)\" id=\"gardenPic\" type=\"file\" accept=\"image/*\" name=\"image\" hidden> ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -114,7 +118,7 @@ func ImageUploader() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img id=\"previewGarden\" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

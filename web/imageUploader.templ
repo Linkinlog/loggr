@@ -24,9 +24,18 @@ css gardenPic() {
 }
 
 templ ImageUploader() {
+	<script type="text/javascript">
+        function previewImage(e) {
+            const output = document.getElementById('previewGarden');
+            output.src = URL.createObjectURL(e.target.files[0]);
+            output.onload = function() {
+              URL.revokeObjectURL(output.src)
+            }
+        }
+    </script>
 	<section class={ uploaderContainer }>
 		<label class={ btn, imageUploader, "hover-secondary" } for="gardenPic">Upload Photo</label>
-		<input id="gardenPic" type="file" accept="image/*" name="image" hidden/>
-		<img class={ gardenPic } src="/assets/imageNotFound.webp" alt="Garden Picture"/>
+		<input onchange="previewImage(event)" id="gardenPic" type="file" accept="image/*" name="image" hidden/>
+		<img id="previewGarden" class={ gardenPic } src="/assets/imageNotFound.webp" alt="Garden Picture"/>
 	</section>
 }
