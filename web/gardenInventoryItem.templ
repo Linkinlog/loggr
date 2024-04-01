@@ -1,0 +1,62 @@
+package web
+
+import "github.com/Linkinlog/loggr/internal/models"
+import "fmt"
+
+css itemAndType() {
+	margin-right: 1rem;
+}
+
+css fieldLabel() {
+	margin-top: 0;
+}
+
+css inventoryField() {
+	width: 100%;
+	text-align: center;
+	min-height: 1.5rem;
+	padding: 0.5rem;
+	margin-top: 0;
+}
+
+css itemImg() {
+	width: 100%;
+	height: 20rem;
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-accent-red);
+	box-shadow: var(--box-shadow);
+	margin-bottom: 2rem;
+}
+
+css itemLabel() {
+	align-self: center;
+}
+
+templ GardenInventoryItem(g string, i *models.Item) {
+	<section class={ containerSecondary }>
+		<section class={ gardenHeader }>
+			<h2>{ i.Name }</h2>
+			<a class={ btn, editBtn, "hover-secondary" } href={ templ.URL("/gardens/" + g + "/inventory/" + i.Id() + "/edit") }>Edit</a>
+		</section>
+		<img class={ itemImg } src={ i.Image.URL } alt={ i.Name }/>
+		<section class={ itemAndType }>
+			<label class={ inputLabel, itemLabel } for="name">Name</label>
+			<p class={ containerPrimary, inventoryField }>{ i.Name }</p>
+			<label class={ inputLabel, itemLabel } for="type">Type</label>
+			<p class={ containerPrimary, inventoryField }>{ i.Type.String() }</p>
+		</section>
+		<p class={ fieldDescriptor }>Fields</p>
+		<section class={ containerPrimary }>
+			@inventoryItemFields(i)
+		</section>
+	</section>
+}
+
+templ inventoryItemFields(i *models.Item) {
+	for i, f := range i.Fields {
+		if f != nil && f.Description != "" {
+			<label class={ inputLabel } for={ "field-" + fmt.Sprint(i+1) }>Field { fmt.Sprint(i+1) }</label>
+			<p id={ "field-" + fmt.Sprint(i+1) } class={ containerSecondary, fieldLabel }>{ f.Description }</p>
+		}
+	}
+}

@@ -82,7 +82,7 @@ func (s *SSR) serveGardens() http.Handler {
 	mux.HandleFunc("GET /{id}/inventory", s.wrapHandler(s.handleGardenInventory))
 	mux.HandleFunc("POST /{id}/inventory", s.wrapHandler(s.handleNewGardenInventoryItem))
 	mux.HandleFunc("GET /{id}/inventory/new", s.wrapHandler(s.handleNewGardenInventoryItemForm))
-	// mux.HandleFunc("GET /{id}/inventory/{itemId}", s.wrapHandler(s.handleGardenInventoryItem))
+	mux.HandleFunc("GET /{id}/inventory/{itemId}", s.wrapHandler(s.handleGardenInventoryItem))
 
 	return mux
 }
@@ -106,6 +106,30 @@ func (s *SSR) getGarden(r *http.Request) (*models.Garden, error) {
 		return nil, err
 	}
 	return g, nil
+}
+
+func (s *SSR) handleGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
+	g, err := s.getGarden(r)
+	if err != nil {
+		if errors.Is(err, models.ErrNotFound) {
+			return handleNotFound(w, r)
+		}
+		return err
+	}
+
+	itemID := r.PathValue("itemId")
+	repo := repositories.NewGardenRepository(s.s)
+	item, err := repo.GetItemFromGarden(g.Id(), itemID)
+	if err != nil {
+		return err
+	}
+	if item == nil {
+		return handleNotFound(w, r)
+	}
+
+	p := web.NewPage(item.Name, "Welcome to the garden inventory item page")
+
+	return p.Layout(web.GardenInventoryItem(g.Id(), item)).Render(context.Background(), w)
 }
 
 func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {

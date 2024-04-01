@@ -11,6 +11,117 @@ import "io"
 import "bytes"
 import "strings"
 
+func listing() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`display:grid;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`grid-template-columns:var(--grid-cols);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`grid-gap:1rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:1rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`listing`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardImg() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`width:4rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`height:4rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`objject-fit:cover;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardImg`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func noOverFlow() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`overflow:hidden;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-overflow:ellipsis;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`white-space:nowrap;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`max-width:10rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`noOverFlow`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func card() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:row;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:space-between;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`max-height:5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-align:left;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`card`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardTitle() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:.75rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardTitle`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardLocation() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardLocation`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardDescription() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardDescription`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardDetailsSection() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`width:50%;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardDetailsSection`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func cardImgSection() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:0.5rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`cardImgSection`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
 func nav() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)

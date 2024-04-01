@@ -2,13 +2,6 @@ package web
 
 import "github.com/Linkinlog/loggr/internal/models"
 
-css listing() {
-	display: grid;
-	grid-template-columns: var(--grid-cols);
-	grid-gap: 1rem;
-	margin-top: 1rem;
-}
-
 css gardenCreateLink() {
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
@@ -30,14 +23,14 @@ templ GardenListing(gardens []*models.Garden) {
 			@Search()
 			<a class={ btn, gardenCreateLink, "hover-primary" } href="/gardens/new">Add</a>
 		</nav>
-		<section class={ listing }>
-			if len(gardens) > 0 {
+		if len(gardens) == 0 {
+			<p class={ noGardens }>No gardens yet, click "Add" to get started!</p>
+		} else {
+			<section class={ listing }>
 				for _, garden := range gardens {
 					@GardenCard(garden)
 				}
-			} else {
-				<p class={ noGardens }>No gardens yet, click "Add" to get started!</p>
-			}
-		</section>
+			</section>
+		}
 	</section>
 }

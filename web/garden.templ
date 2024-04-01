@@ -33,9 +33,25 @@ css gardenImg() {
 	margin-bottom: 2rem;
 }
 
+css gardenHeader() {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+css editBtn() {
+	padding-top: 0.5rem;
+	min-height: 2rem;
+	min-width: 4rem;
+	margin: 1rem 0;
+}
+
 templ Garden(g *models.Garden) {
 	<section class={ containerSecondary }>
-		<h1>{ g.Name }</h1>
+		<section class={ gardenHeader }>
+			<h1>{ g.Name }</h1>
+			<a class={ btn, editBtn, "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
+		</section>
 		<img class={ gardenImg } src={ g.Image.URL } alt={ g.Name }/>
 		@gardenFields(g)
 		@gardenInventory(g)

@@ -3,58 +3,8 @@ package web
 import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
-css cardImg() {
-	width: 4rem;
-	height: 4rem;
-	objject-fit: cover;
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-	border: 1px solid var(--color-accent-red);
-}
-
-css noOverFlow() {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	display: block;
-	max-width: 10rem;
-}
-
-css gardenCard() {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	max-height: 5rem;
-	text-align: left;
-}
-
-css cardTitle() {
-	font-size: .75rem;
-	margin: 0 0 0.5rem 0;
-	color: var(--color-primary);
-}
-
-css cardLocation() {
-	font-size: 0.5rem;
-	margin: 0 0 0.5rem 0;
-}
-
-css cardDescription() {
-	font-size: 0.5rem;
-	margin: 0 0 0.5rem 0;
-}
-
-css cardDetailsSection() {
-	width: 50%;
-}
-
-css cardImgSection() {
-	margin-left: 0.5rem;
-}
-
 templ GardenCard(g *models.Garden) {
-	<section class={ containerSecondary, gardenCard }>
+	<section class={ containerSecondary, card }>
 		<section class={ cardDetailsSection }>
 			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id())) } class={ noOverFlow, cardTitle }>{ g.Name }</a>
 			<p class={ noOverFlow, cardLocation }>{ g.Location }</p>

@@ -14,7 +14,10 @@ const addr = ":8080"
 func main() {
 	l := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	b := models.NewGarden("Bandit Acres", "Somewhere", "Worlds sweetest boy", models.NewImage("qR0Qz05", "https://i.ibb.co/N9kj08h/bandit.jpg", "https://i.ibb.co/qR0Qz05/image.jpg", ""), []*models.Item{})
+	field1 := models.NewField("field 1", "field 1 description")
+	field2 := models.NewField("field 2", "field 2 description")
+	item1 := models.NewItem("item 1", models.NewImage("id", "https://i.ibb.co/N9kj08h/bandit.jpg", "https://i.ibb.co/qR0Qz05/image.jpg", ""), models.Plant, [5]*models.Field{field1, field2})
+	b := models.NewGarden("Bandit Acres", "Somewhere", "Worlds sweetest boy", models.NewImage("qR0Qz05", "https://i.ibb.co/N9kj08h/bandit.jpg", "https://i.ibb.co/qR0Qz05/image.jpg", ""), []*models.Item{item1})
 
 	ma := models.NewGarden("Maggie Falls", "All around", "The bestest girl", models.NewImage("HCGb3p4", "https://i.ibb.co/ZScF71X/IMG-5361.jpg", "https://i.ibb.co/HCGb3p4/IMG-5361.jpg", ""), []*models.Item{})
 
