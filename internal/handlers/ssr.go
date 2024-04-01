@@ -5,6 +5,7 @@ import (
 	"errors"
 	"log/slog"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/Linkinlog/loggr/assets"
@@ -79,7 +80,7 @@ func (s *SSR) serveGardens() http.Handler {
 	mux.HandleFunc("GET /new", s.wrapHandler(handleNewGardenForm))
 	mux.HandleFunc("GET /{id}", s.wrapHandler(s.handleGarden))
 	mux.HandleFunc("GET /{id}/inventory", s.wrapHandler(s.handleGardenInventory))
-	// mux.HandleFunc("POST /{id}/inventory", s.wrapHandler(s.handleNewGardenInventoryItem))
+	mux.HandleFunc("POST /{id}/inventory", s.wrapHandler(s.handleNewGardenInventoryItem))
 	mux.HandleFunc("GET /{id}/inventory/new", s.wrapHandler(s.handleNewGardenInventoryItemForm))
 	// mux.HandleFunc("GET /{id}/inventory/{itemId}", s.wrapHandler(s.handleGardenInventoryItem))
 
@@ -105,6 +106,50 @@ func (s *SSR) getGarden(r *http.Request) (*models.Garden, error) {
 		return nil, err
 	}
 	return g, nil
+}
+
+func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
+	g, err := s.getGarden(r)
+	if err != nil {
+		if errors.Is(err, models.ErrNotFound) {
+			return handleNotFound(w, r)
+		}
+		return err
+	}
+
+	name := r.FormValue("name")
+	t, _ := strconv.Atoi(r.FormValue("type"))
+	fields := [5]*models.Field{
+		models.NewField("field-1", r.FormValue("field-1")),
+		models.NewField("field-2", r.FormValue("field-2")),
+		models.NewField("field-3", r.FormValue("field-3")),
+		models.NewField("field-4", r.FormValue("field-4")),
+		models.NewField("field-5", r.FormValue("field-5")),
+	}
+
+	img := models.NewImage("not-found", "/assets/imageNotFound.webp", "/assets/imageNotFound.webp", "")
+
+	imageFile, handler, err := r.FormFile("image")
+	if err == nil {
+		bbKey := env.NewEnv().Get("IMG_BB_KEY")
+		var sErr error
+		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
+		if sErr != nil {
+			return sErr
+		}
+	}
+
+	i := models.NewItem(name, img, models.ItemType(t), fields)
+
+	repo := repositories.NewGardenRepository(s.s)
+
+	err = repo.AddItemToGarden(g.Id(), i)
+	if err != nil {
+		return err
+	}
+
+	http.Redirect(w, r, "/gardens/"+g.Id(), http.StatusSeeOther)
+	return nil
 }
 
 func (s *SSR) handleNewGardenInventoryItemForm(w http.ResponseWriter, r *http.Request) error {
@@ -156,15 +201,17 @@ func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
 	name := r.FormValue("name")
 	location := r.FormValue("location")
 	description := r.FormValue("description")
-	imageFile, handler, err := r.FormFile("image")
-	if err != nil {
-		return err
-	}
 
-	bbKey := env.NewEnv().Get("IMG_BB_KEY")
-	img, err := services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
-	if err != nil {
-		return err
+	img := models.NewImage("not-found", "/assets/imageNotFound.webp", "/assets/imageNotFound.webp", "")
+
+	imageFile, handler, err := r.FormFile("image")
+	if err == nil {
+		bbKey := env.NewEnv().Get("IMG_BB_KEY")
+		var sErr error
+		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
+		if sErr != nil {
+			return sErr
+		}
 	}
 
 	g := models.NewGarden(name, location, description, img, []*models.Item{})

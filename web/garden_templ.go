@@ -64,7 +64,7 @@ func gardenImg() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`width:100%;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`height:20rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accet-red);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin-bottom:2rem;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`gardenImg`, templ_7745c5c3_CSSBuilder.String())

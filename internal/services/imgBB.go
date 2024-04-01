@@ -13,6 +13,8 @@ import (
 	"github.com/Linkinlog/loggr/internal/models"
 )
 
+var ErrImageNil = errors.New("imgbb: image is nil")
+
 func NewImageBB(k string) *ImageBB {
 	u := &url.URL{
 		Scheme:   "https",
@@ -35,6 +37,9 @@ func (i *ImageBB) DeleteImage(im *models.Image) error {
 }
 
 func (i *ImageBB) StoreImage(image io.Reader, name string) (*models.Image, error) {
+	if image == nil {
+		return nil, ErrImageNil
+	}
 	buf := new(bytes.Buffer)
 	writer := multipart.NewWriter(buf)
 
