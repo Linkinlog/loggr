@@ -3,28 +3,28 @@ package web
 import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
-css fieldsContainer() {
+css FieldsContainer() {
 	margin-bottom: 2rem;
 	display: flex;
 	text-align: start;
 }
 
-css fields() {
+css Fields() {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 
-css locationField() {
+css LocationField() {
 	margin-left: 1rem;
 	flex-grow: 1;
 }
 
-css descriptionField() {
+css DescriptionField() {
 	min-height: 2rem;
 }
 
-css gardenImg() {
+css GardenImg() {
 	width: 100%;
 	height: 20rem;
 	border-radius: var(--border-radius);
@@ -33,43 +33,30 @@ css gardenImg() {
 	margin-bottom: 2rem;
 }
 
-css gardenHeader() {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-css editBtn() {
-	padding-top: 0.5rem;
-	min-height: 2rem;
-	min-width: 4rem;
-	margin: 1rem 0;
-}
-
 templ Garden(g *models.Garden) {
-	<section class={ containerSecondary }>
-		<section class={ gardenHeader }>
+	<section class={ ContainerSecondary() }>
+		<section class={ ContainerHeader() }>
 			<h1>{ g.Name }</h1>
-			<a class={ btn, editBtn, "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
+			<a class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
 		</section>
-		<img class={ gardenImg } src={ g.Image.URL } alt={ g.Name }/>
+		<img class={ GardenImg() } src={ g.Image.URL } alt={ g.Name }/>
 		@gardenFields(g)
 		@gardenInventory(g)
 	</section>
 }
 
 templ gardenFields(g *models.Garden) {
-	<p class={ fieldDescriptor }>Fields</p>
-	<section class={ containerPrimary, fieldsContainer }>
-		<section class={ fields }>
-			<p class={ containerSecondary }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
-			<p class={ containerSecondary, locationField }>{ g.Location }</p>
+	<p class={ FieldDescriptor() }>Fields</p>
+	<section class={ ContainerPrimary(), FieldsContainer() }>
+		<section class={ Fields() }>
+			<p class={ ContainerSecondary() }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
+			<p class={ ContainerSecondary(), LocationField() }>{ g.Location }</p>
 		</section>
-		<p class={ containerSecondary, descriptionField }>{ g.Description }</p>
+		<p class={ ContainerSecondary(), DescriptionField() }>{ g.Description }</p>
 	</section>
 }
 
 templ gardenInventory(g *models.Garden) {
-	<p class={ fieldDescriptor }>Inventory</p>
+	<p class={ FieldDescriptor() }>Inventory</p>
 	@GardenInventory(g)
 }

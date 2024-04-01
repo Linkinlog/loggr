@@ -286,7 +286,7 @@ func (p Page) head() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:locale\" content=\"en_US\"><meta property=\"og:site_name\" content=\"Loggr\"><!-- Fonts --><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap\" rel=\"stylesheet\"><!-- Styles -->")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><meta property=\"og:locale\" content=\"en_US\"><meta property=\"og:site_name\" content=\"Loggr\"><!-- Fonts --><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin><link href=\"https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap\" rel=\"stylesheet\"><!-- Styles --><link rel=\"stylesheet\" href=\"/styles/templ.css\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

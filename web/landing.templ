@@ -1,21 +1,16 @@
 package web
 
-css landing() {
-	min-height: 82vh;
-	font-size: 1.3rem;
-}
-
-css featureDescriptor() {
+css FeatureDescriptor() {
 	text-align: start;
 	margin-bottom: 0;
 }
 
-css features() {
+css Features() {
 	margin-top: 0.5rem;
 	text-align: start;
 }
 
-css cta() {
+css Cta() {
 	padding: 0.5rem 1rem;
 	display: inline-block;
 	max-width: 5rem;
@@ -23,7 +18,7 @@ css cta() {
 }
 
 templ Landing() {
-	<section class={ containerSecondary, landing }>
+	<section class={ ContainerSecondary(), LandingContainer() }>
 		<h1>Loggr: Your Green Thumb's Best Friend</h1>
 		<p>
 			Welcome to Loggr - Your Ultimate Gardening Companion!
@@ -31,10 +26,10 @@ templ Landing() {
 		<p>
 			Elevate your gardening game with Loggr - the perfect tool for managing your garden projects effortlessly. Say goodbye to chaos and hello to organized bliss!
 		</p>
-		<h2 class={ featureDescriptor }>
+		<h2 class={ FeatureDescriptor() }>
 			Features:
 		</h2>
-		<ul class={ features }>
+		<ul class={ Features() }>
 			<li>
 				Create personalized gardens with ease
 			</li>
@@ -54,6 +49,6 @@ templ Landing() {
 		<h2>
 			Join us today and watch your garden dreams blossom into reality!
 		</h2>
-		<a href="/auth/sign-up" class={ btn, cta, "hover-secondary" }>Sign Up!</a>
+		<a href="/auth/sign-up" class={ Btn(), Cta(), "hover-secondary" }>Sign Up!</a>
 	</section>
 }

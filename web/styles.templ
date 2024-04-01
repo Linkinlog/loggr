@@ -1,22 +1,17 @@
 package web
 
-css listing() {
+css InventoryListing() {
+	grid-template-columns: 1fr;
+}
+
+css Listing() {
 	display: grid;
 	grid-template-columns: var(--grid-cols);
 	grid-gap: 1rem;
 	margin-top: 1rem;
 }
 
-css cardImg() {
-	width: 4rem;
-	height: 4rem;
-	objject-fit: cover;
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-	border: 1px solid var(--color-accent-red);
-}
-
-css noOverFlow() {
+css NoOverFlow() {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -24,7 +19,7 @@ css noOverFlow() {
 	max-width: 10rem;
 }
 
-css card() {
+css Card() {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -33,38 +28,47 @@ css card() {
 	text-align: left;
 }
 
-css cardTitle() {
+css CardImg() {
+	width: 4rem;
+	height: 4rem;
+	objject-fit: cover;
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	border: 1px solid var(--color-accent-red);
+}
+
+css CardTitle() {
 	font-size: .75rem;
 	margin: 0 0 0.5rem 0;
 	color: var(--color-primary);
 }
 
-css cardLocation() {
+css CardLocation() {
 	font-size: 0.5rem;
 	margin: 0 0 0.5rem 0;
 }
 
-css cardDescription() {
+css CardDescription() {
 	font-size: 0.5rem;
 	margin: 0 0 0.5rem 0;
 }
 
-css cardDetailsSection() {
+css CardDetailsSection() {
 	width: 50%;
 }
 
-css cardImgSection() {
+css CardImgSection() {
 	margin-left: 0.5rem;
 }
 
-css nav() {
+css Nav() {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	margin-bottom: 1rem;
 }
 
-css containerSecondary() {
+css ContainerSecondary() {
 	background-color: var(--color-secondary);
 	border: 1px solid var(--color-accent-green);
 	color: var(--color-primary);
@@ -75,7 +79,7 @@ css containerSecondary() {
 	flex-direction: column;
 }
 
-css containerPrimary() {
+css ContainerPrimary() {
 	background-color: var(--color-primary);
 	border: 1px solid var(--color-accent-red);
 	color: var(--color-secondary);
@@ -86,7 +90,22 @@ css containerPrimary() {
 	flex-direction: column;
 }
 
-css input() {
+css ContainerHeader() {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+css LandingContainer() {
+	min-height: 82vh;
+	font-size: 1.3rem;
+}
+
+css GardenContainer() {
+	display: flex;
+}
+
+css Input() {
 	border-radius: var(--border-radius);
 	border: 1px solid var(--color-accent-red);
 	background-color: var(--color-primary);
@@ -99,7 +118,7 @@ css input() {
 	box-shadow: var(--box-shadow);
 }
 
-css inputSecondary() {
+css InputSecondary() {
 	border-radius: var(--border-radius);
 	border: 1px solid var(--color-accent-green);
 	background-color: var(--color-secondary);
@@ -112,13 +131,53 @@ css inputSecondary() {
 	box-shadow: var(--box-shadow);
 }
 
-css inputLabel() {
+css InputLabel() {
 	display: flex;
 	align-self: flex-start;
 	margin: 0.25rem;
 }
 
-css btn() {
+css InputBig() {
+	height: 5rem;
+}
+
+css FieldDescriptor() {
+	display: flex;
+	align-self: flex-start;
+	padding-left: 0.5rem;
+	margin: 0.25rem 0;
+}
+
+css FieldLabel() {
+	margin-top: 0;
+}
+
+css CreateBtn() {
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	border: 1px solid var(--color-accent-green);
+	max-width: 7rem;
+	font-size: 1.25rem;
+}
+
+css EditBtn() {
+	padding-top: 0.5rem;
+	min-height: 2rem;
+	min-width: 4rem;
+	margin: 1rem 0;
+}
+
+css DeleteBtn() {
+	padding-top: 0.5rem;
+	min-height: 2rem;
+	min-width: 5rem;
+	margin: 1rem 0;
+	background-color: var(--color-accent-red);
+	border: 1px solid var(--color-accent-green);
+	color: var(--color-secondary);
+}
+
+css Btn() {
 	align-self: center;
 	min-width: 7rem;
 	min-height: 3rem;
@@ -131,6 +190,15 @@ css btn() {
 	box-shadow: var(--box-shadow);
 	cursor: pointer;
 	transition: all 1s;
+}
+
+css SpaceBetween() {
+	display: flex;
+	justify-content: space-between;
+}
+
+css InventoryItemName() {
+	height: 1rem;
 }
 
 templ globalStyles() {
@@ -206,4 +274,82 @@ templ globalStyles() {
         }
 
     </style>
+}
+
+func stylesMap() map[templ.CSSClass]struct{} {
+	return map[templ.CSSClass]struct{}{
+		// styles.templ
+		InventoryListing():   {},
+		Listing():            {},
+		NoOverFlow():         {},
+		Card():               {},
+		CardImg():            {},
+		CardTitle():          {},
+		CardLocation():       {},
+		CardDescription():    {},
+		CardDetailsSection(): {},
+		CardImgSection():     {},
+		Nav():                {},
+		ContainerSecondary(): {},
+		ContainerPrimary():   {},
+		ContainerHeader():    {},
+		LandingContainer():   {},
+		GardenContainer():    {},
+		Input():              {},
+		InputSecondary():     {},
+		InputLabel():         {},
+		InputBig():           {},
+		FieldDescriptor():    {},
+		FieldLabel():         {},
+		CreateBtn():          {},
+		EditBtn():            {},
+		DeleteBtn():          {},
+		Btn():                {},
+		SpaceBetween():       {},
+		InventoryItemName():  {},
+		// base.templ
+		HeaderLink():  {},
+		HeaderBrand(): {},
+		// garden.templ
+		FieldsContainer():  {},
+		Fields():           {},
+		LocationField():    {},
+		DescriptionField(): {},
+		GardenImg():        {},
+		// gardenListing.templ
+		GardenCreateLink(): {},
+		NoGardens():        {},
+		// gardenInventoryItem.templ
+		ItemAndType():    {},
+		InventoryField(): {},
+		ItemImg():        {},
+		ItemLabel():      {},
+		// imageUploader.templ
+		ImageUploaderLabel(): {},
+		UploaderContainer():  {},
+		GardenPic():          {},
+		// landing.templ
+		FeatureDescriptor(): {},
+		Features():          {},
+		Cta():               {},
+		// search.templ
+		SearchInput(): {},
+		// sign-in.templ
+		SignInContainer(): {},
+		SignInForm():      {},
+		SignUpLink():      {},
+		PasswordLink():    {},
+		// sign-up.templ
+		SignUpContainer(): {},
+		SignUpForm():      {},
+	}
+}
+
+func Styles() []templ.CSSClass {
+	m := stylesMap()
+	s := make([]templ.CSSClass, 0, len(m))
+	for k := range m {
+		s = append(s, k)
+	}
+	return s
 }

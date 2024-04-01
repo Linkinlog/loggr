@@ -1,20 +1,20 @@
 package web
 
-css imageUploader() {
+css ImageUploaderLabel() {
 	min-height: 2.25rem;
 	min-width: 9rem;
 	padding-top: 0.75rem;
 	display: inline-block;
 }
 
-css uploaderContainer() {
+css UploaderContainer() {
 	margin: 4rem 0;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
 }
 
-css gardenPic() {
+css GardenPic() {
 	width: 4rem;
 	height: 4rem;
 	object-fit: cover;
@@ -23,7 +23,14 @@ css gardenPic() {
 	border: 1px solid var(--color-accent-red);
 }
 
-templ ImageUploader() {
+func getImg(img string) string {
+	if img == "" {
+		return "/assets/imageNotFound.webp"
+	}
+	return img
+}
+
+templ ImageUploader(img string) {
 	<script type="text/javascript">
         function previewImage(e) {
             const output = document.getElementById('previewGarden');
@@ -33,9 +40,9 @@ templ ImageUploader() {
             }
         }
     </script>
-	<section class={ uploaderContainer }>
-		<label class={ btn, imageUploader, "hover-secondary" } for="gardenPic">Upload Photo</label>
+	<section class={ UploaderContainer() }>
+		<label class={ Btn(), ImageUploaderLabel(), "hover-secondary" } for="gardenPic">Upload Photo</label>
 		<input onchange="previewImage(event)" id="gardenPic" type="file" accept="image/*" name="image" hidden/>
-		<img id="previewGarden" class={ gardenPic } src="/assets/imageNotFound.webp" alt="Garden Picture"/>
+		<img id="previewGarden" class={ GardenPic() } src={ getImg(img) } alt="Garden Picture"/>
 	</section>
 }

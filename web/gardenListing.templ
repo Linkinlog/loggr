@@ -2,7 +2,7 @@ package web
 
 import "github.com/Linkinlog/loggr/internal/models"
 
-css gardenCreateLink() {
+css GardenCreateLink() {
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
 	border: 1px solid var(--color-accent-green);
@@ -13,20 +13,20 @@ css gardenCreateLink() {
 	margin: 0;
 }
 
-css noGardens() {
+css NoGardens() {
 	margin-top: 4rem;
 }
 
 templ GardenListing(gardens []*models.Garden) {
 	<section>
-		<nav class={ nav }>
+		<nav class={ Nav() }>
 			@Search()
-			<a class={ btn, gardenCreateLink, "hover-primary" } href="/gardens/new">Add</a>
+			<a class={ Btn(), GardenCreateLink(), "hover-primary" } href="/gardens/new">Add</a>
 		</nav>
 		if len(gardens) == 0 {
-			<p class={ noGardens }>No gardens yet, click "Add" to get started!</p>
+			<p class={ NoGardens() }>No gardens yet, click "Add" to get started!</p>
 		} else {
-			<section class={ listing }>
+			<section class={ Listing() }>
 				for _, garden := range gardens {
 					@GardenCard(garden)
 				}

@@ -98,7 +98,11 @@ func (gr *GardenRepository) UpdateItemInGarden(gardenID, itemID string, item *mo
 
 	for i, it := range g.Inventory {
 		if it.Id() == itemID {
-			g.Inventory[i] = item
+			g.Inventory[i].Name = item.Name
+			g.Inventory[i].Image = item.Image
+			g.Inventory[i].Type = item.Type
+			g.Inventory[i].Fields = item.Fields
+
 			return gr.UpdateGarden(gardenID, g)
 		}
 	}

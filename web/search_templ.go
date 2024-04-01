@@ -11,7 +11,7 @@ import "io"
 import "bytes"
 import "strings"
 
-func search() templ.CSSClass {
+func SearchInput() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
@@ -21,7 +21,7 @@ func search() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:1.2rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:55%;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:0 0.5rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`search`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`SearchInput`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -41,7 +41,7 @@ func Search() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{search}
+		var templ_7745c5c3_Var2 = []any{SearchInput()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

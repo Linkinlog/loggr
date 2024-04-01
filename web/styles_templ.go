@@ -11,49 +11,44 @@ import "io"
 import "bytes"
 import "strings"
 
-func listing() templ.CSSClass {
+func InventoryListing() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`grid-template-columns:1fr;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`InventoryListing`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func Listing() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`display:grid;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`grid-template-columns:var(--grid-cols);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`grid-gap:1rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:1rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`listing`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`Listing`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func cardImg() templ.CSSClass {
-	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`width:4rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`height:4rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`objject-fit:cover;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
-	templ_7745c5c3_CSSID := templ.CSSID(`cardImg`, templ_7745c5c3_CSSBuilder.String())
-	return templ.ComponentCSSClass{
-		ID:    templ_7745c5c3_CSSID,
-		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
-	}
-}
-
-func noOverFlow() templ.CSSClass {
+func NoOverFlow() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`overflow:hidden;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`text-overflow:ellipsis;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`white-space:nowrap;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`max-width:10rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`noOverFlow`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`NoOverFlow`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func card() templ.CSSClass {
+func Card() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:row;`)
@@ -61,81 +56,96 @@ func card() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`max-height:5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`text-align:left;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`card`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`Card`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func cardTitle() templ.CSSClass {
+func CardImg() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`width:4rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`height:4rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`objject-fit:cover;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
+	templ_7745c5c3_CSSID := templ.CSSID(`CardImg`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func CardTitle() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:.75rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
-	templ_7745c5c3_CSSID := templ.CSSID(`cardTitle`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`CardTitle`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func cardLocation() templ.CSSClass {
+func CardLocation() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:0.5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`cardLocation`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`CardLocation`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func cardDescription() templ.CSSClass {
+func CardDescription() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:0.5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0 0 0.5rem 0;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`cardDescription`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`CardDescription`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func cardDetailsSection() templ.CSSClass {
+func CardDetailsSection() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`width:50%;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`cardDetailsSection`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`CardDetailsSection`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func cardImgSection() templ.CSSClass {
+func CardImgSection() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:0.5rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`cardImgSection`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`CardImgSection`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func nav() templ.CSSClass {
+func Nav() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:row;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:space-between;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin-bottom:1rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`nav`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`Nav`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func containerSecondary() templ.CSSClass {
+func ContainerSecondary() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-green);`)
@@ -145,14 +155,14 @@ func containerSecondary() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:1rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:column;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`containerSecondary`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`ContainerSecondary`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func containerPrimary() templ.CSSClass {
+func ContainerPrimary() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-primary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
@@ -162,14 +172,47 @@ func containerPrimary() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:1rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:column;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`containerPrimary`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`ContainerPrimary`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func input() templ.CSSClass {
+func ContainerHeader() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:space-between;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`ContainerHeader`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func LandingContainer() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:82vh;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1.3rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`LandingContainer`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func GardenContainer() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`GardenContainer`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func Input() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-red);`)
@@ -181,14 +224,14 @@ func input() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`width:-webkit-fill-available;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
-	templ_7745c5c3_CSSID := templ.CSSID(`input`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`Input`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func inputSecondary() templ.CSSClass {
+func InputSecondary() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-green);`)
@@ -200,26 +243,102 @@ func inputSecondary() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`width:-webkit-fill-available;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:block;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
-	templ_7745c5c3_CSSID := templ.CSSID(`inputSecondary`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`InputSecondary`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func inputLabel() templ.CSSClass {
+func InputLabel() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`align-self:flex-start;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0.25rem;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`inputLabel`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`InputLabel`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func btn() templ.CSSClass {
+func InputBig() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`height:5rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`InputBig`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func FieldDescriptor() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`align-self:flex-start;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`padding-left:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:0.25rem 0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`FieldDescriptor`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func FieldLabel() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-top:0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`FieldLabel`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func CreateBtn() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-secondary);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-green);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`max-width:7rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1.25rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`CreateBtn`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func EditBtn() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`padding-top:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:2rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-width:4rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:1rem 0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`EditBtn`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func DeleteBtn() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`padding-top:0.5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:2rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-width:5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:1rem 0;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-accent-red);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-green);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
+	templ_7745c5c3_CSSID := templ.CSSID(`DeleteBtn`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func Btn() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`align-self:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:7rem;`)
@@ -233,7 +352,28 @@ func btn() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`cursor:pointer;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`transition:all 1s;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`btn`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`Btn`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func SpaceBetween() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:space-between;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`SpaceBetween`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func InventoryItemName() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`height:1rem;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`InventoryItemName`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -262,4 +402,82 @@ func globalStyles() templ.Component {
 		}
 		return templ_7745c5c3_Err
 	})
+}
+
+func stylesMap() map[templ.CSSClass]struct{} {
+	return map[templ.CSSClass]struct{}{
+		// styles.templ
+		InventoryListing():   {},
+		Listing():            {},
+		NoOverFlow():         {},
+		Card():               {},
+		CardImg():            {},
+		CardTitle():          {},
+		CardLocation():       {},
+		CardDescription():    {},
+		CardDetailsSection(): {},
+		CardImgSection():     {},
+		Nav():                {},
+		ContainerSecondary(): {},
+		ContainerPrimary():   {},
+		ContainerHeader():    {},
+		LandingContainer():   {},
+		GardenContainer():    {},
+		Input():              {},
+		InputSecondary():     {},
+		InputLabel():         {},
+		InputBig():           {},
+		FieldDescriptor():    {},
+		FieldLabel():         {},
+		CreateBtn():          {},
+		EditBtn():            {},
+		DeleteBtn():          {},
+		Btn():                {},
+		SpaceBetween():       {},
+		InventoryItemName():  {},
+		// base.templ
+		HeaderLink():  {},
+		HeaderBrand(): {},
+		// garden.templ
+		FieldsContainer():  {},
+		Fields():           {},
+		LocationField():    {},
+		DescriptionField(): {},
+		GardenImg():        {},
+		// gardenListing.templ
+		GardenCreateLink(): {},
+		NoGardens():        {},
+		// gardenInventoryItem.templ
+		ItemAndType():    {},
+		InventoryField(): {},
+		ItemImg():        {},
+		ItemLabel():      {},
+		// imageUploader.templ
+		ImageUploaderLabel(): {},
+		UploaderContainer():  {},
+		GardenPic():          {},
+		// landing.templ
+		FeatureDescriptor(): {},
+		Features():          {},
+		Cta():               {},
+		// search.templ
+		SearchInput(): {},
+		// sign-in.templ
+		SignInContainer(): {},
+		SignInForm():      {},
+		SignUpLink():      {},
+		PasswordLink():    {},
+		// sign-up.templ
+		SignUpContainer(): {},
+		SignUpForm():      {},
+	}
+}
+
+func Styles() []templ.CSSClass {
+	m := stylesMap()
+	s := make([]templ.CSSClass, 0, len(m))
+	for k := range m {
+		s = append(s, k)
+	}
+	return s
 }

@@ -4,14 +4,14 @@ import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
 templ GardenCard(g *models.Garden) {
-	<section class={ containerSecondary, card }>
-		<section class={ cardDetailsSection }>
-			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id())) } class={ noOverFlow, cardTitle }>{ g.Name }</a>
-			<p class={ noOverFlow, cardLocation }>{ g.Location }</p>
-			<p class={ noOverFlow, cardDescription }>{ g.Description }</p>
+	<section class={ ContainerSecondary(), Card() }>
+		<section class={ CardDetailsSection() }>
+			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id())) } class={ NoOverFlow(), CardTitle() }>{ g.Name }</a>
+			<p class={ NoOverFlow(), CardLocation() }>{ g.Location }</p>
+			<p class={ NoOverFlow(), CardDescription() }>{ g.Description }</p>
 		</section>
-		<section class={ cardImgSection }>
-			<img class={ cardImg } src={ g.Image.Thumbnail } alt={ g.Name }/>
+		<section class={ CardImgSection() }>
+			<img class={ CardImg() } src={ g.Image.Thumbnail } alt={ g.Name }/>
 		</section>
 	</section>
 }

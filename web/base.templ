@@ -7,22 +7,22 @@ templ Base() {
 	</main>
 }
 
-css link() {
+css HeaderLink() {
 	color: var(--color-secondary);
 	font-weight: 300;
 }
 
-css brand() {
+css HeaderBrand() {
 	font-weight: bold;
 }
 
 templ Header() {
 	<header>
-		<nav class={ nav }>
-			<a class={ link, brand } href="/">Loggr</a>
-			<a class={ link } href="/about">About</a>
-			<a class={ link } href="/gardens">Gardens</a>
-			<a class={ link } href="/auth/sign-in">Sign in</a>
+		<nav class={ Nav() }>
+			<a class={ HeaderLink(), HeaderBrand() } href="/">Loggr</a>
+			<a class={ HeaderLink() } href="/about">About</a>
+			<a class={ HeaderLink() } href="/gardens">Gardens</a>
+			<a class={ HeaderLink() } href="/auth/sign-in">Sign in</a>
 		</nav>
 	</header>
 }
