@@ -20,28 +20,28 @@ type GardenRepository struct {
 	store Storer
 }
 
-func (gr *GardenRepository) AddGarden(g *models.Garden) (string, error) {
+func (gr *GardenRepository) Add(g *models.Garden) (string, error) {
 	return gr.store.AddGarden(g)
 }
 
-func (gr *GardenRepository) GetGarden(id string) (*models.Garden, error) {
+func (gr *GardenRepository) Get(id string) (*models.Garden, error) {
 	return gr.store.GetGarden(id)
 }
 
-func (gr *GardenRepository) UpdateGarden(id string, g *models.Garden) error {
+func (gr *GardenRepository) Update(id string, g *models.Garden) error {
 	return gr.store.UpdateGarden(id, g)
 }
 
-func (gr *GardenRepository) DeleteGarden(id string) error {
+func (gr *GardenRepository) Delete(id string) error {
 	return gr.store.DeleteGarden(id)
 }
 
-func (gr *GardenRepository) ListGardens() ([]*models.Garden, error) {
+func (gr *GardenRepository) List() ([]*models.Garden, error) {
 	return gr.store.ListGardens()
 }
 
 func (gr *GardenRepository) ListGardenInventory(gardenID string) ([]*models.Item, error) {
-	g, err := gr.GetGarden(gardenID)
+	g, err := gr.Get(gardenID)
 	if err != nil {
 		return nil, err
 	}
@@ -50,17 +50,17 @@ func (gr *GardenRepository) ListGardenInventory(gardenID string) ([]*models.Item
 }
 
 func (gr *GardenRepository) AddItemToGarden(gardenID string, item *models.Item) error {
-	g, err := gr.GetGarden(gardenID)
+	g, err := gr.Get(gardenID)
 	if err != nil {
 		return err
 	}
 
 	g.AddItem(item)
-	return gr.UpdateGarden(gardenID, g)
+	return gr.Update(gardenID, g)
 }
 
 func (gr *GardenRepository) RemoveItemFromGarden(gardenID, itemID string) error {
-	g, err := gr.GetGarden(gardenID)
+	g, err := gr.Get(gardenID)
 	if err != nil {
 		return err
 	}
@@ -68,7 +68,7 @@ func (gr *GardenRepository) RemoveItemFromGarden(gardenID, itemID string) error 
 	for i, item := range g.Inventory {
 		if item.Id() == itemID {
 			g.Inventory = append(g.Inventory[:i], g.Inventory[i+1:]...)
-			return gr.UpdateGarden(gardenID, g)
+			return gr.Update(gardenID, g)
 		}
 	}
 
@@ -76,7 +76,7 @@ func (gr *GardenRepository) RemoveItemFromGarden(gardenID, itemID string) error 
 }
 
 func (gr *GardenRepository) GetItemFromGarden(gardenID, itemID string) (*models.Item, error) {
-	g, err := gr.GetGarden(gardenID)
+	g, err := gr.Get(gardenID)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +91,7 @@ func (gr *GardenRepository) GetItemFromGarden(gardenID, itemID string) (*models.
 }
 
 func (gr *GardenRepository) UpdateItemInGarden(gardenID, itemID string, item *models.Item) error {
-	g, err := gr.GetGarden(gardenID)
+	g, err := gr.Get(gardenID)
 	if err != nil {
 		return err
 	}
@@ -103,7 +103,7 @@ func (gr *GardenRepository) UpdateItemInGarden(gardenID, itemID string, item *mo
 			g.Inventory[i].Type = item.Type
 			g.Inventory[i].Fields = item.Fields
 
-			return gr.UpdateGarden(gardenID, g)
+			return gr.Update(gardenID, g)
 		}
 	}
 

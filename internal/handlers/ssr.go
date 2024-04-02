@@ -112,7 +112,7 @@ func (s *SSR) serveAuth() http.Handler {
 func (s *SSR) getGarden(r *http.Request) (*models.Garden, error) {
 	id := r.PathValue("id")
 	repo := repositories.NewGardenRepository(s.s)
-	g, err := repo.GetGarden(id)
+	g, err := repo.Get(id)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (s *SSR) handleDeleteGarden(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	repo := repositories.NewGardenRepository(s.s)
-	err = repo.DeleteGarden(g.Id())
+	err = repo.Delete(g.Id())
 	if err != nil {
 		return err
 	}
@@ -149,6 +149,10 @@ func (s *SSR) handleUpdateGarden(w http.ResponseWriter, r *http.Request) error {
 	location := r.FormValue("location")
 	description := r.FormValue("description")
 
+	if name == "" || location == "" {
+		return errors.New("name and location are required")
+	}
+
 	img := g.Image
 
 	imageFile, handler, err := r.FormFile("image")
@@ -161,23 +165,14 @@ func (s *SSR) handleUpdateGarden(w http.ResponseWriter, r *http.Request) error {
 		}
 	}
 
-	if name != "" {
-		g.Name = name
-	}
-
-	if location != "" {
-		g.Location = location
-	}
-
-	if description != "" {
-		g.Description = description
-	}
-
+	g.Name = name
+	g.Location = location
+	g.Description = description
 	g.Image = img
 
 	repo := repositories.NewGardenRepository(s.s)
 
-	err = repo.UpdateGarden(g.Id(), g)
+	err = repo.Update(g.Id(), g)
 	if err != nil {
 		return err
 	}
@@ -430,7 +425,7 @@ func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
 
 	repo := repositories.NewGardenRepository(s.s)
 
-	_, err = repo.AddGarden(g)
+	_, err = repo.Add(g)
 	if err != nil {
 		return err
 	}
@@ -446,7 +441,7 @@ func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error 
 	p := web.NewPage("Gardens", "Welcome to the gardens page")
 
 	repo := repositories.NewGardenRepository(s.s)
-	gardens, err := repo.ListGardens()
+	gardens, err := repo.List()
 	if err != nil {
 		return err
 	}

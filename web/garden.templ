@@ -51,7 +51,9 @@ templ gardenFields(g *models.Garden) {
 			<p class={ ContainerSecondary() }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
 			<p class={ ContainerSecondary(), LocationField() }>{ g.Location }</p>
 		</section>
-		<p class={ ContainerSecondary(), DescriptionField() }>{ g.Description }</p>
+		if g.Description != "" {
+			<p class={ ContainerSecondary(), DescriptionField() }>{ g.Description }</p>
+		}
 	</section>
 }
 
