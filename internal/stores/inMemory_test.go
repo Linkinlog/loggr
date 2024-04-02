@@ -11,14 +11,14 @@ import (
 func TestNewInMemory(t *testing.T) {
 	t.Parallel()
 
-	im := stores.NewInMemory(nil)
+	im := stores.NewInMemory(nil, nil)
 	assert.NotNil(t, im)
 }
 
 func TestInMemory_ListGardens(t *testing.T) {
 	t.Parallel()
 
-	im := stores.NewInMemory(nil)
+	im := stores.NewInMemory(nil, nil)
 	image := models.NewImage("id", "https://example.com", "", "")
 	g1 := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
 	g2 := models.NewGarden("garden 2", "location 2", "description 2", image, []*models.Item{})
@@ -53,7 +53,7 @@ func TestInMemory_AddGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory(nil)
+			im := stores.NewInMemory(nil, nil)
 			id, err := im.AddGarden(tc.garden)
 
 			if tc.expectedError != nil {
@@ -90,7 +90,7 @@ func TestInMemory_GetGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory(nil)
+			im := stores.NewInMemory(nil, nil)
 			g := models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{})
 			_, _ = im.AddGarden(g)
 
@@ -135,7 +135,7 @@ func TestInMemory_UpdateGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory(nil)
+			im := stores.NewInMemory(nil, nil)
 			g := models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{})
 			_, _ = im.AddGarden(g)
 
@@ -180,7 +180,7 @@ func TestInMemory_DeleteGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			im := stores.NewInMemory(nil)
+			im := stores.NewInMemory(nil, nil)
 			g := models.NewGarden("garden 1", "location 1", "description 1", nil, []*models.Item{})
 			_, _ = im.AddGarden(g)
 

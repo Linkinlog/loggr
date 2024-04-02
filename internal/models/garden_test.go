@@ -53,3 +53,48 @@ func TestGarden_AddItem(t *testing.T) {
 	assert.Len(t, g.Inventory, 1)
 	assert.Equal(t, item, g.Inventory[0])
 }
+
+func TestGarden_Plants(t *testing.T) {
+	t.Parallel()
+	image := models.NewImage("id", "https://example.com", "", "")
+	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{
+		models.NewItem("item 1", image, models.Plant, [5]*models.Field{}),
+		models.NewItem("item 2", image, models.Tool, [5]*models.Field{}),
+		models.NewItem("item 3", image, models.Seed, [5]*models.Field{}),
+	})
+
+	plants := g.Plants()
+
+	assert.Len(t, plants, 1)
+	assert.Equal(t, models.Plant, plants[0].Type)
+}
+
+func TestGarden_Tools(t *testing.T) {
+	t.Parallel()
+	image := models.NewImage("id", "https://example.com", "", "")
+	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{
+		models.NewItem("item 1", image, models.Plant, [5]*models.Field{}),
+		models.NewItem("item 2", image, models.Tool, [5]*models.Field{}),
+		models.NewItem("item 3", image, models.Seed, [5]*models.Field{}),
+	})
+
+	tools := g.Tools()
+
+	assert.Len(t, tools, 1)
+	assert.Equal(t, models.Tool, tools[0].Type)
+}
+
+func TestGarden_Seeds(t *testing.T) {
+	t.Parallel()
+	image := models.NewImage("id", "https://example.com", "", "")
+	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{
+		models.NewItem("item 1", image, models.Plant, [5]*models.Field{}),
+		models.NewItem("item 2", image, models.Tool, [5]*models.Field{}),
+		models.NewItem("item 3", image, models.Seed, [5]*models.Field{}),
+	})
+
+	seeds := g.Seeds()
+
+	assert.Len(t, seeds, 1)
+	assert.Equal(t, models.Seed, seeds[0].Type)
+}

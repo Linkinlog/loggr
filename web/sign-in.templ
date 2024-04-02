@@ -27,16 +27,19 @@ css PasswordLink() {
 	align-self: flex-start;
 }
 
-templ SignIn() {
+templ SignIn(err string) {
 	<section class={ ContainerSecondary(), SignInContainer() }>
 		<h1>Sign In</h1>
-		<form class={ SignInForm() } action="/sign-in" method="post">
+		<form class={ SignInForm() } action="/auth/sign-in" method="post">
 			<label class={ InputLabel() } for="email">Email</label>
 			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ Input(), InputSmall() } required/>
 			<label class={ InputLabel() } for="password">Password</label>
 			<input type="password" id="password" name="password" placeholder="hunter2" class={ Input(), InputSmall() } required/>
 			<a class={ PasswordLink() } href="/auth/forgot-password">Forgot Password?</a>
 			<button class={ Btn(), SignInBtn(), "hover-secondary" } type="submit">Sign In</button>
+			if err != "" {
+				<p class={ Error() }>{ err }</p>
+			}
 		</form>
 	</section>
 	<a class={ SignUpLink() } href="/auth/sign-up">Don't have an account? Sign up here</a>

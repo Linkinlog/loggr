@@ -223,6 +223,10 @@ css InventoryItemName() {
 	height: 1rem;
 }
 
+css Error() {
+	color: var(--color-accent-red);
+}
+
 templ globalStyles() {
 	<style type="text/css">
         :root {
@@ -332,9 +336,11 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		BtnSecondary():       {},
 		SpaceBetween():       {},
 		InventoryItemName():  {},
+		Error():              {},
 		// base.templ
 		HeaderLink():  {},
 		HeaderBrand(): {},
+		Warning():     {},
 		// garden.templ
 		FieldsContainer():  {},
 		Fields():           {},

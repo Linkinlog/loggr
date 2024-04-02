@@ -24,6 +24,10 @@ func (g *Garden) Id() string {
 	return g.id
 }
 
+func (g *Garden) AddItem(i *Item) {
+	g.Inventory = append(g.Inventory, i)
+}
+
 func (g *Garden) Plants() []*Item {
 	var plants []*Item
 	for _, i := range g.Inventory {
@@ -52,8 +56,4 @@ func (g *Garden) Seeds() []*Item {
 		}
 	}
 	return seeds
-}
-
-func (g *Garden) AddItem(i *Item) {
-	g.Inventory = append(g.Inventory, i)
 }

@@ -13,3 +13,14 @@ func genId() string {
 	}
 	return fmt.Sprintf("%X", b)
 }
+
+func genToken(l int) string {
+	if l < MinTokenLength {
+		l = MinTokenLength
+	}
+	b := make([]byte, l)
+	if _, err := rand.Read(b); err != nil {
+		panic(err)
+	}
+	return fmt.Sprintf("%X", b)
+}

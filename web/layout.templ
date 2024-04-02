@@ -1,6 +1,8 @@
 package web
 
-func NewPage(title, description string) *Page {
+import "github.com/Linkinlog/loggr/internal/models"
+
+func NewPage(title, description string, u *models.User) *Page {
 	url := "https://loggr.dahlton.org"
 	img := "https://loggr.dahlton.org/assets/logo.webp"
 	return &Page{
@@ -8,6 +10,7 @@ func NewPage(title, description string) *Page {
 		Description: description,
 		Img:         img,
 		URL:         url,
+		User:        u,
 	}
 }
 
@@ -16,6 +19,7 @@ type Page struct {
 	Description string
 	Img         string
 	URL         string
+	User        *models.User
 }
 
 templ (p Page) Layout(content templ.Component) {
@@ -23,7 +27,7 @@ templ (p Page) Layout(content templ.Component) {
 	<html lang="en" itemscope="" itemtype="http://schema.org/Webpage">
 		@p.head()
 		<body>
-			@Base() {
+			@Base(p.User != nil) {
 				@content
 			}
 		</body>

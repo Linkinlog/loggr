@@ -35,10 +35,10 @@ func TestGardenRepository_AddGarden(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			store := stores.NewInMemory(nil)
+			store := stores.NewInMemory(nil, nil)
 			gr := repositories.NewGardenRepository(store)
 
-			id, err := gr.AddGarden(tc.garden)
+			id, err := gr.Add(tc.garden)
 
 			assert.Equal(t, tc.garden.Id(), id)
 			assert.Equal(t, tc.expectedError, err)
@@ -49,13 +49,13 @@ func TestGardenRepository_AddGarden(t *testing.T) {
 func TestGardenRepository_GetGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
-	got, err := gr.GetGarden(id)
+	got, err := gr.Get(id)
 
 	assert.Equal(t, g, got)
 	assert.NoError(t, err)
@@ -64,19 +64,19 @@ func TestGardenRepository_GetGarden(t *testing.T) {
 func TestGardenRepository_UpdateGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
 	g.Name = "garden 2"
 	g.Location = "location 2"
 	g.Description = "description 2"
 
-	err := gr.UpdateGarden(id, g)
+	err := gr.Update(id, g)
 
-	got, _ := gr.GetGarden(id)
+	got, _ := gr.Get(id)
 
 	assert.NoError(t, err)
 	assert.Equal(t, g, got)
@@ -85,17 +85,17 @@ func TestGardenRepository_UpdateGarden(t *testing.T) {
 func TestGardenRepository_DeleteGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
-	err := gr.DeleteGarden(id)
+	err := gr.Delete(id)
 
 	assert.NoError(t, err)
 
-	_, err = gr.GetGarden(id)
+	_, err = gr.Get(id)
 
 	assert.Error(t, err, models.ErrNotFound)
 }
@@ -103,13 +103,13 @@ func TestGardenRepository_DeleteGarden(t *testing.T) {
 func TestGardenRepository_ListGardens(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	_, _ = gr.AddGarden(g)
+	_, _ = gr.Add(g)
 
-	gardens, err := gr.ListGardens()
+	gardens, err := gr.List()
 
 	assert.Len(t, gardens, 1)
 	assert.Equal(t, g, gardens[0])
@@ -119,18 +119,18 @@ func TestGardenRepository_ListGardens(t *testing.T) {
 func TestGardenRepository_AddItemToGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
 	image := models.NewImage("id", "https://example.com", "", "")
 	item := models.NewItem("item 1", image, models.Plant, [5]*models.Field{})
 
 	err := gr.AddItemToGarden(id, item)
 
-	got, _ := gr.GetGarden(id)
+	got, _ := gr.Get(id)
 
 	assert.NoError(t, err)
 	assert.Len(t, got.Inventory, 1)
@@ -140,11 +140,11 @@ func TestGardenRepository_AddItemToGarden(t *testing.T) {
 func TestGardenRepository_ListGardenInventory(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
 	inventory, err := gr.ListGardenInventory(id)
 
@@ -155,11 +155,11 @@ func TestGardenRepository_ListGardenInventory(t *testing.T) {
 func TestGardenRepository_RemoveItemFromGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
 	image := models.NewImage("id", "https://example.com", "", "")
 	item := models.NewItem("item 1", image, models.Plant, [5]*models.Field{})
@@ -167,7 +167,7 @@ func TestGardenRepository_RemoveItemFromGarden(t *testing.T) {
 
 	err := gr.RemoveItemFromGarden(id, item.Id())
 
-	got, _ := gr.GetGarden(id)
+	got, _ := gr.Get(id)
 
 	assert.NoError(t, err)
 	assert.Len(t, got.Inventory, 0)
@@ -176,11 +176,11 @@ func TestGardenRepository_RemoveItemFromGarden(t *testing.T) {
 func TestGardenRepository_GetItemFromGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
 	image := models.NewImage("id", "https://example.com", "", "")
 	item := models.NewItem("item 1", image, models.Plant, [5]*models.Field{})
@@ -195,11 +195,11 @@ func TestGardenRepository_GetItemFromGarden(t *testing.T) {
 func TestGardenRepository_UpdateItemInGarden(t *testing.T) {
 	t.Parallel()
 
-	store := stores.NewInMemory(nil)
+	store := stores.NewInMemory(nil, nil)
 	gr := repositories.NewGardenRepository(store)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", models.NewImage("image 1", "url", "", ""), []*models.Item{})
-	id, _ := gr.AddGarden(g)
+	id, _ := gr.Add(g)
 
 	image := models.NewImage("id", "https://example.com", "", "")
 	item := models.NewItem("item 1", image, models.Plant, [5]*models.Field{})
@@ -210,7 +210,7 @@ func TestGardenRepository_UpdateItemInGarden(t *testing.T) {
 
 	err := gr.UpdateItemInGarden(id, item.Id(), item)
 
-	got, _ := gr.GetGarden(id)
+	got, _ := gr.Get(id)
 
 	assert.NoError(t, err)
 	assert.Equal(t, item, got.Inventory[0])

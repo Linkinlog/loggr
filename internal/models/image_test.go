@@ -12,4 +12,8 @@ func TestNewImage(t *testing.T) {
 
 	image := models.NewImage("id", "https://example.com", "", "")
 	assert.NotNil(t, image)
+	assert.Equal(t, "id", image.Id)
+	assert.Equal(t, "https://example.com", image.URL)
+	assert.Empty(t, image.Thumbnail)
+	assert.Empty(t, image.DeleteURL)
 }
