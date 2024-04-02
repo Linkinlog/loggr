@@ -1,16 +1,16 @@
 package web
 
 templ NewGarden() {
-	<section class={ ContainerSecondary(), GardenContainer() }>
+	<section class={ ContainerSecondary() }>
 		<h1>New Garden</h1>
 		<form action="/gardens/" method="post" enctype="multipart/form-data">
 			@ImageUploader("")
 			<label class={ InputLabel() } for="name">Name</label>
-			<input class={ Input() } type="text" id="name" name="name" placeholder="placeholder text..." required/>
+			<input class={ Input(), InputSmall() } type="text" id="name" name="name" placeholder="placeholder text..." required/>
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary() }>
 				@gardenFieldsInputs()
-				<button class={ Btn(), CreateBtn(), "hover-primary" } type="submit">Create</button>
+				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>
@@ -18,7 +18,7 @@ templ NewGarden() {
 
 templ gardenFieldsInputs() {
 	<label class={ InputLabel() } for="location">Location</label>
-	<input class={ InputSecondary() } type="text" id="location" name="location" placeholder="placeholder text..." required/>
+	<input class={ InputSecondary(), InputSmall() } type="text" id="location" name="location" placeholder="placeholder text..." required/>
 	<label class={ InputLabel() } for="description">Description</label>
 	<textarea class={ InputSecondary(), InputBig() } type="number" id="description" name="description" placeholder="placeholder text..."></textarea>
 }

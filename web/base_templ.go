@@ -60,6 +60,7 @@ func HeaderLink() templ.CSSClass {
 
 func HeaderBrand() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-secondary);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`font-weight:bold;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`HeaderBrand`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
@@ -107,7 +108,7 @@ func Header() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var5 = []any{HeaderLink(), HeaderBrand()}
+		var templ_7745c5c3_Var5 = []any{HeaderBrand()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var5...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

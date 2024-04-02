@@ -22,6 +22,19 @@ func SignUpContainer() templ.CSSClass {
 	}
 }
 
+func SignUpBtn() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:2rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-width:7rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:3rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:var(--font-size);`)
+	templ_7745c5c3_CSSID := templ.CSSID(`SignUpBtn`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
 func SignUpForm() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
@@ -112,7 +125,7 @@ func SignUp() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 = []any{Input()}
+		var templ_7745c5c3_Var8 = []any{Input(), InputSmall()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var8...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -156,7 +169,7 @@ func SignUp() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var12 = []any{Input()}
+		var templ_7745c5c3_Var12 = []any{Input(), InputSmall()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var12...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -200,7 +213,7 @@ func SignUp() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var16 = []any{Input()}
+		var templ_7745c5c3_Var16 = []any{Input(), InputSmall()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var16...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -244,7 +257,7 @@ func SignUp() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var20 = []any{Btn(), "hover-secondary"}
+		var templ_7745c5c3_Var20 = []any{Btn(), SignUpBtn(), "hover-secondary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var20...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

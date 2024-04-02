@@ -4,7 +4,7 @@ import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
 templ GardenCard(g *models.Garden) {
-	<section class={ ContainerSecondary(), Card() }>
+	<section class={ ContainerSecondary(), Card(), Row() }>
 		<section class={ CardDetailsSection() }>
 			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id())) } class={ NoOverFlow(), CardTitle() }>{ g.Name }</a>
 			<p class={ NoOverFlow(), CardLocation() }>{ g.Location }</p>

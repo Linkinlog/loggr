@@ -15,9 +15,6 @@ import "github.com/Linkinlog/loggr/internal/models"
 
 func GardenCreateLink() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`background-color:var(--color-secondary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-primary);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`border:1px solid var(--color-accent-green);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:1.5rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1rem;`)
@@ -83,7 +80,7 @@ func GardenListing(gardens []*models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{Btn(), GardenCreateLink(), "hover-primary"}
+		var templ_7745c5c3_Var4 = []any{BtnSecondary(), GardenCreateLink(), "hover-primary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

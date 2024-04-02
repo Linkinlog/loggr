@@ -21,7 +21,7 @@ templ NewGardenInventoryItemForm(id string) {
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary() }>
 				@inventoryItemFieldInputs()
-				<button class={ Btn(), CreateBtn(), "hover-primary" } type="submit">Create</button>
+				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>
@@ -29,13 +29,13 @@ templ NewGardenInventoryItemForm(id string) {
 
 templ inventoryItemFieldInputs() {
 	<label class={ InputLabel() } for="field-1">Field 1</label>
-	<input type="text" class={ InputSecondary() } id="field-1" name="field-1" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-1" name="field-1" placeholder="placeholder text..."/>
 	<label class={ InputLabel() } for="field-2">Field 2</label>
-	<input type="text" class={ InputSecondary() } id="field-2" name="field-2" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-2" name="field-2" placeholder="placeholder text..."/>
 	<label class={ InputLabel() } for="field-3">Field 3</label>
-	<input type="text" class={ InputSecondary() } id="field-3" name="field-3" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-3" name="field-3" placeholder="placeholder text..."/>
 	<label class={ InputLabel() } for="field-4">Field 4</label>
-	<input type="text" class={ InputSecondary() } id="field-4" name="field-4" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-4" name="field-4" placeholder="placeholder text..."/>
 	<label class={ InputLabel() } for="field-5">Field 5</label>
-	<input type="text" class={ InputSecondary() } id="field-5" name="field-5" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-5" name="field-5" placeholder="placeholder text..."/>
 }

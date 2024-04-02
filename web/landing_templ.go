@@ -37,8 +37,9 @@ func Cta() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:0.5rem 1rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`display:inline-block;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`max-width:5rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-width:7rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:2rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:2rem;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`Cta`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -59,7 +60,7 @@ func Landing() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{ContainerSecondary(), LandingContainer()}
+		var templ_7745c5c3_Var2 = []any{ContainerSecondary(), LandingContainer(), Column()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

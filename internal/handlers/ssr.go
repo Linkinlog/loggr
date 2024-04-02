@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"context"
 	"errors"
 	"log/slog"
 	"net/http"
@@ -197,7 +196,7 @@ func (s *SSR) handleEditGardenForm(w http.ResponseWriter, r *http.Request) error
 	}
 	p := web.NewPage("Edit Garden", "Welcome to the edit garden page")
 
-	return p.Layout(web.EditGarden(g)).Render(context.Background(), w)
+	return p.Layout(web.EditGarden(g)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleDeleteGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
@@ -294,7 +293,7 @@ func (s *SSR) handleEditGardenInventoryItemForm(w http.ResponseWriter, r *http.R
 
 	p := web.NewPage("Edit Inventory Item", "Welcome to the edit inventory item page")
 
-	return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item)).Render(context.Background(), w)
+	return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
@@ -318,7 +317,7 @@ func (s *SSR) handleGardenInventoryItem(w http.ResponseWriter, r *http.Request) 
 
 	p := web.NewPage(item.Name, "Welcome to the garden inventory item page")
 
-	return p.Layout(web.GardenInventoryItem(g.Id(), item)).Render(context.Background(), w)
+	return p.Layout(web.GardenInventoryItem(g.Id(), item)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
@@ -376,7 +375,7 @@ func (s *SSR) handleNewGardenInventoryItemForm(w http.ResponseWriter, r *http.Re
 
 	p := web.NewPage("New Inventory Item", "Welcome to the new inventory item page")
 
-	return p.Layout(web.NewGardenInventoryItemForm(g.Id())).Render(context.Background(), w)
+	return p.Layout(web.NewGardenInventoryItemForm(g.Id())).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) error {
@@ -390,7 +389,7 @@ func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) erro
 
 	p := web.NewPage(g.Name, "Welcome to the garden inventory page")
 
-	return p.Layout(web.GardenInventory(g)).Render(context.Background(), w)
+	return p.Layout(web.GardenInventory(g)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
@@ -404,7 +403,7 @@ func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
 
 	p := web.NewPage(g.Name, "Welcome to the garden page")
 
-	return p.Layout(web.Garden(g)).Render(context.Background(), w)
+	return p.Layout(web.Garden(g)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
@@ -452,36 +451,36 @@ func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error 
 		return err
 	}
 
-	return p.Layout(web.GardenListing(gardens)).Render(context.Background(), w)
+	return p.Layout(web.GardenListing(gardens)).Render(r.Context(), w)
 }
 
-func handleNewGardenForm(w http.ResponseWriter, _ *http.Request) error {
+func handleNewGardenForm(w http.ResponseWriter, r *http.Request) error {
 	p := web.NewPage("New Garden", "Welcome to the new garden page")
 
-	return p.Layout(web.NewGarden()).Render(context.Background(), w)
+	return p.Layout(web.NewGarden()).Render(r.Context(), w)
 }
 
-func handleSignIn(w http.ResponseWriter, _ *http.Request) error {
+func handleSignIn(w http.ResponseWriter, r *http.Request) error {
 	p := web.NewPage("Sign In", "Welcome to the sign in page")
 
-	return p.Layout(web.SignIn()).Render(context.Background(), w)
+	return p.Layout(web.SignIn()).Render(r.Context(), w)
 }
 
-func handleSignOut(w http.ResponseWriter, _ *http.Request) error {
+func handleSignOut(w http.ResponseWriter, r *http.Request) error {
 	// TODO
 	return errors.New("not implemented")
 }
 
-func handleSignUp(w http.ResponseWriter, _ *http.Request) error {
+func handleSignUp(w http.ResponseWriter, r *http.Request) error {
 	p := web.NewPage("Sign Up", "Welcome to the sign up page")
 
-	return p.Layout(web.SignUp()).Render(context.Background(), w)
+	return p.Layout(web.SignUp()).Render(r.Context(), w)
 }
 
-func handleForgotPassword(w http.ResponseWriter, _ *http.Request) error {
+func handleForgotPassword(w http.ResponseWriter, r *http.Request) error {
 	p := web.NewPage("Forgot Password", "Welcome to the forgot password page")
 
-	return p.Layout(web.ForgotPassword()).Render(context.Background(), w)
+	return p.Layout(web.ForgotPassword()).Render(r.Context(), w)
 }
 
 func handleLanding(w http.ResponseWriter, r *http.Request) error {
@@ -490,18 +489,18 @@ func handleLanding(w http.ResponseWriter, r *http.Request) error {
 	}
 	p := web.NewPage("Landing", "Welcome to the landing page")
 
-	return p.Layout(web.Landing()).Render(context.Background(), w)
+	return p.Layout(web.Landing()).Render(r.Context(), w)
 }
 
-func handleAbout(w http.ResponseWriter, _ *http.Request) error {
+func handleAbout(w http.ResponseWriter, r *http.Request) error {
 	p := web.NewPage("About", "Welcome to the about page")
 
-	return p.Layout(web.About()).Render(context.Background(), w)
+	return p.Layout(web.About()).Render(r.Context(), w)
 }
 
-func handleNotFound(w http.ResponseWriter, _ *http.Request) error {
+func handleNotFound(w http.ResponseWriter, r *http.Request) error {
 	p := web.NewPage("404", "Page not found")
 
 	w.WriteHeader(http.StatusNotFound)
-	return p.Layout(web.NotFoundPage()).Render(context.Background(), w)
+	return p.Layout(web.NotFoundPage()).Render(r.Context(), w)
 }

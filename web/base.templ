@@ -13,13 +13,14 @@ css HeaderLink() {
 }
 
 css HeaderBrand() {
+	color: var(--color-secondary);
 	font-weight: bold;
 }
 
 templ Header() {
 	<header>
 		<nav class={ Nav() }>
-			<a class={ HeaderLink(), HeaderBrand() } href="/">Loggr</a>
+			<a class={ HeaderBrand() } href="/">Loggr</a>
 			<a class={ HeaderLink() } href="/about">About</a>
 			<a class={ HeaderLink() } href="/gardens">Gardens</a>
 			<a class={ HeaderLink() } href="/auth/sign-in">Sign in</a>

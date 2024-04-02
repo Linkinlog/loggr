@@ -74,7 +74,7 @@ func GardenInventory(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{Btn(), GardenCreateLink(), "hover-primary"}
+		var templ_7745c5c3_Var6 = []any{BtnSecondary(), GardenCreateLink(), "hover-primary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -111,7 +111,7 @@ func GardenInventory(g *models.Garden) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			var templ_7745c5c3_Var9 = []any{Listing(), InventoryListing()}
+			var templ_7745c5c3_Var9 = []any{InventoryListing()}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var9...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

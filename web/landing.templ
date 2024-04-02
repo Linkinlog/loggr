@@ -13,12 +13,13 @@ css Features() {
 css Cta() {
 	padding: 0.5rem 1rem;
 	display: inline-block;
-	max-width: 5rem;
+	min-width: 7rem;
 	min-height: 2rem;
+	margin: 2rem;
 }
 
 templ Landing() {
-	<section class={ ContainerSecondary(), LandingContainer() }>
+	<section class={ ContainerSecondary(), LandingContainer(), Column() }>
 		<h1>Loggr: Your Green Thumb's Best Friend</h1>
 		<p>
 			Welcome to Loggr - Your Ultimate Gardening Companion!

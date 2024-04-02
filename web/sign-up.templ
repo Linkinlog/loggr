@@ -5,6 +5,13 @@ css SignUpContainer() {
 	min-height: 50vh;
 }
 
+css SignUpBtn() {
+	margin: 2rem;
+	min-width: 7rem;
+	min-height: 3rem;
+	font-size: var(--font-size);
+}
+
 css SignUpForm() {
 	display: flex;
 	flex-direction: column;
@@ -15,13 +22,13 @@ templ SignUp() {
 		<h1>Sign Up</h1>
 		<form class={ SignUpForm() } action="/sign-up" method="post">
 			<label class={ InputLabel() } for="name">Name</label>
-			<input type="text" id="name" name="name" placeholder="Rick Astley" class={ Input() } required/>
+			<input type="text" id="name" name="name" placeholder="Rick Astley" class={ Input(), InputSmall() } required/>
 			<label class={ InputLabel() } for="email">Email</label>
-			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ Input() } required/>
+			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ Input(), InputSmall() } required/>
 			<label class={ InputLabel() } for="password">Password</label>
-			<input type="password" id="password" name="password" placeholder="hunter2" class={ Input() } required/>
+			<input type="password" id="password" name="password" placeholder="hunter2" class={ Input(), InputSmall() } required/>
 			<a class={ PasswordLink() } href="/auth/sign-in">Already have an account? Sign in here</a>
-			<button class={ Btn(), "hover-secondary" } type="submit">Sign Up</button>
+			<button class={ Btn(), SignUpBtn(), "hover-secondary" } type="submit">Sign Up</button>
 		</form>
 	</section>
 }

@@ -3,15 +3,15 @@ package web
 import "github.com/Linkinlog/loggr/internal/models"
 
 templ EditGarden(g *models.Garden) {
-	<section class={ ContainerSecondary(), GardenContainer() }>
+	<section class={ ContainerSecondary() }>
 		<section class={ ContainerHeader() }>
 			<h1>Edit Garden</h1>
-			<a class={ Btn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/delete") }>Delete</a>
+			<a class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/delete") }>Delete</a>
 		</section>
 		<form action={ templ.URL("/gardens/" + g.Id()) } method="post" enctype="multipart/form-data">
 			@ImageUploader(g.Image.Thumbnail)
 			<label class={ InputLabel() } for="name">Name</label>
-			<input class={ Input() } type="text" id="name" name="name" value={ g.Name } placeholder="placeholder text..." required/>
+			<input class={ Input(), InputSmall() } type="text" id="name" name="name" value={ g.Name } placeholder="placeholder text..." required/>
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary() }>
 				@gardenFieldsEditInputs(g)
@@ -23,7 +23,7 @@ templ EditGarden(g *models.Garden) {
 
 templ gardenFieldsEditInputs(g *models.Garden) {
 	<label class={ InputLabel() } for="location">Location</label>
-	<input class={ InputSecondary() } type="text" id="location" name="location" value={ g.Location } placeholder="placeholder text..." required/>
+	<input class={ InputSecondary(), InputSmall() } type="text" id="location" name="location" value={ g.Location } placeholder="placeholder text..." required/>
 	<label class={ InputLabel() } for="description">Description</label>
 	<textarea class={ InputSecondary(), InputBig() } type="number" id="description" name="description" placeholder="placeholder text...">{ g.Description }</textarea>
 }

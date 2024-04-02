@@ -1,7 +1,10 @@
 package web
 
 css InventoryListing() {
+	display: grid;
 	grid-template-columns: 1fr;
+	grid-gap: 1rem;
+	margin-top: 1rem;
 }
 
 css Listing() {
@@ -20,9 +23,6 @@ css NoOverFlow() {
 }
 
 css Card() {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 	align-items: center;
 	max-height: 5rem;
 	text-align: left;
@@ -68,6 +68,17 @@ css Nav() {
 	margin-bottom: 1rem;
 }
 
+css Row() {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+css Column() {
+	display: flex;
+	flex-direction: column;
+}
+
 css ContainerSecondary() {
 	background-color: var(--color-secondary);
 	border: 1px solid var(--color-accent-green);
@@ -75,8 +86,6 @@ css ContainerSecondary() {
 	border-radius: var(--border-radius);
 	box-shadow: var(--box-shadow);
 	padding: 1rem;
-	display: flex;
-	flex-direction: column;
 }
 
 css ContainerPrimary() {
@@ -86,8 +95,6 @@ css ContainerPrimary() {
 	border-radius: var(--border-radius);
 	box-shadow: var(--box-shadow);
 	padding: 1rem;
-	display: flex;
-	flex-direction: column;
 }
 
 css ContainerHeader() {
@@ -101,16 +108,11 @@ css LandingContainer() {
 	font-size: 1.3rem;
 }
 
-css GardenContainer() {
-	display: flex;
-}
-
 css Input() {
 	border-radius: var(--border-radius);
 	border: 1px solid var(--color-accent-red);
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
-	height: 2rem;
 	padding: 0.5rem;
 	margin-bottom: .5rem;
 	width: -webkit-fill-available;
@@ -123,7 +125,6 @@ css InputSecondary() {
 	border: 1px solid var(--color-accent-green);
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
-	height: 2rem;
 	padding: 0.5rem;
 	margin-bottom: .5rem;
 	width: -webkit-fill-available;
@@ -135,6 +136,10 @@ css InputLabel() {
 	display: flex;
 	align-self: flex-start;
 	margin: 0.25rem;
+}
+
+css InputSmall() {
+	height: 2rem;
 }
 
 css InputBig() {
@@ -156,7 +161,9 @@ css CreateBtn() {
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
 	border: 1px solid var(--color-accent-green);
-	max-width: 7rem;
+	width: 7rem;
+	min-height: 3rem;
+	margin: 2rem;
 	font-size: 1.25rem;
 }
 
@@ -172,21 +179,36 @@ css DeleteBtn() {
 	min-height: 2rem;
 	min-width: 5rem;
 	margin: 1rem 0;
-	background-color: var(--color-accent-red);
-	border: 1px solid var(--color-accent-green);
-	color: var(--color-secondary);
 }
 
 css Btn() {
 	align-self: center;
-	min-width: 7rem;
-	min-height: 3rem;
-	margin: 2rem;
-	font-size: var(--font-size);
 	background-color: var(--color-primary);
 	color: var(--color-secondary);
 	border-radius: var(--border-radius);
 	border: 1px solid var(--color-accent-red);
+	box-shadow: var(--box-shadow);
+	cursor: pointer;
+	transition: all 1s;
+}
+
+css BtnSecondary() {
+	align-self: center;
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-accent-green);
+	box-shadow: var(--box-shadow);
+	cursor: pointer;
+	transition: all 1s;
+}
+
+css BtnWarn() {
+	align-self: center;
+	background-color: var(--color-accent-red);
+	border: 1px solid var(--color-accent-green);
+	border-radius: var(--border-radius);
+	color: var(--color-secondary);
 	box-shadow: var(--box-shadow);
 	cursor: pointer;
 	transition: all 1s;
@@ -290,21 +312,24 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		CardDetailsSection(): {},
 		CardImgSection():     {},
 		Nav():                {},
+		Row():                {},
+		Column():             {},
 		ContainerSecondary(): {},
 		ContainerPrimary():   {},
 		ContainerHeader():    {},
 		LandingContainer():   {},
-		GardenContainer():    {},
 		Input():              {},
 		InputSecondary():     {},
 		InputLabel():         {},
 		InputBig():           {},
+		InputSmall():         {},
 		FieldDescriptor():    {},
 		FieldLabel():         {},
 		CreateBtn():          {},
 		EditBtn():            {},
 		DeleteBtn():          {},
 		Btn():                {},
+		BtnSecondary():       {},
 		SpaceBetween():       {},
 		InventoryItemName():  {},
 		// base.templ
@@ -337,6 +362,7 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		// sign-in.templ
 		SignInContainer(): {},
 		SignInForm():      {},
+		SignInBtn():       {},
 		SignUpLink():      {},
 		PasswordLink():    {},
 		// sign-up.templ

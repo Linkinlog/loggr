@@ -7,12 +7,12 @@ templ GardenInventory(g *models.Garden) {
 	<section class={ ContainerPrimary() }>
 		<nav class={ Nav() }>
 			@Search()
-			<a class={ Btn(), GardenCreateLink(), "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", g.Id())) }>Add</a>
+			<a class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", g.Id())) }>Add</a>
 		</nav>
 		if len(g.Inventory) == 0 {
 			<p>No inventory items, click "Add" to get started!</p>
 		} else {
-			<section class={ Listing(), InventoryListing() }>
+			<section class={ InventoryListing() }>
 				for _, i := range g.Inventory {
 					@ItemCard(i, g.Id())
 				}

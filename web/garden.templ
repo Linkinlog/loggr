@@ -5,7 +5,6 @@ import "fmt"
 
 css FieldsContainer() {
 	margin-bottom: 2rem;
-	display: flex;
 	text-align: start;
 }
 
@@ -47,7 +46,7 @@ templ Garden(g *models.Garden) {
 
 templ gardenFields(g *models.Garden) {
 	<p class={ FieldDescriptor() }>Fields</p>
-	<section class={ ContainerPrimary(), FieldsContainer() }>
+	<section class={ ContainerPrimary(), FieldsContainer(), Column() }>
 		<section class={ Fields() }>
 			<p class={ ContainerSecondary() }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
 			<p class={ ContainerSecondary(), LocationField() }>{ g.Location }</p>

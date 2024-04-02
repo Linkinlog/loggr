@@ -4,7 +4,7 @@ import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
 templ ItemCard(i *models.Item, g string) {
-	<section class={ ContainerSecondary(), Card() }>
+	<section class={ ContainerSecondary(), Card(), Row() }>
 		<section class={ CardDetailsSection() }>
 			<a href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id())) } class={ NoOverFlow(), CardTitle() }>{ i.Name }</a>
 			for _, f := range i.Fields {

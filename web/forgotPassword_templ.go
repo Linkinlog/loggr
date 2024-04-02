@@ -14,6 +14,9 @@ import "strings"
 func ForgotPasswordBtn() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:10rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:3rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:2rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:var(--font-size);`)
 	templ_7745c5c3_CSSID := templ.CSSID(`ForgotPasswordBtn`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
