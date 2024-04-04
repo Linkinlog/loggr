@@ -3,39 +3,43 @@ package web
 import "fmt"
 import "github.com/Linkinlog/loggr/internal/models"
 
-templ NewGardenInventoryItemForm(id string) {
+templ NewGardenInventoryItemForm(id, name, field1, field2, field3, field4, field5 string, iType models.ItemType, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<h2>New Garden Inventory Item</h2>
 		<form action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory", id)) } method="post" enctype="multipart/form-data">
 			@ImageUploader("")
 			<section class={ SpaceBetween() }>
 				<label class={ InputLabel() } for="name">Name</label>
-				<input class={ Input(), InventoryItemName() } type="text" id="name" name="name" placeholder="placeholder text..." required/>
+				<input class={ Input(), InventoryItemName() } type="text" id="name" name="name" placeholder="placeholder text..." required value={ name }/>
 				<label class={ InputLabel() } for="type">Type</label>
 				<select class={ Input() } id="type" name="type" required>
 					for _, t := range models.ItemTypes {
-						<option value={ fmt.Sprintf("%d", t) }>{  fmt.Sprint(t) }</option>
+						if t != iType {
+							<option value={ fmt.Sprintf("%d", t) } selected>{  fmt.Sprint(t) }</option>
+						} else {
+							<option value={ fmt.Sprintf("%d", t) }>{  fmt.Sprint(t) }</option>
+						}
 					}
 				</select>
 			</section>
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary(), Padded() }>
-				@inventoryItemFieldInputs()
+				@inventoryItemFieldInputs(field1, field2, field3, field4, field5)
 				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>
 }
 
-templ inventoryItemFieldInputs() {
+templ inventoryItemFieldInputs(field1, field2, field3, field4, field5 string) {
 	<label class={ InputLabel() } for="field-1">Field 1</label>
-	<input type="text" class={ InputSecondary(), InputSmall() } id="field-1" name="field-1" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-1" name="field-1" placeholder="placeholder text..." value={ field1 }/>
 	<label class={ InputLabel() } for="field-2">Field 2</label>
-	<input type="text" class={ InputSecondary(), InputSmall() } id="field-2" name="field-2" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-2" name="field-2" placeholder="placeholder text..." value={ field2 }/>
 	<label class={ InputLabel() } for="field-3">Field 3</label>
-	<input type="text" class={ InputSecondary(), InputSmall() } id="field-3" name="field-3" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-3" name="field-3" placeholder="placeholder text..." value={ field3 }/>
 	<label class={ InputLabel() } for="field-4">Field 4</label>
-	<input type="text" class={ InputSecondary(), InputSmall() } id="field-4" name="field-4" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-4" name="field-4" placeholder="placeholder text..." value={ field4 }/>
 	<label class={ InputLabel() } for="field-5">Field 5</label>
-	<input type="text" class={ InputSecondary(), InputSmall() } id="field-5" name="field-5" placeholder="placeholder text..."/>
+	<input type="text" class={ InputSecondary(), InputSmall() } id="field-5" name="field-5" placeholder="placeholder text..." value={ field5 }/>
 }

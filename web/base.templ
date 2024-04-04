@@ -33,9 +33,9 @@ templ Header(loggedIn bool) {
 			<a class={ HeaderLink() } href="/about">About</a>
 			<a class={ HeaderLink() } href="/gardens">Gardens</a>
 			if loggedIn {
-				<a class={ HeaderLink() } href="/auth/sign-out">Sign out</a>
+				<a class={ HeaderLink() } href="/auth/sign-out">Sign Out</a>
 			} else {
-				<a class={ HeaderLink() } href="/auth/sign-in">Sign in</a>
+				<a class={ HeaderLink() } href="/auth/sign-in">Sign In</a>
 			}
 		</nav>
 	</header>

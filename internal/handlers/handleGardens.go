@@ -9,6 +9,7 @@ import (
 	"github.com/Linkinlog/loggr/internal/models"
 	"github.com/Linkinlog/loggr/internal/repositories"
 	"github.com/Linkinlog/loggr/internal/services"
+	"github.com/Linkinlog/loggr/web"
 )
 
 func (s *SSR) serveGardens() http.Handler {
@@ -70,6 +71,12 @@ func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
+			if errors.Is(sErr, services.ErrImageUpload) {
+				p := web.NewPage("New Garden", "Welcome to the new garden page", nil)
+
+				err := "error uploading image, please try a different image"
+				return p.Layout(web.NewGarden(name, location, description, err)).Render(r.Context(), w)
+			}
 			return sErr
 		}
 	}
@@ -114,6 +121,12 @@ func (s *SSR) handleUpdateGarden(w http.ResponseWriter, r *http.Request) error {
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
+			if errors.Is(sErr, services.ErrImageUpload) {
+				p := web.NewPage("Edit Garden", "Welcome to the edit garden page", u)
+
+				err := "error uploading image, please try a different image"
+				return p.Layout(web.EditGarden(g, err)).Render(r.Context(), w)
+			}
 			return sErr
 		}
 	}
@@ -176,12 +189,19 @@ func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Reques
 
 	name := r.FormValue("name")
 	t, _ := strconv.Atoi(r.FormValue("type"))
+
+	field1 := r.FormValue("field-1")
+	field2 := r.FormValue("field-2")
+	field3 := r.FormValue("field-3")
+	field4 := r.FormValue("field-4")
+	field5 := r.FormValue("field-5")
+
 	fields := [5]*models.Field{
-		models.NewField("field-1", r.FormValue("field-1")),
-		models.NewField("field-2", r.FormValue("field-2")),
-		models.NewField("field-3", r.FormValue("field-3")),
-		models.NewField("field-4", r.FormValue("field-4")),
-		models.NewField("field-5", r.FormValue("field-5")),
+		models.NewField("field-1", field1),
+		models.NewField("field-2", field2),
+		models.NewField("field-3", field3),
+		models.NewField("field-4", field4),
+		models.NewField("field-5", field5),
 	}
 
 	img := models.NewImage("not-found", "/assets/imageNotFound.webp", "/assets/imageNotFound.webp", "")
@@ -192,6 +212,12 @@ func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Reques
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
+			if errors.Is(sErr, services.ErrImageUpload) {
+				p := web.NewPage(g.Name, "Welcome to the garden inventory page", u)
+
+				err := "error uploading image, please try a different image"
+				return p.Layout(web.NewGardenInventoryItemForm(g.Id(), name, field1, field2, field3, field4, field5, models.ItemType(t), err)).Render(r.Context(), w)
+			}
 			return sErr
 		}
 	}
@@ -243,6 +269,12 @@ func (s *SSR) handleUpdateGardenInventoryItem(w http.ResponseWriter, r *http.Req
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
+			if errors.Is(sErr, services.ErrImageUpload) {
+				p := web.NewPage(g.Name, "Welcome to the garden inventory page", u)
+
+				err := "error uploading image, please try a different image"
+				return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item, err)).Render(r.Context(), w)
+			}
 			return sErr
 		}
 	}

@@ -3,12 +3,15 @@ package web
 import "fmt"
 import "github.com/Linkinlog/loggr/internal/models"
 
-templ EditGardenInventoryItemForm(g string, i *models.Item) {
+templ EditGardenInventoryItemForm(g string, i *models.Item, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader(), Padded() }>
 			<h2>New Garden Inventory Item</h2>
 			<a class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id())) }>Delete</a>
 		</section>
+		if err != "" {
+			<p class={ Error() }>{ err }</p>
+		}
 		<form action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id())) } method="post" enctype="multipart/form-data">
 			@ImageUploader(i.Image.Thumbnail)
 			<section class={ SpaceBetween() }>

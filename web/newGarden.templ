@@ -1,24 +1,27 @@
 package web
 
-templ NewGarden() {
+templ NewGarden(name, location, description, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<h1>New Garden</h1>
+		if err != "" {
+			<p class={ Error() }>{ err }</p>
+		}
 		<form action="/gardens/" method="post" enctype="multipart/form-data">
 			@ImageUploader("")
 			<label class={ InputLabel() } for="name">Name</label>
-			<input class={ Input(), InputSmall() } type="text" id="name" name="name" placeholder="placeholder text..." required/>
+			<input class={ Input(), InputSmall() } type="text" id="name" name="name" placeholder="placeholder text..." required value={ name }/>
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary(), Padded() }>
-				@gardenFieldsInputs()
+				@gardenFieldsInputs(location, description)
 				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>
 }
 
-templ gardenFieldsInputs() {
+templ gardenFieldsInputs(location, description string) {
 	<label class={ InputLabel() } for="location">Location</label>
-	<input class={ InputSecondary(), InputSmall() } type="text" id="location" name="location" placeholder="placeholder text..." required/>
+	<input class={ InputSecondary(), InputSmall() } type="text" id="location" name="location" placeholder="placeholder text..." value={ location } required/>
 	<label class={ InputLabel() } for="description">Description</label>
-	<textarea class={ InputSecondary(), InputBig() } type="number" id="description" name="description" placeholder="placeholder text..."></textarea>
+	<textarea class={ InputSecondary(), InputBig() } type="number" id="description" name="description" placeholder="placeholder text...">{ description }</textarea>
 }

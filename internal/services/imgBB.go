@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -13,7 +12,10 @@ import (
 	"github.com/Linkinlog/loggr/internal/models"
 )
 
-var ErrImageNil = errors.New("imgbb: image is nil")
+var (
+	ErrImageNil    = errors.New("imgbb: image is nil")
+	ErrImageUpload = errors.New("imgbb: image upload failed")
+)
 
 func NewImageBB(k string) *ImageBB {
 	u := &url.URL{
@@ -93,7 +95,7 @@ func parseResponse(resp *http.Response) (*models.Image, error) {
 	}
 
 	if !ibb.Sucess {
-		return nil, errors.New("imgbb: " + fmt.Sprint(resp.StatusCode))
+		return nil, ErrImageUpload
 	}
 
 	return &models.Image{

@@ -131,7 +131,7 @@ func (s *SSR) handleEditGardenForm(w http.ResponseWriter, r *http.Request) error
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("Edit Garden", "Welcome to the edit garden page", u)
 
-	return p.Layout(web.EditGarden(g)).Render(r.Context(), w)
+	return p.Layout(web.EditGarden(g, "")).Render(r.Context(), w)
 }
 
 func (s *SSR) handleEditGardenInventoryItemForm(w http.ResponseWriter, r *http.Request) error {
@@ -152,7 +152,7 @@ func (s *SSR) handleEditGardenInventoryItemForm(w http.ResponseWriter, r *http.R
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("Edit Inventory Item", "Welcome to the edit inventory item page", u)
 
-	return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item)).Render(r.Context(), w)
+	return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item, "")).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
@@ -190,7 +190,7 @@ func (s *SSR) handleNewGardenInventoryItemForm(w http.ResponseWriter, r *http.Re
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("New Inventory Item", "Welcome to the new inventory item page", u)
 
-	return p.Layout(web.NewGardenInventoryItemForm(g.Id())).Render(r.Context(), w)
+	return p.Layout(web.NewGardenInventoryItemForm(g.Id(), "", "", "", "", "", "", 0, "")).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) error {
@@ -266,7 +266,7 @@ func handleNewGardenForm(w http.ResponseWriter, r *http.Request) error {
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("New Garden", "Welcome to the new garden page", u)
 
-	return p.Layout(web.NewGarden()).Render(r.Context(), w)
+	return p.Layout(web.NewGarden("", "", "", "")).Render(r.Context(), w)
 }
 
 func handleSignInPage(w http.ResponseWriter, r *http.Request) error {

@@ -2,12 +2,15 @@ package web
 
 import "github.com/Linkinlog/loggr/internal/models"
 
-templ EditGarden(g *models.Garden) {
+templ EditGarden(g *models.Garden, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader(), Padded() }>
 			<h1>Edit Garden</h1>
 			<a class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/delete") }>Delete</a>
 		</section>
+		if err != "" {
+			<p class={ Error() }>{ err }</p>
+		}
 		<form action={ templ.URL("/gardens/" + g.Id()) } method="post" enctype="multipart/form-data">
 			@ImageUploader(g.Image.Thumbnail)
 			<label class={ InputLabel() } for="name">Name</label>
