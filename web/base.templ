@@ -29,13 +29,13 @@ templ Header(loggedIn bool) {
 	<header>
 		<p class={ Warning() }>This site is in demo mode. All data is temporary and will be deleted.</p>
 		<nav class={ Nav() }>
-			<a class={ HeaderBrand() } href="/">Loggr</a>
-			<a class={ HeaderLink() } href="/about">About</a>
-			<a class={ HeaderLink() } href="/gardens">Gardens</a>
+			<a hx-boost="true" class={ HeaderBrand() } href="/">Loggr</a>
+			<a hx-boost="true" class={ HeaderLink() } href="/about">About</a>
+			<a hx-boost="true" class={ HeaderLink() } href="/gardens">Gardens</a>
 			if loggedIn {
-				<a class={ HeaderLink() } href="/auth/sign-out">Sign Out</a>
+				<a hx-boost="true" class={ HeaderLink() } href="/auth/sign-out">Sign Out</a>
 			} else {
-				<a class={ HeaderLink() } href="/auth/sign-in">Sign In</a>
+				<a hx-boost="true" class={ HeaderLink() } href="/auth/sign-in">Sign In</a>
 			}
 		</nav>
 	</header>

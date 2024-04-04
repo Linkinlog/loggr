@@ -6,8 +6,18 @@ import "github.com/Linkinlog/loggr/internal/models"
 templ NewGardenInventoryItemForm(id, name, field1, field2, field3, field4, field5 string, iType models.ItemType, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<h2>New Garden Inventory Item</h2>
-		<form action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory", id)) } method="post" enctype="multipart/form-data">
+		if err != "" {
+			<p class={ Error() }>{ err }</p>
+		}
+		<form
+			hx-boost="true"
+			action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory", id)) }
+			method="post"
+			hx-indicator="#loading"
+			enctype="multipart/form-data"
+		>
 			@ImageUploader("")
+			@HxIndicator()
 			<section class={ SpaceBetween() }>
 				<label class={ InputLabel() } for="name">Name</label>
 				<input class={ Input(), InventoryItemName() } type="text" id="name" name="name" placeholder="placeholder text..." required value={ name }/>

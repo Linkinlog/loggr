@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/Linkinlog/loggr/internal/env"
 	"github.com/Linkinlog/loggr/internal/handlers"
 	"github.com/Linkinlog/loggr/internal/models"
 	"github.com/Linkinlog/loggr/internal/stores"
@@ -12,7 +13,13 @@ import (
 const addr = ":8080"
 
 func main() {
-	l := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	programLevel := slog.LevelError
+	debug := env.NewEnv().Get("DEBUG")
+	if debug == "true" {
+		programLevel = slog.LevelDebug
+	}
+
+	l := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: programLevel}))
 
 	m := stores.NewInMemory([]*models.User{})
 

@@ -21,14 +21,14 @@ css SignUpForm() {
 templ SignUp(err string) {
 	<section class={ ContainerSecondary(), SignUpContainer() }>
 		<h1>Sign Up</h1>
-		<form class={ SignUpForm() } action="/auth/sign-up" method="post">
+		<form hx-boost="true" class={ SignUpForm() } action="/auth/sign-up" method="post">
 			<label class={ InputLabel() } for="name">Name</label>
 			<input type="text" id="name" name="name" placeholder="Rick Astley" class={ Input(), InputSmall() } required/>
 			<label class={ InputLabel() } for="email">Email</label>
 			<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ Input(), InputSmall() } required/>
 			<label class={ InputLabel() } for="password">Password</label>
 			<input type="password" id="password" name="password" placeholder="hunter2" class={ Input(), InputSmall() } required/>
-			<a class={ PasswordLink() } href="/auth/sign-in">Already have an account? Sign in here</a>
+			<a hx-boost="true" class={ PasswordLink() } href="/auth/sign-in">Already have an account? Sign in here</a>
 			<button class={ Btn(), SignUpBtn(), "hover-secondary" } type="submit">Sign Up</button>
 			if err != "" {
 				<p class={ Error() }>{ err }</p>

@@ -1,5 +1,7 @@
 package web
 
+import "fmt"
+
 css SearchInput() {
 	background-color: var(--color-secondary);
 	color: var(--color-primary);
@@ -16,12 +18,22 @@ css SearchForm() {
 	width: 100%;
 }
 
-templ Search(resource, query string) {
-	<form class={ SearchForm() } action={ templ.URL(resource) } method="get">
-		if query != "" {
-			<input class={ SearchInput() } type="text" name="search" value={ query }/>
-		} else {
-			<input class={ SearchInput() } type="text" name="search" placeholder="Search..."/>
-		}
+templ Search(resource, query, target string) {
+	<form hx-boost="true" class={ SearchForm() } action={ templ.URL(resource) } method="get">
+		<input
+			class={ SearchInput() }
+			type="text"
+			name="search"
+			type="search"
+			hx-trigger="input changed delay:500ms, search"
+			hx-get={ string(templ.URL(resource)) }
+			hx-target={ fmt.Sprintf("#%s", target) }
+			hx-select={ fmt.Sprintf("#%s", target) }
+			hx-swap="outerHTML"
+			placeholder="Search..."
+			if query != "" {
+				value={ query }
+			}
+		/>
 	</form>
 }

@@ -3,20 +3,25 @@ package web
 import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
+css NoItems() {
+	margin-top: 4rem;
+	grid-column: span 2;
+}
+
 templ GardenInventory(id, query string, items []*models.Item) {
 	<section class={ ContainerPrimary(), Padded() }>
 		<nav class={ Nav() }>
-			@Search("/gardens/"+id+"/inventory", query)
-			<a class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", id)) }>Add</a>
+			@Search("/gardens/"+id+"/inventory", query, "inventory")
+			<a hx-boost="true" class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", id)) }>Add</a>
 		</nav>
-		if len(items) == 0 {
-			<p>No inventory items, click "Add" to get started!</p>
-		} else {
-			<section class={ InventoryListing() }>
+		<section id="inventory" class={ InventoryListing() }>
+			if len(items) == 0 {
+				<p class={ NoItems() }>No inventory items, click "Add" to get started!</p>
+			} else {
 				for _, i := range items {
 					@ItemCard(i, id)
 				}
-			</section>
-		}
+			}
+		</section>
 	</section>
 }

@@ -7,13 +7,20 @@ templ EditGardenInventoryItemForm(g string, i *models.Item, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader(), Padded() }>
 			<h2>New Garden Inventory Item</h2>
-			<a class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id())) }>Delete</a>
+			<a hx-boost="true" class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id())) }>Delete</a>
 		</section>
 		if err != "" {
 			<p class={ Error() }>{ err }</p>
 		}
-		<form action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id())) } method="post" enctype="multipart/form-data">
+		<form
+			hx-boost="true"
+			action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id())) }
+			method="post"
+			hx-indicator="#loading"
+			enctype="multipart/form-data"
+		>
 			@ImageUploader(i.Image.Thumbnail)
+			@HxIndicator()
 			<section class={ SpaceBetween() }>
 				<label class={ InputLabel() } for="name">Name</label>
 				<input class={ Input(), InventoryItemName() } type="text" id="name" name="name" value={ i.Name } placeholder="placeholder text..." required/>

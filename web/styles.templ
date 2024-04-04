@@ -308,6 +308,15 @@ templ globalStyles() {
           transform : translateY(-0.2rem);
         }
 
+        .htmx-indicator {
+          display: none;
+        }
+        .htmx-request .htmx-indicator {
+          display: block;
+        }
+        .htmx-request.htmx-indicator {
+          display: block;
+        }
     </style>
 }
 
@@ -360,6 +369,8 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		// gardenListing.templ
 		GardenCreateLink(): {},
 		NoGardens():        {},
+		// gardenInventory.templ
+		NoItems(): {},
 		// gardenInventoryItem.templ
 		ItemAndType():    {},
 		InventoryField(): {},
@@ -385,6 +396,9 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		// sign-up.templ
 		SignUpContainer(): {},
 		SignUpForm():      {},
+		SignUpBtn():       {},
+		// forgotPassword.templ
+		ForgotPasswordBtn(): {},
 	}
 }
 

@@ -6,8 +6,15 @@ templ NewGarden(name, location, description, err string) {
 		if err != "" {
 			<p class={ Error() }>{ err }</p>
 		}
-		<form action="/gardens/" method="post" enctype="multipart/form-data">
+		<form
+			hx-boost="true"
+			action="/gardens/"
+			method="post"
+			hx-indicator="#loading"
+			enctype="multipart/form-data"
+		>
 			@ImageUploader("")
+			@HxIndicator()
 			<label class={ InputLabel() } for="name">Name</label>
 			<input class={ Input(), InputSmall() } type="text" id="name" name="name" placeholder="placeholder text..." required value={ name }/>
 			<p class={ FieldDescriptor() }>Fields</p>

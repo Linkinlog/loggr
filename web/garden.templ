@@ -37,7 +37,7 @@ templ Garden(g *models.Garden, inventory []*models.Item, query string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader() }>
 			<h1>{ g.Name }</h1>
-			<a class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
+			<a hx-boost="true" class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
 		</section>
 		<img class={ GardenImg() } src={ g.Image.URL } alt={ g.Name }/>
 		@gardenFields(g)
