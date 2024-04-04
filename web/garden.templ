@@ -33,7 +33,7 @@ css GardenImg() {
 	margin-bottom: 2rem;
 }
 
-templ Garden(g *models.Garden) {
+templ Garden(g *models.Garden, inventory []*models.Item, query string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader() }>
 			<h1>{ g.Name }</h1>
@@ -41,7 +41,7 @@ templ Garden(g *models.Garden) {
 		</section>
 		<img class={ GardenImg() } src={ g.Image.URL } alt={ g.Name }/>
 		@gardenFields(g)
-		@gardenInventory(g)
+		@gardenInventory(g, inventory, query)
 	</section>
 }
 
@@ -58,7 +58,7 @@ templ gardenFields(g *models.Garden) {
 	</section>
 }
 
-templ gardenInventory(g *models.Garden) {
+templ gardenInventory(g *models.Garden, inventory []*models.Item, query string) {
 	<p class={ FieldDescriptor() }>Inventory</p>
-	@GardenInventory(g)
+	@GardenInventory(g.Id(), query, inventory)
 }

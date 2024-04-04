@@ -13,7 +13,7 @@ import "bytes"
 import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
-func GardenInventory(g *models.Garden) templ.Component {
+func GardenInventory(id, query string, items []*models.Item) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -70,7 +70,7 @@ func GardenInventory(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = Search("/gardens/"+g.Id()+"/inventory").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Search("/gardens/"+id+"/inventory", query).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -96,7 +96,7 @@ func GardenInventory(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", g.Id()))
+		var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", id))
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var8)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -105,7 +105,7 @@ func GardenInventory(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if len(g.Inventory) == 0 {
+		if len(items) == 0 {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>No inventory items, click \"Add\" to get started!</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -133,8 +133,8 @@ func GardenInventory(g *models.Garden) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for _, i := range g.Inventory {
-				templ_7745c5c3_Err = ItemCard(i, g.Id()).Render(ctx, templ_7745c5c3_Buffer)
+			for _, i := range items {
+				templ_7745c5c3_Err = ItemCard(i, id).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

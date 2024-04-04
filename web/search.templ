@@ -16,8 +16,12 @@ css SearchForm() {
 	width: 100%;
 }
 
-templ Search(resource string) {
+templ Search(resource, query string) {
 	<form class={ SearchForm() } action={ templ.URL(resource) } method="get">
-		<input class={ SearchInput() } type="text" name="search" placeholder="Search..."/>
+		if query != "" {
+			<input class={ SearchInput() } type="text" name="search" value={ query }/>
+		} else {
+			<input class={ SearchInput() } type="text" name="search" placeholder="Search..."/>
+		}
 	</form>
 }

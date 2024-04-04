@@ -205,7 +205,15 @@ func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) erro
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage(g.Name, "Welcome to the garden inventory page", u)
 
-	return p.Layout(web.GardenInventory(g)).Render(r.Context(), w)
+	inventory := g.Inventory
+	search := r.URL.Query().Has("search")
+	query := ""
+	if search {
+		query = r.URL.Query().Get("search")
+		http.Redirect(w, r, "/gardens/"+g.Id()+"?search="+query, http.StatusSeeOther)
+	}
+
+	return p.Layout(web.GardenInventory(g.Id(), query, inventory)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
@@ -220,7 +228,16 @@ func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage(g.Name, "Welcome to the garden page", u)
 
-	return p.Layout(web.Garden(g)).Render(r.Context(), w)
+	gardens := g.Inventory
+
+	search := r.URL.Query().Has("search")
+	query := ""
+	if search {
+		query = r.URL.Query().Get("search")
+		gardens = models.SearchItems(gardens, query)
+	}
+
+	return p.Layout(web.Garden(g, gardens, query)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error {
@@ -230,11 +247,19 @@ func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error 
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("Gardens", "Welcome to the gardens page", u)
 
-	if u == nil {
-		return p.Layout(web.GardenListing(s.defaultGardens)).Render(r.Context(), w)
+	gardens := s.defaultGardens
+	if u != nil {
+		gardens = u.ListGardens()
 	}
 
-	return p.Layout(web.GardenListing(u.ListGardens())).Render(r.Context(), w)
+	search := r.URL.Query().Has("search")
+	query := ""
+	if search {
+		query = r.URL.Query().Get("search")
+		gardens = models.SearchGardens(gardens, query)
+	}
+
+	return p.Layout(web.GardenListing(gardens, query)).Render(r.Context(), w)
 }
 
 func handleNewGardenForm(w http.ResponseWriter, r *http.Request) error {

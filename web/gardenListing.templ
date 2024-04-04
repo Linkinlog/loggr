@@ -14,10 +14,10 @@ css NoGardens() {
 	margin-top: 4rem;
 }
 
-templ GardenListing(gardens []*models.Garden) {
+templ GardenListing(gardens []*models.Garden, query string) {
 	<section>
 		<nav class={ Nav() }>
-			@Search("/gardens")
+			@Search("/gardens", query)
 			<a class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href="/gardens/new">Add</a>
 		</nav>
 		if len(gardens) == 0 {

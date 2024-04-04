@@ -74,7 +74,7 @@ func GardenImg() templ.CSSClass {
 	}
 }
 
-func Garden(g *models.Garden) templ.Component {
+func Garden(g *models.Garden, inventory []*models.Item, query string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -227,7 +227,7 @@ func Garden(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = gardenInventory(g).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = gardenInventory(g, inventory, query).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -439,7 +439,7 @@ func gardenFields(g *models.Garden) templ.Component {
 	})
 }
 
-func gardenInventory(g *models.Garden) templ.Component {
+func gardenInventory(g *models.Garden, inventory []*models.Item, query string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -474,7 +474,7 @@ func gardenInventory(g *models.Garden) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = GardenInventory(g).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = GardenInventory(g.Id(), query, inventory).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

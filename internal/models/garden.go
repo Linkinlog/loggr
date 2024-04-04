@@ -1,5 +1,20 @@
 package models
 
+import "strings"
+
+func SearchGardens(gardens []*Garden, name string) []*Garden {
+	found := []*Garden{}
+	for _, garden := range gardens {
+		gName := strings.ToLower(garden.Name)
+		name = strings.ToLower(name)
+
+		if strings.Contains(gName, name) {
+			found = append(found, garden)
+		}
+	}
+	return found
+}
+
 func NewGarden(n, l, d string, img *Image, i []*Item) *Garden {
 	return &Garden{
 		id:          genId(),
