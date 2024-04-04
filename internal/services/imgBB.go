@@ -31,11 +31,6 @@ type ImageBB struct {
 	apiUrl *url.URL
 }
 
-func (i *ImageBB) DeleteImage(im *models.Image) error {
-	_, err := http.NewRequest("GET", im.DeleteURL, nil)
-	return err
-}
-
 func (i *ImageBB) StoreImage(image io.Reader, name string) (*models.Image, error) {
 	if image == nil {
 		return nil, ErrImageNil

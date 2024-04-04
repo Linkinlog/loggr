@@ -3,6 +3,12 @@ package models
 import (
 	"crypto/rand"
 	"fmt"
+	"time"
+)
+
+const (
+	MaxTTL         = 7 * 24 * time.Hour
+	MinTokenLength = 32
 )
 
 func genId() string {

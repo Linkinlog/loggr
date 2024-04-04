@@ -6,6 +6,7 @@ import "fmt"
 css FieldsContainer() {
 	margin-bottom: 2rem;
 	text-align: start;
+	padding: 1rem;
 }
 
 css Fields() {
@@ -33,7 +34,7 @@ css GardenImg() {
 }
 
 templ Garden(g *models.Garden) {
-	<section class={ ContainerSecondary() }>
+	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader() }>
 			<h1>{ g.Name }</h1>
 			<a class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
@@ -48,11 +49,11 @@ templ gardenFields(g *models.Garden) {
 	<p class={ FieldDescriptor() }>Fields</p>
 	<section class={ ContainerPrimary(), FieldsContainer(), Column() }>
 		<section class={ Fields() }>
-			<p class={ ContainerSecondary() }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
-			<p class={ ContainerSecondary(), LocationField() }>{ g.Location }</p>
+			<p class={ ContainerSecondary(), Padded() }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
+			<p class={ ContainerSecondary(), Padded(), LocationField() }>{ g.Location }</p>
 		</section>
 		if g.Description != "" {
-			<p class={ ContainerSecondary(), DescriptionField() }>{ g.Description }</p>
+			<p class={ ContainerSecondary(), Padded(), DescriptionField() }>{ g.Description }</p>
 		}
 	</section>
 }

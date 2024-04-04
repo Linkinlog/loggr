@@ -4,7 +4,7 @@ import "fmt"
 import "github.com/Linkinlog/loggr/internal/models"
 
 templ NewGardenInventoryItemForm(id string) {
-	<section class={ ContainerSecondary() }>
+	<section class={ ContainerSecondary(), Padded() }>
 		<h2>New Garden Inventory Item</h2>
 		<form action={ templ.URL(fmt.Sprintf("/gardens/%s/inventory", id)) } method="post" enctype="multipart/form-data">
 			@ImageUploader("")
@@ -19,7 +19,7 @@ templ NewGardenInventoryItemForm(id string) {
 				</select>
 			</section>
 			<p class={ FieldDescriptor() }>Fields</p>
-			<section class={ ContainerPrimary() }>
+			<section class={ ContainerPrimary(), Padded() }>
 				@inventoryItemFieldInputs()
 				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
 			</section>

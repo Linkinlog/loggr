@@ -1,14 +1,14 @@
 package web
 
 templ NewGarden() {
-	<section class={ ContainerSecondary() }>
+	<section class={ ContainerSecondary(), Padded() }>
 		<h1>New Garden</h1>
 		<form action="/gardens/" method="post" enctype="multipart/form-data">
 			@ImageUploader("")
 			<label class={ InputLabel() } for="name">Name</label>
 			<input class={ Input(), InputSmall() } type="text" id="name" name="name" placeholder="placeholder text..." required/>
 			<p class={ FieldDescriptor() }>Fields</p>
-			<section class={ ContainerPrimary() }>
+			<section class={ ContainerPrimary(), Padded() }>
 				@gardenFieldsInputs()
 				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
 			</section>

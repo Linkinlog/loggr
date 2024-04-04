@@ -28,6 +28,7 @@ func NewUser(name, email string, passwordString string) (*User, error) {
 		LastName:  lastName,
 		Email:     email,
 		password:  password,
+		Gardens:   make(map[string]*Garden),
 	}, nil
 }
 
@@ -46,6 +47,7 @@ type User struct {
 	LastName  string
 	Email     string
 	password  []byte
+	Gardens   map[string]*Garden
 }
 
 type UserCtxKey string
@@ -79,4 +81,30 @@ func (u *User) ChangePassword(passwordString string) error {
 
 	u.password = password
 	return nil
+}
+
+func (u *User) RegisterGarden(g *Garden) error {
+	if _, ok := u.Gardens[g.Id()]; ok {
+		return GardenAlreadyRegistered
+	}
+
+	u.Gardens[g.Id()] = g
+	return nil
+}
+
+func (u *User) UnregisterGarden(g *Garden) error {
+	if _, ok := u.Gardens[g.Id()]; !ok {
+		return ErrNotFound
+	}
+
+	delete(u.Gardens, g.Id())
+	return nil
+}
+
+func (u *User) ListGardens() []*Garden {
+	gardens := make([]*Garden, 0, len(u.Gardens))
+	for _, g := range u.Gardens {
+		gardens = append(gardens, g)
+	}
+	return gardens
 }

@@ -29,7 +29,7 @@ css ItemLabel() {
 }
 
 templ GardenInventoryItem(g string, i *models.Item) {
-	<section class={ ContainerSecondary() }>
+	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader() }>
 			<h2>{ i.Name }</h2>
 			<a class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g + "/inventory/" + i.Id() + "/edit") }>Edit</a>
@@ -42,7 +42,7 @@ templ GardenInventoryItem(g string, i *models.Item) {
 			<p class={ ContainerPrimary(), InventoryField() }>{ i.Type.String() }</p>
 		</section>
 		<p class={ FieldDescriptor() }>Fields</p>
-		<section class={ ContainerPrimary() }>
+		<section class={ ContainerPrimary(), Padded() }>
 			@inventoryItemFields(i)
 		</section>
 	</section>
@@ -52,7 +52,7 @@ templ inventoryItemFields(i *models.Item) {
 	for i, f := range i.Fields {
 		if f != nil && f.Description != "" {
 			<label class={ InputLabel() } for={ "field-" + fmt.Sprint(i+1) }>Field { fmt.Sprint(i+1) }</label>
-			<p id={ "field-" + fmt.Sprint(i+1) } class={ ContainerSecondary(), FieldLabel() }>{ f.Description }</p>
+			<p id={ "field-" + fmt.Sprint(i+1) } class={ ContainerSecondary(), Padded(), FieldLabel() }>{ f.Description }</p>
 		}
 	}
 }

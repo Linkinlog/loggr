@@ -4,8 +4,8 @@ import "fmt"
 import "github.com/Linkinlog/loggr/internal/models"
 
 templ EditGardenInventoryItemForm(g string, i *models.Item) {
-	<section class={ ContainerSecondary() }>
-		<section class={ ContainerHeader() }>
+	<section class={ ContainerSecondary(), Padded() }>
+		<section class={ ContainerHeader(), Padded() }>
 			<h2>New Garden Inventory Item</h2>
 			<a class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id())) }>Delete</a>
 		</section>
@@ -26,9 +26,9 @@ templ EditGardenInventoryItemForm(g string, i *models.Item) {
 				</select>
 			</section>
 			<p class={ FieldDescriptor() }>Fields</p>
-			<section class={ ContainerPrimary() }>
+			<section class={ ContainerPrimary(), Padded() }>
 				@inventoryItemFieldEditInputs(i)
-				<button class={ Btn(), CreateBtn(), "hover-primary" } type="submit">Update</button>
+				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Update</button>
 			</section>
 		</form>
 	</section>
@@ -38,10 +38,10 @@ templ inventoryItemFieldEditInputs(i *models.Item) {
 	for i, f := range i.Fields {
 		if f != nil {
 			<label class={ InputLabel() } for={ "field-" + fmt.Sprint(i+1) }>Field { fmt.Sprint(i+1) }</label>
-			<input name={ "field-" + fmt.Sprint(i+1) } id={ "field-" + fmt.Sprint(i+1) } class={ ContainerSecondary(), FieldLabel() } value={ f.Description }/>
+			<input name={ "field-" + fmt.Sprint(i+1) } id={ "field-" + fmt.Sprint(i+1) } class={ InputSecondary(), InputSmall() } value={ f.Description }/>
 		} else {
 			<label class={ InputLabel() } for={ "field-" + fmt.Sprint(i+1) }>Field { fmt.Sprint(i+1) }</label>
-			<input name={ "field-" + fmt.Sprint(i+1) } id={ "field-" + fmt.Sprint(i+1) } class={ ContainerSecondary(), FieldLabel() }/>
+			<input name={ "field-" + fmt.Sprint(i+1) } id={ "field-" + fmt.Sprint(i+1) } class={ InputSecondary(), InputSmall() }/>
 		}
 	}
 }

@@ -71,6 +71,8 @@ func HeaderBrand() templ.CSSClass {
 
 func Warning() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`background-color:#FF9900;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`color:black;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:1rem;`)

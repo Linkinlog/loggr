@@ -6,11 +6,18 @@ css SearchInput() {
 	border-radius: var(--border-radius);
 	box-shadow: var(--box-shadow);
 	border: 1px solid var(--color-accent-green);
-	min-height: 1.2rem;
+	min-height: 1.75rem;
 	min-width: 55%;
 	padding: 0 0.5rem;
+	float: left;
 }
 
-templ Search() {
-	<input class={ SearchInput() } type="text" name="search" placeholder="Search..."/>
+css SearchForm() {
+	width: 100%;
+}
+
+templ Search(resource string) {
+	<form class={ SearchForm() } action={ templ.URL(resource) } method="get">
+		<input class={ SearchInput() } type="text" name="search" placeholder="Search..."/>
+	</form>
 }

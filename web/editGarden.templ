@@ -3,8 +3,8 @@ package web
 import "github.com/Linkinlog/loggr/internal/models"
 
 templ EditGarden(g *models.Garden) {
-	<section class={ ContainerSecondary() }>
-		<section class={ ContainerHeader() }>
+	<section class={ ContainerSecondary(), Padded() }>
+		<section class={ ContainerHeader(), Padded() }>
 			<h1>Edit Garden</h1>
 			<a class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/delete") }>Delete</a>
 		</section>
@@ -13,7 +13,7 @@ templ EditGarden(g *models.Garden) {
 			<label class={ InputLabel() } for="name">Name</label>
 			<input class={ Input(), InputSmall() } type="text" id="name" name="name" value={ g.Name } placeholder="placeholder text..." required/>
 			<p class={ FieldDescriptor() }>Fields</p>
-			<section class={ ContainerPrimary() }>
+			<section class={ ContainerPrimary(), Padded() }>
 				@gardenFieldsEditInputs(g)
 				<button class={ Btn(), CreateBtn(), "hover-primary" } type="submit">Update</button>
 			</section>

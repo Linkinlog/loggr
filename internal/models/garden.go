@@ -25,7 +25,32 @@ func (g *Garden) Id() string {
 }
 
 func (g *Garden) AddItem(i *Item) {
+	if i == nil {
+		return
+	}
+
 	g.Inventory = append(g.Inventory, i)
+}
+
+func (g *Garden) GetItem(id string) *Item {
+	for _, item := range g.Inventory {
+		if item.Id() == id {
+			return item
+		}
+	}
+	return nil
+}
+
+func (g *Garden) RemoveItem(i *Item) {
+	if i == nil {
+		return
+	}
+	for j, item := range g.Inventory {
+		if item.Id() == i.Id() {
+			g.Inventory = append(g.Inventory[:j], g.Inventory[j+1:]...)
+			return
+		}
+	}
 }
 
 func (g *Garden) Plants() []*Item {

@@ -39,8 +39,8 @@ func UploaderContainer() templ.CSSClass {
 
 func GardenPic() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`width:4rem;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`height:4rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`width:8rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`height:8rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`object-fit:cover;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:var(--border-radius);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`box-shadow:var(--box-shadow);`)

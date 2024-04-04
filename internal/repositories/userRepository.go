@@ -12,8 +12,6 @@ type UserStorer interface {
 	AddUser(u *models.User) (string, error)
 	GetUser(id string) (*models.User, error)
 	UpdateUser(id string, u *models.User) error
-	DeleteUser(id string) error
-	ListUsers() ([]*models.User, error)
 }
 
 func NewUserRepository(s UserStorer) *UserRepository {
@@ -41,10 +39,15 @@ func (ur *UserRepository) Update(id string, u *models.User) error {
 	return ur.store.UpdateUser(id, u)
 }
 
-func (ur *UserRepository) Delete(id string) error {
-	return ur.store.DeleteUser(id)
-}
+func (ur *UserRepository) Save(u *models.User) (string, error) {
+	if u == nil {
+		return "", ErrNilUser
+	}
 
-func (ur *UserRepository) List() ([]*models.User, error) {
-	return ur.store.ListUsers()
+	id, err := ur.Add(u)
+	if errors.Is(err, models.ErrAlreadyExists) {
+		return id, ur.Update(id, u)
+	}
+
+	return id, err
 }

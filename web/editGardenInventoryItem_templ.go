@@ -26,7 +26,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{ContainerSecondary()}
+		var templ_7745c5c3_Var2 = []any{ContainerSecondary(), Padded()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -48,7 +48,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{ContainerHeader()}
+		var templ_7745c5c3_Var4 = []any{ContainerHeader(), Padded()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -328,7 +328,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var27 = []any{ContainerPrimary()}
+		var templ_7745c5c3_Var27 = []any{ContainerPrimary(), Padded()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var27...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -354,7 +354,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var29 = []any{Btn(), CreateBtn(), "hover-primary"}
+		var templ_7745c5c3_Var29 = []any{BtnSecondary(), CreateBtn(), "hover-primary"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var29...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -446,7 +446,7 @@ func inventoryItemFieldEditInputs(i *models.Item) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var36 = []any{ContainerSecondary(), FieldLabel()}
+				var templ_7745c5c3_Var36 = []any{InputSecondary(), InputSmall()}
 				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var36...)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -497,7 +497,7 @@ func inventoryItemFieldEditInputs(i *models.Item) templ.Component {
 				var templ_7745c5c3_Var40 string
 				templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(f.Description)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/editGardenInventoryItem.templ`, Line: 41, Col: 146}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/editGardenInventoryItem.templ`, Line: 41, Col: 142}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
 				if templ_7745c5c3_Err != nil {
@@ -556,7 +556,7 @@ func inventoryItemFieldEditInputs(i *models.Item) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var45 = []any{ContainerSecondary(), FieldLabel()}
+				var templ_7745c5c3_Var45 = []any{InputSecondary(), InputSmall()}
 				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var45...)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err

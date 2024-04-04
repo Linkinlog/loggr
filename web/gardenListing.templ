@@ -17,7 +17,7 @@ css NoGardens() {
 templ GardenListing(gardens []*models.Garden) {
 	<section>
 		<nav class={ Nav() }>
-			@Search()
+			@Search("/gardens")
 			<a class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href="/gardens/new">Add</a>
 		</nav>
 		if len(gardens) == 0 {

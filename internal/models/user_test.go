@@ -123,3 +123,51 @@ func TestUser_ChangePassword(t *testing.T) {
 	assert.Nil(t, err)
 	assert.True(t, u.CheckPassword(newPassword))
 }
+
+func TestUser_RegisterGarden(t *testing.T) {
+	t.Parallel()
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	assert.Nil(t, err)
+
+	g := models.NewGarden("Gotham", "Gotham City", "The Batcave", models.NewImage("id", "url", "thumbnail", ""), []*models.Item{})
+
+	err = u.RegisterGarden(g)
+
+	assert.Nil(t, err)
+	assert.Equal(t, g, u.Gardens[g.Id()])
+}
+
+func TestUser_UnregisterGarden(t *testing.T) {
+	t.Parallel()
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	assert.Nil(t, err)
+
+	g := models.NewGarden("Gotham", "Gotham City", "The Batcave", models.NewImage("id", "url", "thumbnail", ""), []*models.Item{})
+
+	u.Gardens[g.Id()] = g
+
+	err = u.UnregisterGarden(g)
+	assert.Nil(t, err)
+
+	_, ok := u.Gardens[g.Id()]
+	assert.False(t, ok)
+}
+
+func TestUser_ListGardens(t *testing.T) {
+	t.Parallel()
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	assert.Nil(t, err)
+
+	g1 := models.NewGarden("Gotham", "Gotham City", "The Batcave", models.NewImage("id", "url", "thumbnail", ""), []*models.Item{})
+
+	g2 := models.NewGarden("Metropolis", "Metropolis City", "The Daily Planet", models.NewImage("id", "url", "thumbnail", ""), []*models.Item{})
+
+	u.Gardens[g1.Id()] = g1
+	u.Gardens[g2.Id()] = g2
+
+	gardens := u.ListGardens()
+
+	assert.Len(t, gardens, 2)
+	assert.Contains(t, gardens, g1)
+	assert.Contains(t, gardens, g2)
+}

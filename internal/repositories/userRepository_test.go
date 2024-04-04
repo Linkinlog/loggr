@@ -11,7 +11,7 @@ import (
 
 func TestNewUserRepository(t *testing.T) {
 	t.Parallel()
-	store := stores.NewInMemory(nil, nil)
+	store := stores.NewInMemory(nil)
 	ur := repositories.NewUserRepository(store)
 
 	assert.NotNil(t, ur)
@@ -19,7 +19,7 @@ func TestNewUserRepository(t *testing.T) {
 
 func TestUserRepository_Add(t *testing.T) {
 	t.Parallel()
-	store := stores.NewInMemory(nil, nil)
+	store := stores.NewInMemory(nil)
 	ur := repositories.NewUserRepository(store)
 
 	u, _ := models.NewUser("Batman", "idk@lol.com", "password123")
@@ -34,7 +34,7 @@ func TestUserRepository_Add(t *testing.T) {
 
 func TestUserRepository_Get(t *testing.T) {
 	t.Parallel()
-	store := stores.NewInMemory(nil, nil)
+	store := stores.NewInMemory(nil)
 	ur := repositories.NewUserRepository(store)
 
 	_, err := ur.Get("id")
@@ -43,28 +43,9 @@ func TestUserRepository_Get(t *testing.T) {
 
 func TestUserRepository_Update(t *testing.T) {
 	t.Parallel()
-	store := stores.NewInMemory(nil, nil)
+	store := stores.NewInMemory(nil)
 	ur := repositories.NewUserRepository(store)
 
 	err := ur.Update("id", nil)
 	assert.Error(t, err)
-}
-
-func TestUserRepository_Delete(t *testing.T) {
-	t.Parallel()
-	store := stores.NewInMemory(nil, nil)
-	ur := repositories.NewUserRepository(store)
-
-	err := ur.Delete("id")
-	assert.Error(t, err)
-}
-
-func TestUserRepository_List(t *testing.T) {
-	t.Parallel()
-	store := stores.NewInMemory(nil, nil)
-	ur := repositories.NewUserRepository(store)
-
-	users, err := ur.List()
-	assert.NoError(t, err)
-	assert.Empty(t, users)
 }

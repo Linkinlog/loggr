@@ -4,9 +4,9 @@ import "github.com/Linkinlog/loggr/internal/models"
 import "fmt"
 
 templ GardenInventory(g *models.Garden) {
-	<section class={ ContainerPrimary() }>
+	<section class={ ContainerPrimary(), Padded() }>
 		<nav class={ Nav() }>
-			@Search()
+			@Search("/gardens/" + g.Id() + "/inventory")
 			<a class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", g.Id())) }>Add</a>
 		</nav>
 		if len(g.Inventory) == 0 {
