@@ -6,12 +6,12 @@ import "fmt"
 templ GardenCard(g *models.Garden) {
 	<section class={ ContainerSecondary(), Card(), Row() }>
 		<section class={ CardDetailsSection() }>
-			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id())) } class={ NoOverFlow(), CardTitle() }>{ g.Name }</a>
+			<a href={ templ.URL(fmt.Sprintf("/gardens/%s", g.Id)) } class={ NoOverFlow(), CardTitle() }>{ g.Name }</a>
 			<p class={ NoOverFlow(), CardLocation() }>{ g.Location }</p>
 			<p class={ NoOverFlow(), CardDescription() }>{ g.Description }</p>
 		</section>
 		<section class={ CardImgSection() }>
-			<img class={ CardImg() } src={ g.Image.Thumbnail } alt={ g.Name }/>
+			<img class={ CardImg() } src={ g.Image } alt={ g.Name }/>
 		</section>
 	</section>
 }

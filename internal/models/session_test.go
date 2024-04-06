@@ -21,7 +21,7 @@ func TestSession_Id(t *testing.T) {
 	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123")
 	s := models.NewSession(u)
 
-	assert.NotEmpty(t, s.Id())
+	assert.NotEmpty(t, s.Id)
 }
 
 func TestSession_TTL(t *testing.T) {
@@ -40,7 +40,7 @@ func TestSession_ToCookie(t *testing.T) {
 	cookie := s.ToCookie()
 
 	assert.NotNil(t, cookie)
-	assert.Equal(t, s.Id(), cookie.Value)
+	assert.Equal(t, s.Id, cookie.Value)
 }
 
 func TestSession_Expired(t *testing.T) {

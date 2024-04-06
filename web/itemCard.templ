@@ -6,15 +6,15 @@ import "fmt"
 templ ItemCard(i *models.Item, g string) {
 	<section class={ ContainerSecondary(), Card(), Row() }>
 		<section class={ CardDetailsSection() }>
-			<a hx-boost="true" href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id())) } class={ NoOverFlow(), CardTitle() }>{ i.Name }</a>
+			<a hx-boost="true" href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id)) } class={ NoOverFlow(), CardTitle() }>{ i.Name }</a>
 			for _, f := range i.Fields {
-				if f != nil && f.Description != "" {
-					<p class={ NoOverFlow(), CardLocation() }>{ f.Description }</p>
+				if f  != "" {
+					<p class={ NoOverFlow(), CardLocation() }>{ f }</p>
 				}
 			}
 		</section>
 		<section class={ CardImgSection() }>
-			<img class={ CardImg() } src={ i.Image.Thumbnail } alt={ i.Name }/>
+			<img class={ CardImg() } src={ i.Image } alt={ i.Name }/>
 		</section>
 	</section>
 }

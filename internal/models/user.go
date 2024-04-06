@@ -23,12 +23,11 @@ func NewUser(name, email string, passwordString string) (*User, error) {
 	}
 
 	return &User{
-		id:        genId(),
+		Id:        genId(),
 		FirstName: firstName,
 		LastName:  lastName,
 		Email:     email,
-		password:  password,
-		Gardens:   make(map[string]*Garden),
+		Password:  password,
 	}, nil
 }
 
@@ -42,12 +41,11 @@ func UserFromContext(ctx context.Context) (*User, error) {
 }
 
 type User struct {
-	id        string
-	FirstName string
-	LastName  string
-	Email     string
-	password  []byte
-	Gardens   map[string]*Garden
+	Id        string `db:"id"`
+	FirstName string `db:"first_name"`
+	LastName  string `db:"last_name"`
+	Email     string `db:"email"`
+	Password  []byte `db:"password"`
 }
 
 type UserCtxKey string
@@ -60,16 +58,8 @@ func (u *User) String() string {
 	return u.FirstName + " " + u.LastName
 }
 
-func (u *User) Id() string {
-	return u.id
-}
-
-func (u *User) Password() []byte {
-	return u.password
-}
-
 func (u *User) CheckPassword(passwordString string) bool {
-	err := bcrypt.CompareHashAndPassword(u.password, []byte(passwordString))
+	err := bcrypt.CompareHashAndPassword(u.Password, []byte(passwordString))
 	return err == nil
 }
 
@@ -79,32 +69,6 @@ func (u *User) ChangePassword(passwordString string) error {
 		return err
 	}
 
-	u.password = password
+	u.Password = password
 	return nil
-}
-
-func (u *User) RegisterGarden(g *Garden) error {
-	if _, ok := u.Gardens[g.Id()]; ok {
-		return GardenAlreadyRegistered
-	}
-
-	u.Gardens[g.Id()] = g
-	return nil
-}
-
-func (u *User) UnregisterGarden(g *Garden) error {
-	if _, ok := u.Gardens[g.Id()]; !ok {
-		return ErrNotFound
-	}
-
-	delete(u.Gardens, g.Id())
-	return nil
-}
-
-func (u *User) ListGardens() []*Garden {
-	gardens := make([]*Garden, 0, len(u.Gardens))
-	for _, g := range u.Gardens {
-		gardens = append(gardens, g)
-	}
-	return gardens
 }

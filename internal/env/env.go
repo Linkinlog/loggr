@@ -8,10 +8,10 @@ func NewEnv() *Env {
 
 type Env struct{}
 
-func (e *Env) Get(key string) string {
+func (e *Env) GetOrDefault(key, def string) string {
 	env := os.Getenv(key)
 	if env != "" {
 		return env
 	}
-	return ""
+	return def
 }

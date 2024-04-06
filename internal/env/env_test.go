@@ -26,5 +26,6 @@ func TestGet(t *testing.T) {
 	os.Setenv(key, value)
 	defer os.Unsetenv(key)
 
-	assert.Equal(t, value, env.Get(key))
+	assert.Equal(t, value, env.GetOrDefault(key, "wrong"))
+	assert.Equal(t, "right", env.GetOrDefault("wrong", "right"))
 }

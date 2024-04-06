@@ -17,6 +17,9 @@ FROM alpine:latest
 ARG IMG_BB_KEY
 ENV IMG_BB_KEY=$IMG_BB_KEY
 
+ARG SQLITE_ADDR
+ENV SQLITE_ADDR=$SQLITE_ADDR
+
 WORKDIR /root/
 
 COPY --from=builder /app/main .

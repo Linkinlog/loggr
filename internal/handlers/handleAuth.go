@@ -1,12 +1,12 @@
 package handlers
 
 import (
+	"database/sql"
 	"errors"
 	"net/http"
 	"time"
 
 	"github.com/Linkinlog/loggr/internal/models"
-	"github.com/Linkinlog/loggr/internal/repositories"
 	"github.com/Linkinlog/loggr/web"
 )
 
@@ -30,7 +30,10 @@ func (s *SSR) handleSignOut(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	delete(s.sessions, token.Value)
+	err = s.s.Delete(token.Value)
+	if err != nil {
+		return err
+	}
 
 	http.SetCookie(w, &http.Cookie{
 		Name:    "token",
@@ -54,10 +57,9 @@ func (s *SSR) handleSignIn(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	repo := repositories.NewUserRepository(s.u)
-	u, err := repo.Get(email)
+	u, err := s.u.GetByEmail(email)
 	if err != nil {
-		if errors.Is(err, models.ErrNotFound) {
+		if errors.Is(err, models.ErrNotFound) || errors.Is(err, sql.ErrNoRows) {
 			p := web.NewPage("Sign In", "Welcome to the sign in page", nil)
 
 			_ = p.Layout(web.SignIn(models.ErrNotFound.Error())).Render(r.Context(), w)
@@ -73,7 +75,10 @@ func (s *SSR) handleSignIn(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 	sess := models.NewSession(u)
-	s.sessions[sess.Id()] = sess
+	err = s.s.Add(sess)
+	if err != nil {
+		return err
+	}
 
 	http.SetCookie(w, sess.ToCookie())
 
@@ -86,9 +91,7 @@ func (s *SSR) handleSignUp(w http.ResponseWriter, r *http.Request) error {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
 
-	repo := repositories.NewUserRepository(s.u)
-
-	if _, err := repo.Get(email); err == nil {
+	if _, err := s.u.GetByEmail(email); err == nil {
 		p := web.NewPage("Sign Up", "Welcome to the sign up page", nil)
 
 		_ = p.Layout(web.SignUp(ErrUserExists.Error())).Render(r.Context(), w)
@@ -103,7 +106,7 @@ func (s *SSR) handleSignUp(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	_, err = repo.Add(u)
+	_, err = s.u.Add(u)
 	if err != nil {
 		p := web.NewPage("Sign Up", "Welcome to the sign up page", nil)
 
@@ -112,7 +115,10 @@ func (s *SSR) handleSignUp(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	sess := models.NewSession(u)
-	s.sessions[sess.Id()] = sess
+	err = s.s.Add(sess)
+	if err != nil {
+		return err
+	}
 
 	http.SetCookie(w, sess.ToCookie())
 

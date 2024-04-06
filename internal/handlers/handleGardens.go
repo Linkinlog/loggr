@@ -7,7 +7,6 @@ import (
 
 	"github.com/Linkinlog/loggr/internal/env"
 	"github.com/Linkinlog/loggr/internal/models"
-	"github.com/Linkinlog/loggr/internal/repositories"
 	"github.com/Linkinlog/loggr/internal/services"
 	"github.com/Linkinlog/loggr/web"
 )
@@ -43,11 +42,14 @@ func (s *SSR) getGardenForUser(r *http.Request) (*models.Garden, *models.User, e
 	gardens := s.defaultGardens
 	u, err := s.userFromRequest(r)
 	if err == nil {
-		gardens = u.ListGardens()
+		gardens, err = s.u.GetGardensForUser(u.Id)
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 
 	for _, g := range gardens {
-		if g.Id() == id {
+		if g.Id == id {
 			return g, u, nil
 		}
 	}
@@ -63,11 +65,11 @@ func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
 	location := r.FormValue("location")
 	description := r.FormValue("description")
 
-	img := models.NewImage("not-found", "/assets/imageNotFound.webp", "/assets/imageNotFound.webp", "")
+	img := "/assets/imageNotFound.webp"
 
 	imageFile, handler, err := r.FormFile("image")
 	if err == nil {
-		bbKey := env.NewEnv().Get("IMG_BB_KEY")
+		bbKey := env.NewEnv().GetOrDefault("IMG_BB_KEY", "")
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
@@ -85,7 +87,11 @@ func (s *SSR) handleNewGarden(w http.ResponseWriter, r *http.Request) error {
 
 	u, err := models.UserFromContext(r.Context())
 	if err == nil && u != nil {
-		rErr := u.RegisterGarden(g)
+		_, gErr := s.g.Add(g)
+		if gErr != nil {
+			return gErr
+		}
+		rErr := s.u.AssociateGarden(u.Id, g)
 		if rErr != nil {
 			return rErr
 		}
@@ -117,7 +123,7 @@ func (s *SSR) handleUpdateGarden(w http.ResponseWriter, r *http.Request) error {
 
 	imageFile, handler, err := r.FormFile("image")
 	if err == nil {
-		bbKey := env.NewEnv().Get("IMG_BB_KEY")
+		bbKey := env.NewEnv().GetOrDefault("IMG_BB_KEY", "")
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
@@ -137,22 +143,19 @@ func (s *SSR) handleUpdateGarden(w http.ResponseWriter, r *http.Request) error {
 	g.Image = img
 
 	if u != nil {
-		u.Gardens[g.Id()] = g
-
-		repo := repositories.NewUserRepository(s.u)
-		_, err := repo.Save(u)
+		err := s.g.Update(g)
 		if err != nil {
 			s.logger.Error("error saving user", "error", err.Error())
 		}
 	} else {
 		for i, garden := range s.defaultGardens {
-			if garden.Id() == g.Id() {
+			if garden.Id == g.Id {
 				s.defaultGardens[i] = g
 			}
 		}
 	}
 
-	http.Redirect(w, r, "/gardens/"+g.Id(), http.StatusSeeOther)
+	http.Redirect(w, r, "/gardens/"+g.Id, http.StatusSeeOther)
 	return nil
 }
 
@@ -166,12 +169,15 @@ func (s *SSR) handleDeleteGarden(w http.ResponseWriter, r *http.Request) error {
 
 	if u == nil {
 		for i, garden := range s.defaultGardens {
-			if garden.Id() == g.Id() {
+			if garden.Id == g.Id {
 				s.defaultGardens = append(s.defaultGardens[:i], s.defaultGardens[i+1:]...)
 			}
 		}
 	} else {
-		_ = u.UnregisterGarden(g)
+		rErr := s.g.Delete(g.Id)
+		if rErr != nil {
+			return rErr
+		}
 	}
 
 	http.Redirect(w, r, "/gardens/", http.StatusSeeOther)
@@ -196,19 +202,19 @@ func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Reques
 	field4 := r.FormValue("field-4")
 	field5 := r.FormValue("field-5")
 
-	fields := [5]*models.Field{
-		models.NewField("field-1", field1),
-		models.NewField("field-2", field2),
-		models.NewField("field-3", field3),
-		models.NewField("field-4", field4),
-		models.NewField("field-5", field5),
+	fields := [5]string{
+		field1,
+		field2,
+		field3,
+		field4,
+		field5,
 	}
 
-	img := models.NewImage("not-found", "/assets/imageNotFound.webp", "/assets/imageNotFound.webp", "")
+	img := "/assets/imageNotFound.webp"
 
 	imageFile, handler, err := r.FormFile("image")
 	if err == nil {
-		bbKey := env.NewEnv().Get("IMG_BB_KEY")
+		bbKey := env.NewEnv().GetOrDefault("IMG_BB_KEY", "")
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
@@ -216,24 +222,26 @@ func (s *SSR) handleNewGardenInventoryItem(w http.ResponseWriter, r *http.Reques
 				p := web.NewPage(g.Name, "Welcome to the garden inventory page", u)
 
 				err := "error uploading image, please try a different image"
-				return p.Layout(web.NewGardenInventoryItemForm(g.Id(), name, field1, field2, field3, field4, field5, models.ItemType(t), err)).Render(r.Context(), w)
+				return p.Layout(web.NewGardenInventoryItemForm(g.Id, name, field1, field2, field3, field4, field5, models.ItemType(t), err)).Render(r.Context(), w)
 			}
 			return sErr
 		}
 	}
 
 	i := models.NewItem(name, img, models.ItemType(t), fields)
-	g.AddItem(i)
 
 	if u != nil {
-		repo := repositories.NewUserRepository(s.u)
-		_, err := repo.Save(u)
+		_, err := s.i.Add(i)
 		if err != nil {
-			s.logger.Error("error saving user", "error", err.Error())
+			return err
+		}
+		_, err = s.g.AssociateItem(g.Id, i)
+		if err != nil {
+			return err
 		}
 	}
 
-	http.Redirect(w, r, "/gardens/"+g.Id(), http.StatusSeeOther)
+	http.Redirect(w, r, "/gardens/"+g.Id, http.StatusSeeOther)
 	return nil
 }
 
@@ -246,26 +254,29 @@ func (s *SSR) handleUpdateGardenInventoryItem(w http.ResponseWriter, r *http.Req
 	}
 
 	itemID := r.PathValue("itemId")
-	item := g.GetItem(itemID)
+	item, err := s.i.Get(itemID)
+	if err != nil {
+		return err
+	}
 	if item == nil {
 		return handleNotFound(w, r)
 	}
 
 	name := r.FormValue("name")
 	t, _ := strconv.Atoi(r.FormValue("type"))
-	fields := [5]*models.Field{
-		models.NewField("field-1", r.FormValue("field-1")),
-		models.NewField("field-2", r.FormValue("field-2")),
-		models.NewField("field-3", r.FormValue("field-3")),
-		models.NewField("field-4", r.FormValue("field-4")),
-		models.NewField("field-5", r.FormValue("field-5")),
+	fields := [5]string{
+		r.FormValue("field-1"),
+		r.FormValue("field-2"),
+		r.FormValue("field-3"),
+		r.FormValue("field-4"),
+		r.FormValue("field-5"),
 	}
 
 	img := item.Image
 
 	imageFile, handler, err := r.FormFile("image")
 	if err == nil {
-		bbKey := env.NewEnv().Get("IMG_BB_KEY")
+		bbKey := env.NewEnv().GetOrDefault("IMG_BB_KEY", "")
 		var sErr error
 		img, sErr = services.NewImageBB(bbKey).StoreImage(imageFile, handler.Filename)
 		if sErr != nil {
@@ -273,7 +284,7 @@ func (s *SSR) handleUpdateGardenInventoryItem(w http.ResponseWriter, r *http.Req
 				p := web.NewPage(g.Name, "Welcome to the garden inventory page", u)
 
 				err := "error uploading image, please try a different image"
-				return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item, err)).Render(r.Context(), w)
+				return p.Layout(web.EditGardenInventoryItemForm(g.Id, item, err)).Render(r.Context(), w)
 			}
 			return sErr
 		}
@@ -285,14 +296,13 @@ func (s *SSR) handleUpdateGardenInventoryItem(w http.ResponseWriter, r *http.Req
 	item.Image = img
 
 	if u != nil {
-		repo := repositories.NewUserRepository(s.u)
-		_, err := repo.Save(u)
+		err := s.i.Update(item)
 		if err != nil {
 			s.logger.Error("error saving user", "error", err.Error())
 		}
 	}
 
-	http.Redirect(w, r, "/gardens/"+g.Id()+"/inventory/"+itemID, http.StatusSeeOther)
+	http.Redirect(w, r, "/gardens/"+g.Id+"/inventory/"+itemID, http.StatusSeeOther)
 	return nil
 }
 
@@ -306,16 +316,13 @@ func (s *SSR) handleDeleteGardenInventoryItem(w http.ResponseWriter, r *http.Req
 
 	itemID := r.PathValue("itemId")
 
-	g.RemoveItem(g.GetItem(itemID))
-
 	if u != nil {
-		repo := repositories.NewUserRepository(s.u)
-		_, err := repo.Save(u)
+		err := s.i.Delete(itemID)
 		if err != nil {
-			s.logger.Error("error saving user", "error", err.Error())
+			return err
 		}
 	}
 
-	http.Redirect(w, r, "/gardens/"+g.Id(), http.StatusSeeOther)
+	http.Redirect(w, r, "/gardens/"+g.Id, http.StatusSeeOther)
 	return nil
 }

@@ -42,6 +42,9 @@ dev:
 	@make gen
 	@bash -c 'source .env; go run ./cmd/loggr/main.go'
 
+migrate:
+	@bash -c 'source .env; go run ./cmd/migration/main.go'
+
 done:
 	@make clean || exit 1
 	@make test  || exit 1

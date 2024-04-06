@@ -12,89 +12,29 @@ func TestNewGarden(t *testing.T) {
 	name := "garden 1"
 	location := "location 1"
 	description := "description 1"
-	image := models.NewImage("id", "https://example.com", "", "")
 	inventory := []*models.Item{
-		models.NewItem("item 1", image, models.Plant, [5]*models.Field{
-			models.NewField("field 1", "field 1 description"),
-			models.NewField("field 2", "field 2 description"),
-			models.NewField("field 3", "field 3 description"),
-			models.NewField("field 4", "field 4 description"),
+		models.NewItem("item 1", "", models.Plant, [5]string{
+			"field 1 description",
+			"field 2 description",
+			"field 3 description",
+			"field 4 description",
 		}),
-		models.NewItem("item 2", image, models.Plant, [5]*models.Field{}),
+		models.NewItem("item 2", "", models.Plant, [5]string{}),
 	}
 
-	g := models.NewGarden(name, location, description, image, inventory)
+	g := models.NewGarden(name, location, description, "", inventory)
 
 	assert.Equal(t, name, g.Name)
 	assert.Equal(t, location, g.Location)
 	assert.Equal(t, description, g.Description)
-	assert.Equal(t, inventory, g.Inventory)
 }
 
 func TestGarden_Id(t *testing.T) {
 	t.Parallel()
-	image := models.NewImage("id", "https://example.com", "", "")
-	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
-	g1 := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
+	g := models.NewGarden("garden 1", "location 1", "description 1", "", []*models.Item{})
+	g1 := models.NewGarden("garden 1", "location 1", "description 1", "", []*models.Item{})
 
-	assert.NotEmpty(t, g.Id())
-	assert.NotEmpty(t, g1.Id())
-	assert.NotEqual(t, g.Id(), g1.Id())
-}
-
-func TestGarden_AddItem(t *testing.T) {
-	t.Parallel()
-	image := models.NewImage("id", "https://example.com", "", "")
-	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{})
-	item := models.NewItem("item 1", image, models.Plant, [5]*models.Field{})
-
-	g.AddItem(item)
-
-	assert.Len(t, g.Inventory, 1)
-	assert.Equal(t, item, g.Inventory[0])
-}
-
-func TestGarden_Plants(t *testing.T) {
-	t.Parallel()
-	image := models.NewImage("id", "https://example.com", "", "")
-	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{
-		models.NewItem("item 1", image, models.Plant, [5]*models.Field{}),
-		models.NewItem("item 2", image, models.Tool, [5]*models.Field{}),
-		models.NewItem("item 3", image, models.Seed, [5]*models.Field{}),
-	})
-
-	plants := g.Plants()
-
-	assert.Len(t, plants, 1)
-	assert.Equal(t, models.Plant, plants[0].Type)
-}
-
-func TestGarden_Tools(t *testing.T) {
-	t.Parallel()
-	image := models.NewImage("id", "https://example.com", "", "")
-	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{
-		models.NewItem("item 1", image, models.Plant, [5]*models.Field{}),
-		models.NewItem("item 2", image, models.Tool, [5]*models.Field{}),
-		models.NewItem("item 3", image, models.Seed, [5]*models.Field{}),
-	})
-
-	tools := g.Tools()
-
-	assert.Len(t, tools, 1)
-	assert.Equal(t, models.Tool, tools[0].Type)
-}
-
-func TestGarden_Seeds(t *testing.T) {
-	t.Parallel()
-	image := models.NewImage("id", "https://example.com", "", "")
-	g := models.NewGarden("garden 1", "location 1", "description 1", image, []*models.Item{
-		models.NewItem("item 1", image, models.Plant, [5]*models.Field{}),
-		models.NewItem("item 2", image, models.Tool, [5]*models.Field{}),
-		models.NewItem("item 3", image, models.Seed, [5]*models.Field{}),
-	})
-
-	seeds := g.Seeds()
-
-	assert.Len(t, seeds, 1)
-	assert.Equal(t, models.Seed, seeds[0].Type)
+	assert.NotEmpty(t, g.Id)
+	assert.NotEmpty(t, g1.Id)
+	assert.NotEqual(t, g.Id, g1.Id)
 }

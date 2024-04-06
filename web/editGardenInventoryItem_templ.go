@@ -75,7 +75,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item, err string) templ.Com
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a hx-boost=\"true\" class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a hx-boost=\"true\" hx-confirm=\"Are you sure you want to delete this item?\" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -92,7 +92,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item, err string) templ.Com
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id()))
+		var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id))
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var8)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -142,7 +142,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item, err string) templ.Com
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var12 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id()))
+		var templ_7745c5c3_Var12 templ.SafeURL = templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s", g, i.Id))
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var12)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -151,7 +151,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item, err string) templ.Com
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = ImageUploader(i.Image.Thumbnail).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = ImageUploader(i.Image).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -442,7 +442,7 @@ func inventoryItemFieldEditInputs(i *models.Item) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		for i, f := range i.Fields {
-			if f != nil {
+			if f != "" {
 				var templ_7745c5c3_Var35 = []any{InputLabel()}
 				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var35...)
 				if templ_7745c5c3_Err != nil {
@@ -540,9 +540,9 @@ func inventoryItemFieldEditInputs(i *models.Item) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var43 string
-				templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(f.Description)
+				templ_7745c5c3_Var43, templ_7745c5c3_Err = templ.JoinStringErrs(f)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/editGardenInventoryItem.templ`, Line: 51, Col: 142}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/editGardenInventoryItem.templ`, Line: 51, Col: 130}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var43))
 				if templ_7745c5c3_Err != nil {

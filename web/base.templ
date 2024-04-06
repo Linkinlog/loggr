@@ -17,17 +17,8 @@ css HeaderBrand() {
 	font-weight: bold;
 }
 
-css Warning() {
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-	background-color: #FF9900;
-	color: black;
-	padding: 1rem;
-}
-
 templ Header(loggedIn bool) {
 	<header>
-		<p class={ Warning() }>This site is in demo mode. All data is temporary and will be deleted.</p>
 		<nav class={ Nav() }>
 			<a hx-boost="true" class={ HeaderBrand() } href="/">Loggr</a>
 			<a hx-boost="true" class={ HeaderLink() } href="/about">About</a>

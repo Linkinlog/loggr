@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"database/sql"
 	"errors"
-	"fmt"
 	"log/slog"
 	"net/http"
 	"time"
@@ -34,13 +34,15 @@ func (w *wrapper) WriteHeader(statusCode int) {
 	w.s = statusCode
 }
 
-func NewSSR(l *slog.Logger, a string, d []*models.Garden, u repositories.UserStorer) *SSR {
+func NewSSR(l *slog.Logger, a string, d []*models.Garden, u *repositories.UserRepository, g *repositories.GardenRepository, i *repositories.ItemRepository, s *repositories.SessionRepository) *SSR {
 	return &SSR{
 		logger:         l,
 		addr:           a,
 		defaultGardens: d,
+		i:              i,
 		u:              u,
-		sessions:       make(map[string]*models.Session),
+		g:              g,
+		s:              s,
 	}
 }
 
@@ -48,8 +50,10 @@ type SSR struct {
 	logger         *slog.Logger
 	addr           string
 	defaultGardens []*models.Garden
-	u              repositories.UserStorer
-	sessions       map[string]*models.Session
+	u              *repositories.UserRepository
+	g              *repositories.GardenRepository
+	i              *repositories.ItemRepository
+	s              *repositories.SessionRepository
 }
 
 func (s *SSR) ServeHTTP() error {
@@ -81,13 +85,16 @@ func (s *SSR) userFromRequest(r *http.Request) (*models.User, error) {
 		return nil, err
 	}
 
-	sess, ok := s.sessions[token.Value]
-	if !ok {
-		return nil, ErrSessionNotFound
+	sess, err := s.s.Get(token.Value)
+	if err != nil {
+		return nil, err
 	}
 
 	if sess.Expired() {
-		delete(s.sessions, token.Value)
+		err = s.s.Delete(sess.Id)
+		if err != nil {
+			return nil, err
+		}
 		return nil, ErrSessionExpired
 	}
 
@@ -102,7 +109,7 @@ func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error
 		wr := &wrapper{ResponseWriter: w}
 		u, uErr := s.userFromRequest(r)
 		if uErr != nil {
-			if !errors.Is(uErr, http.ErrNoCookie) && uErr.Error() != "session not found" {
+			if !errors.Is(uErr, http.ErrNoCookie) && uErr.Error() != "session not found" && !errors.Is(uErr, sql.ErrNoRows) {
 				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 				s.logger.Error("error getting user from request form", "error", uErr.Error())
 				return
@@ -144,7 +151,13 @@ func (s *SSR) handleEditGardenInventoryItemForm(w http.ResponseWriter, r *http.R
 	}
 
 	itemID := r.PathValue("itemId")
-	item := g.GetItem(itemID)
+	item, err := s.i.Get(itemID)
+	if err != nil {
+		if errors.Is(err, models.ErrNotFound) {
+			return handleNotFound(w, r)
+		}
+		return err
+	}
 	if item == nil {
 		return handleNotFound(w, r)
 	}
@@ -152,7 +165,7 @@ func (s *SSR) handleEditGardenInventoryItemForm(w http.ResponseWriter, r *http.R
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("Edit Inventory Item", "Welcome to the edit inventory item page", u)
 
-	return p.Layout(web.EditGardenInventoryItemForm(g.Id(), item, "")).Render(r.Context(), w)
+	return p.Layout(web.EditGardenInventoryItemForm(g.Id, item, "")).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenInventoryItem(w http.ResponseWriter, r *http.Request) error {
@@ -166,11 +179,17 @@ func (s *SSR) handleGardenInventoryItem(w http.ResponseWriter, r *http.Request) 
 
 	itemID := r.PathValue("itemId")
 
-	for _, i := range g.Inventory {
-		if i.Id() == itemID {
+	items, err := s.g.GetItemsForGarden(g.Id)
+	if err != nil {
+		if !errors.Is(err, models.ErrNotFound) {
+			return err
+		}
+	}
+	for _, i := range items {
+		if i.Id == itemID {
 			p := web.NewPage(i.Name, "Welcome to the garden inventory item page", u)
 
-			return p.Layout(web.GardenInventoryItem(g.Id(), i)).Render(r.Context(), w)
+			return p.Layout(web.GardenInventoryItem(g.Id, i)).Render(r.Context(), w)
 		}
 	}
 
@@ -183,14 +202,13 @@ func (s *SSR) handleNewGardenInventoryItemForm(w http.ResponseWriter, r *http.Re
 		if errors.Is(err, models.ErrNotFound) {
 			return handleNotFound(w, r)
 		}
-		fmt.Println(err)
 		return err
 	}
 
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("New Inventory Item", "Welcome to the new inventory item page", u)
 
-	return p.Layout(web.NewGardenInventoryItemForm(g.Id(), "", "", "", "", "", "", 0, "")).Render(r.Context(), w)
+	return p.Layout(web.NewGardenInventoryItemForm(g.Id, "", "", "", "", "", "", 0, "")).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) error {
@@ -205,15 +223,21 @@ func (s *SSR) handleGardenInventory(w http.ResponseWriter, r *http.Request) erro
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage(g.Name, "Welcome to the garden inventory page", u)
 
-	inventory := g.Inventory
+	inventory, err := s.g.GetItemsForGarden(g.Id)
+	if err != nil {
+		if !errors.Is(err, models.ErrNotFound) {
+			return err
+		}
+	}
+
 	search := r.URL.Query().Has("search")
 	query := ""
 	if search {
 		query = r.URL.Query().Get("search")
-		http.Redirect(w, r, "/gardens/"+g.Id()+"?search="+query, http.StatusSeeOther)
+		http.Redirect(w, r, "/gardens/"+g.Id+"?search="+query, http.StatusSeeOther)
 	}
 
-	return p.Layout(web.GardenInventory(g.Id(), query, inventory)).Render(r.Context(), w)
+	return p.Layout(web.GardenInventory(g.Id, query, inventory)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
@@ -228,16 +252,21 @@ func (s *SSR) handleGarden(w http.ResponseWriter, r *http.Request) error {
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage(g.Name, "Welcome to the garden page", u)
 
-	gardens := g.Inventory
+	items, err := s.g.GetItemsForGarden(g.Id)
+	if err != nil {
+		if !errors.Is(err, models.ErrNotFound) {
+			return err
+		}
+	}
 
 	search := r.URL.Query().Has("search")
 	query := ""
 	if search {
 		query = r.URL.Query().Get("search")
-		gardens = models.SearchItems(gardens, query)
+		items = models.SearchItems(items, query)
 	}
 
-	return p.Layout(web.Garden(g, gardens, query)).Render(r.Context(), w)
+	return p.Layout(web.Garden(g, items, query)).Render(r.Context(), w)
 }
 
 func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error {
@@ -249,7 +278,13 @@ func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error 
 
 	gardens := s.defaultGardens
 	if u != nil {
-		gardens = u.ListGardens()
+		var err error
+		gardens, err = s.u.GetGardensForUser(u.Id)
+		if err != nil {
+			if !errors.Is(err, models.ErrNotFound) {
+				return err
+			}
+		}
 	}
 
 	search := r.URL.Query().Has("search")

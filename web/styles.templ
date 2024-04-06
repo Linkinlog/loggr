@@ -228,6 +228,10 @@ css Padded() {
 	padding: 1rem;
 }
 
+css FullSpan() {
+	grid-column: span 2;
+}
+
 templ globalStyles() {
 	<style type="text/css">
         :root {
@@ -356,10 +360,10 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		InventoryItemName():  {},
 		Error():              {},
 		Padded():             {},
+		FullSpan():           {},
 		// base.templ
 		HeaderLink():  {},
 		HeaderBrand(): {},
-		Warning():     {},
 		// garden.templ
 		FieldsContainer():  {},
 		Fields():           {},
@@ -368,9 +372,6 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		GardenImg():        {},
 		// gardenListing.templ
 		GardenCreateLink(): {},
-		NoGardens():        {},
-		// gardenInventory.templ
-		NoItems(): {},
 		// gardenInventoryItem.templ
 		ItemAndType():    {},
 		InventoryField(): {},

@@ -3,3 +3,5 @@ loggr
 .DS_Store
 .idea/
 .env
+coverage.out
+*.db

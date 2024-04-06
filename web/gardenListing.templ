@@ -10,11 +10,6 @@ css GardenCreateLink() {
 	margin: 0;
 }
 
-css NoGardens() {
-	margin-top: 4rem;
-	grid-column: span 2;
-}
-
 templ GardenListing(gardens []*models.Garden, query string) {
 	<section>
 		<nav class={ Nav() }>
@@ -23,7 +18,11 @@ templ GardenListing(gardens []*models.Garden, query string) {
 		</nav>
 		<section id="gardens" class={ Listing() }>
 			if len(gardens) == 0 {
-				<p class={ NoGardens() }>No gardens yet, click "Add" to get started!</p>
+				<p class={ FullSpan() }>No gardens yet, click "Add" to get started!</p>
+			} else if len(gardens) == 1 {
+				<section class={ FullSpan() }>
+					@GardenCard(gardens[0])
+				</section>
 			} else {
 				for _, garden := range gardens {
 					@GardenCard(garden)

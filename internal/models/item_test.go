@@ -10,18 +10,17 @@ import (
 func TestNewItem(t *testing.T) {
 	t.Parallel()
 	name := "item 1"
-	image := models.NewImage("id", "https://example.com", "", "")
-	fields := [5]*models.Field{
-		models.NewField("field 1", "field 1 description"),
-		models.NewField("field 2", "field 2 description"),
-		models.NewField("field 3", "field 3 description"),
-		models.NewField("field 4", "field 4 description"),
-		models.NewField("field 5", "field 5 description"),
+	fields := [5]string{
+		"field 1 description",
+		"field 2 description",
+		"field 3 description",
+		"field 4 description",
+		"field 5 description",
 	}
 
-	i := models.NewItem(name, image, models.Plant, fields)
+	i := models.NewItem(name, "", models.Plant, fields)
 
 	assert.Equal(t, name, i.Name)
-	assert.Equal(t, image, i.Image)
+	assert.Equal(t, "", i.Image)
 	assert.Equal(t, fields, i.Fields)
 }

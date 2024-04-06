@@ -6,21 +6,20 @@ import (
 )
 
 func NewSession(u *User) *Session {
+	if u == nil {
+		return nil
+	}
 	return &Session{
-		id:        genToken(MinTokenLength),
+		Id:        genToken(MinTokenLength),
 		User:      u,
 		expiresAt: time.Now().Add(MaxTTL),
 	}
 }
 
 type Session struct {
-	id        string
+	Id        string `db:"id"`
 	User      *User
 	expiresAt time.Time
-}
-
-func (s *Session) Id() string {
-	return s.id
 }
 
 func (s *Session) TTL() time.Duration {
@@ -30,7 +29,7 @@ func (s *Session) TTL() time.Duration {
 func (s *Session) ToCookie() *http.Cookie {
 	return &http.Cookie{
 		Name:     "token",
-		Value:    s.Id(),
+		Value:    s.Id,
 		MaxAge:   int(s.TTL().Seconds()),
 		Expires:  s.expiresAt,
 		SameSite: http.SameSiteStrictMode,

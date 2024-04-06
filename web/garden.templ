@@ -37,19 +37,19 @@ templ Garden(g *models.Garden, inventory []*models.Item, query string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader() }>
 			<h1>{ g.Name }</h1>
-			<a hx-boost="true" class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/edit") }>Edit</a>
+			<a hx-boost="true" class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id + "/edit") }>Edit</a>
 		</section>
-		<img class={ GardenImg() } src={ g.Image.URL } alt={ g.Name }/>
-		@gardenFields(g)
+		<img class={ GardenImg() } src={ g.Image } alt={ g.Name }/>
+		@gardenFields(g, len(models.Plants(inventory)))
 		@gardenInventory(g, inventory, query)
 	</section>
 }
 
-templ gardenFields(g *models.Garden) {
+templ gardenFields(g *models.Garden, p int) {
 	<p class={ FieldDescriptor() }>Fields</p>
 	<section class={ ContainerPrimary(), FieldsContainer(), Column() }>
 		<section class={ Fields() }>
-			<p class={ ContainerSecondary(), Padded() }>Total Plants: { fmt.Sprint(len(g.Plants())) }</p>
+			<p class={ ContainerSecondary(), Padded() }>Total Plants: { fmt.Sprint(p) }</p>
 			<p class={ ContainerSecondary(), Padded(), LocationField() }>{ g.Location }</p>
 		</section>
 		if g.Description != "" {
@@ -60,5 +60,5 @@ templ gardenFields(g *models.Garden) {
 
 templ gardenInventory(g *models.Garden, inventory []*models.Item, query string) {
 	<p class={ FieldDescriptor() }>Inventory</p>
-	@GardenInventory(g.Id(), query, inventory)
+	@GardenInventory(g.Id, query, inventory)
 }

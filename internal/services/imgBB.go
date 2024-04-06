@@ -8,8 +8,6 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
-
-	"github.com/Linkinlog/loggr/internal/models"
 )
 
 var (
@@ -33,20 +31,20 @@ type ImageBB struct {
 	apiUrl *url.URL
 }
 
-func (i *ImageBB) StoreImage(image io.Reader, name string) (*models.Image, error) {
+func (i *ImageBB) StoreImage(image io.Reader, name string) (string, error) {
 	if image == nil {
-		return nil, ErrImageNil
+		return "", ErrImageNil
 	}
 	buf := new(bytes.Buffer)
 	writer := multipart.NewWriter(buf)
 
 	part, err := writer.CreateFormFile("image", name)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	_, err = io.Copy(part, image)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	req := &http.Request{
@@ -60,19 +58,19 @@ func (i *ImageBB) StoreImage(image io.Reader, name string) (*models.Image, error
 
 	err = writer.Close()
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	defer resp.Body.Close()
 
 	return parseResponse(resp)
 }
 
-func parseResponse(resp *http.Response) (*models.Image, error) {
+func parseResponse(resp *http.Response) (string, error) {
 	type imageBBResponse struct {
 		Data struct {
 			URL    string `json:"url"`
@@ -91,17 +89,12 @@ func parseResponse(resp *http.Response) (*models.Image, error) {
 	var ibb imageBBResponse
 	err := json.NewDecoder(resp.Body).Decode(&ibb)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
 	if !ibb.Sucess {
-		return nil, ErrImageUpload
+		return "", ErrImageUpload
 	}
 
-	return &models.Image{
-		URL:       ibb.Data.URL,
-		DeleteURL: ibb.Data.DeleteURL,
-		Thumbnail: ibb.Data.Thumb.URL,
-		Id:        ibb.Data.Id,
-	}, nil
+	return ibb.Data.Medium.URL, nil
 }

@@ -14,9 +14,19 @@ func SearchItems(items []*Item, name string) []*Item {
 	return found
 }
 
-func NewItem(n string, i *Image, t ItemType, f [5]*Field) *Item {
+func Plants(items []*Item) []*Item {
+	plants := []*Item{}
+	for _, item := range items {
+		if item.Type == Plant {
+			plants = append(plants, item)
+		}
+	}
+	return plants
+}
+
+func NewItem(n string, i string, t ItemType, f [5]string) *Item {
 	return &Item{
-		id:     genId(),
+		Id:     genId(),
 		Name:   n,
 		Image:  i,
 		Type:   t,
@@ -25,13 +35,9 @@ func NewItem(n string, i *Image, t ItemType, f [5]*Field) *Item {
 }
 
 type Item struct {
-	id     string
-	Name   string
-	Image  *Image
+	Id     string `db:"id"`
+	Name   string `db:"name"`
+	Image  string `db:"image"`
 	Type   ItemType
-	Fields [5]*Field // Only 5 for now
-}
-
-func (i *Item) Id() string {
-	return i.id
+	Fields [5]string // Only 5 for now
 }

@@ -6,19 +6,19 @@ templ EditGarden(g *models.Garden, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader(), Padded() }>
 			<h1>Edit Garden</h1>
-			<a hx-boost="true" class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id() + "/delete") }>Delete</a>
+			<a hx-boost="true" hx-confirm="Are you sure you want to delete this garden?" class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id + "/delete") }>Delete</a>
 		</section>
 		if err != "" {
 			<p class={ Error() }>{ err }</p>
 		}
 		<form
 			hx-boost="true"
-			action={ templ.URL("/gardens/" + g.Id()) }
+			action={ templ.URL("/gardens/" + g.Id) }
 			method="post"
 			hx-indicator="#loading"
 			enctype="multipart/form-data"
 		>
-			@ImageUploader(g.Image.Thumbnail)
+			@ImageUploader(g.Image)
 			@HxIndicator()
 			<label class={ InputLabel() } for="name">Name</label>
 			<input class={ Input(), InputSmall() } type="text" id="name" name="name" value={ g.Name } placeholder="placeholder text..." required/>

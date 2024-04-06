@@ -155,7 +155,7 @@ func GardenInventoryItem(g string, i *models.Item) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var9 templ.SafeURL = templ.URL("/gardens/" + g + "/inventory/" + i.Id() + "/edit")
+		var templ_7745c5c3_Var9 templ.SafeURL = templ.URL("/gardens/" + g + "/inventory/" + i.Id + "/edit")
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var9)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -187,9 +187,9 @@ func GardenInventoryItem(g string, i *models.Item) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var12 string
-		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(i.Image.URL)
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(i.Image)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenInventoryItem.templ`, Line: 37, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenInventoryItem.templ`, Line: 37, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -202,7 +202,7 @@ func GardenInventoryItem(g string, i *models.Item) templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(i.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenInventoryItem.templ`, Line: 37, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenInventoryItem.templ`, Line: 37, Col: 55}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -421,7 +421,7 @@ func inventoryItemFields(i *models.Item) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		for i, f := range i.Fields {
-			if f != nil && f.Description != "" {
+			if f != "" {
 				var templ_7745c5c3_Var31 = []any{InputLabel()}
 				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var31...)
 				if templ_7745c5c3_Err != nil {
@@ -506,9 +506,9 @@ func inventoryItemFields(i *models.Item) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var38 string
-				templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(f.Description)
+				templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(f)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenInventoryItem.templ`, Line: 55, Col: 110}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/gardenInventoryItem.templ`, Line: 55, Col: 98}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
 				if templ_7745c5c3_Err != nil {
