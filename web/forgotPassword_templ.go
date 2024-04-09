@@ -133,7 +133,7 @@ func ForgotPassword(err, info string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Enter your email address and we'll send you a link to reset your password.</p><form hx-boost=\"true\" method=\"post\" action=\"/auth/forgot-password\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Enter your email address and we'll send you a link to reset your password.</p><form hx-boost=\"true\" method=\"post\" hx-indicator=\"#loading\" action=\"/auth/forgot-password\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -177,7 +177,11 @@ func ForgotPassword(err, info string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" type=\"email\" id=\"email\" name=\"email\" placeholder=\"dahlton@example.com\" required> ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" type=\"email\" id=\"email\" name=\"email\" placeholder=\"dahlton@example.com\" required>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = HxIndicator().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

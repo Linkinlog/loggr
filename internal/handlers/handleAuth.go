@@ -40,6 +40,9 @@ func (s *SSR) handleResetPassword(w http.ResponseWriter, r *http.Request) error 
 
 	u, err := s.u.GetByResetCode(code)
 	if err != nil {
+		if errors.Is(err, models.ErrNotFound) || errors.Is(err, sql.ErrNoRows) {
+			err = fmt.Errorf("invalid reset code")
+		}
 		p := web.NewPage("Reset Password", "Welcome to the reset password page", nil)
 
 		_ = p.Layout(web.ResetPassword(code, err.Error(), "")).Render(r.Context(), w)

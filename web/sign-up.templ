@@ -21,7 +21,13 @@ css SignUpForm() {
 templ SignUp(err string) {
 	<section class={ ContainerSecondary(), SignUpContainer() }>
 		<h1>Sign Up</h1>
-		<form hx-boost="true" class={ SignUpForm() } action="/auth/sign-up" method="post">
+		<form
+			hx-indicator="#loading"
+			hx-boost="true"
+			class={ SignUpForm() }
+			action="/auth/sign-up"
+			method="post"
+		>
 			<label class={ InputLabel() } for="name">Name</label>
 			<input type="text" id="name" name="name" placeholder="Rick Astley" class={ Input(), InputSmall() } required/>
 			<label class={ InputLabel() } for="email">Email</label>
@@ -29,6 +35,7 @@ templ SignUp(err string) {
 			<label class={ InputLabel() } for="password">Password</label>
 			<input type="password" id="password" name="password" placeholder="hunter2" class={ Input(), InputSmall() } required/>
 			<a hx-boost="true" class={ PasswordLink() } href="/auth/sign-in">Already have an account? Sign in here</a>
+			@HxIndicator()
 			<button class={ Btn(), SignUpBtn(), "hover-secondary" } type="submit">Sign Up</button>
 			if err != "" {
 				<p class={ Error() }>{ err }</p>
