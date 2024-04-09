@@ -9,14 +9,18 @@ Loggr is a simple SSR CRUD website built with Go and HTMX. It serves as a tool f
 - **Item Tracking**: Gardens can contain items such as plants, tools, and seeds, allowing users to store metadata about each item.
 - **CRUD Functionality**: Users can perform CRUD operations on gardens and items, enabling easy management of gardening data.
 - **Server-Side Rendering (SSR)**: The application utilizes server-side rendering for improved performance and SEO.
-- **In-Memory Storage**: The application currently uses in-memory storage for simplicity, with plans to integrate a backend for persistent storage.
+- **SQLite Storage**: The application currently uses SQLite storage for simple, persistent, storage.
 
 ## Technologies Used
 
 - **Go**: Backend development is done entirely in Go, providing a robust and efficient server-side framework.
 - **HTMX**: Frontend development is powered by HTMX for seamless, AJAX-driven interactions without the need for a complex frontend framework.
 - **HTML/CSS/JavaScript**: Standard web technologies are used for frontend development.
-- **In-Memory Storage**: Data is currently stored in memory for simplicity, with plans to integrate backend storage (Turso) in the future.
+- **Docker**: The application is containerized using Docker for easy deployment and scalability.
+- **Google Cloud Run**: The application is deployed on Google Cloud Run for a serverless, scalable environment.
+- **Turso**: Data is currently stored in Turso for speed, simplicity, and affordability.
+- **ImgBB**: Images are hosted on ImgBB for easy access and management.
+- **SendGrid**: Email notifications are sent using SendGrid for user account management.
 
 ## Getting Started
 

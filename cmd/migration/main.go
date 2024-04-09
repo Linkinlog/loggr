@@ -8,7 +8,7 @@ import (
 func main() {
 	e := env.NewEnv()
 
-	sqliteAddr := e.GetOrDefault("SQLITE_ADDR", "loggr.db")
+	sqliteAddr := e.GetOrDefault("SQLITE_ADDR", "file:./loggr.db")
 
 	s := stores.NewSqliteStore(sqliteAddr)
 
@@ -39,7 +39,8 @@ func main() {
 		first_name TEXT NOT NULL,
 		last_name TEXT NOT NULL,
 		email TEXT NOT NULL,
-		password TEXT NOT NULL
+		password TEXT NOT NULL,
+		reset_code TEXT NOT NULL
 	);
 
 	CREATE TABLE IF NOT EXISTS sessions (

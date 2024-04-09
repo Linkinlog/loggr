@@ -8,6 +8,7 @@ import (
 	"github.com/Linkinlog/loggr/internal/handlers"
 	"github.com/Linkinlog/loggr/internal/models"
 	"github.com/Linkinlog/loggr/internal/repositories"
+	"github.com/Linkinlog/loggr/internal/services"
 	"github.com/Linkinlog/loggr/internal/stores"
 )
 
@@ -21,15 +22,17 @@ func main() {
 
 	l := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: programLevel}))
 
-	sqliteAddr := e.GetOrDefault("SQLITE_ADDR", "loggr.db")
+	sqliteAddr := e.GetOrDefault("SQLITE_ADDR", "file:./loggr.db")
+	sendGridKey := e.GetOrDefault("SENDGRID_API_KEY", "")
 
 	s := stores.NewSqliteStore(sqliteAddr)
 	ir := repositories.NewItemRepository(s)
 	ur := repositories.NewUserRepository(s)
 	gr := repositories.NewGardenRepository(s)
 	sr := repositories.NewSessionRepository(s)
+	ms := services.NewMailService(sendGridKey)
 	addr := e.GetOrDefault("ADDR", ":8080")
-	ssr := handlers.NewSSR(l, addr, createExamples(), ur, gr, ir, sr)
+	ssr := handlers.NewSSR(l, addr, createExamples(), ur, gr, ir, sr, ms)
 
 	l.Info("its_alive!", slog.String("addr", addr))
 

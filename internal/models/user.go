@@ -46,6 +46,7 @@ type User struct {
 	LastName  string `db:"last_name"`
 	Email     string `db:"email"`
 	Password  []byte `db:"password"`
+	ResetCode string `db:"reset_code"`
 }
 
 type UserCtxKey string

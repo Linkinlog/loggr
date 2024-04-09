@@ -222,6 +222,12 @@ css InventoryItemName() {
 
 css Error() {
 	color: var(--color-accent-red);
+	text-decoration: underline;
+}
+
+css Info() {
+	color: var(--color-accent-green);
+	text-decoration: underline;
 }
 
 css Padded() {
@@ -359,6 +365,7 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		SpaceBetween():       {},
 		InventoryItemName():  {},
 		Error():              {},
+		Info():               {},
 		Padded():             {},
 		FullSpan():           {},
 		// base.templ

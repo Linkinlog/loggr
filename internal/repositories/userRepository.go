@@ -1,7 +1,9 @@
 package repositories
 
 import (
+	"crypto/rand"
 	"errors"
+	"fmt"
 
 	"github.com/Linkinlog/loggr/internal/models"
 	"github.com/Linkinlog/loggr/internal/stores"
@@ -27,11 +29,34 @@ func (ur *UserRepository) Add(u *models.User) (string, error) {
 	if u == nil {
 		return "", ErrNilUser
 	}
-	query := `INSERT INTO users (id, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)`
+	query := `INSERT INTO users (id, first_name, last_name, email, password, reset_code) VALUES (?, ?, ?, ?, ?, ?)`
 
-	_, err := ur.db.Exec(query, u.Id, u.FirstName, u.LastName, u.Email, string(u.Password))
+	_, err := ur.db.Exec(query, u.Id, u.FirstName, u.LastName, u.Email, string(u.Password), u.ResetCode)
 
 	return u.Id, err
+}
+
+func (ur *UserRepository) GenerateResetCode(email string) (string, error) {
+	query := `UPDATE users SET reset_code = ? WHERE email = ?`
+
+	bytes := make([]byte, 32)
+	if _, err := rand.Read(bytes); err != nil {
+		return "", err
+	}
+
+	code := fmt.Sprintf("%X", bytes)
+
+	_, err := ur.db.Exec(query, code, email)
+
+	return code, err
+}
+
+func (ur *UserRepository) ClearResetCode(email string) error {
+	query := `UPDATE users SET reset_code = ? WHERE email = ?`
+
+	_, err := ur.db.Exec(query, "", email)
+
+	return err
 }
 
 func (ur *UserRepository) Get(id string) (*models.User, error) {
@@ -51,6 +76,18 @@ func (ur *UserRepository) GetByEmail(email string) (*models.User, error) {
 
 	u := &models.User{}
 	err := ur.db.Get(u, query, email)
+	if err != nil {
+		return nil, err
+	}
+
+	return u, nil
+}
+
+func (ur *UserRepository) GetByResetCode(code string) (*models.User, error) {
+	query := `SELECT * FROM users WHERE reset_code = ?`
+
+	u := &models.User{}
+	err := ur.db.Get(u, query, code)
 	if err != nil {
 		return nil, err
 	}

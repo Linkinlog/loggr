@@ -426,7 +426,19 @@ func InventoryItemName() templ.CSSClass {
 func Error() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-accent-red);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:underline;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`Error`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func Info() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-accent-green);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:underline;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`Info`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -512,6 +524,7 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		SpaceBetween():       {},
 		InventoryItemName():  {},
 		Error():              {},
+		Info():               {},
 		Padded():             {},
 		FullSpan():           {},
 		// base.templ

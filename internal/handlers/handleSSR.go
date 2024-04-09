@@ -10,6 +10,7 @@ import (
 	"github.com/Linkinlog/loggr/assets"
 	"github.com/Linkinlog/loggr/internal/models"
 	"github.com/Linkinlog/loggr/internal/repositories"
+	"github.com/Linkinlog/loggr/internal/services"
 	"github.com/Linkinlog/loggr/web"
 	"github.com/a-h/templ"
 )
@@ -22,6 +23,8 @@ var (
 	ErrEmailAndPassReq    = errors.New("email and password are required")
 	ErrUserExists         = errors.New("user already exists")
 	ErrorInvalidPassword  = errors.New("invalid password")
+	ErrPassReq            = errors.New("password required")
+	ErrInvalidCode        = errors.New("invalid code")
 )
 
 type wrapper struct {
@@ -34,7 +37,16 @@ func (w *wrapper) WriteHeader(statusCode int) {
 	w.s = statusCode
 }
 
-func NewSSR(l *slog.Logger, a string, d []*models.Garden, u *repositories.UserRepository, g *repositories.GardenRepository, i *repositories.ItemRepository, s *repositories.SessionRepository) *SSR {
+func NewSSR(
+	l *slog.Logger,
+	a string,
+	d []*models.Garden,
+	u *repositories.UserRepository,
+	g *repositories.GardenRepository,
+	i *repositories.ItemRepository,
+	s *repositories.SessionRepository,
+	ms *services.MailService,
+) *SSR {
 	return &SSR{
 		logger:         l,
 		addr:           a,
@@ -43,6 +55,7 @@ func NewSSR(l *slog.Logger, a string, d []*models.Garden, u *repositories.UserRe
 		u:              u,
 		g:              g,
 		s:              s,
+		ms:             ms,
 	}
 }
 
@@ -54,6 +67,7 @@ type SSR struct {
 	g              *repositories.GardenRepository
 	i              *repositories.ItemRepository
 	s              *repositories.SessionRepository
+	ms             *services.MailService
 }
 
 func (s *SSR) ServeHTTP() error {
@@ -318,11 +332,11 @@ func handleSignUpPage(w http.ResponseWriter, r *http.Request) error {
 	return p.Layout(web.SignUp("")).Render(r.Context(), w)
 }
 
-func handleForgotPassword(w http.ResponseWriter, r *http.Request) error {
+func handleForgotPasswordForm(w http.ResponseWriter, r *http.Request) error {
 	u, _ := models.UserFromContext(r.Context())
 	p := web.NewPage("Forgot Password", "Welcome to the forgot password page", u)
 
-	return p.Layout(web.ForgotPassword()).Render(r.Context(), w)
+	return p.Layout(web.ForgotPassword("", "")).Render(r.Context(), w)
 }
 
 func handleLanding(w http.ResponseWriter, r *http.Request) error {
@@ -348,4 +362,11 @@ func handleNotFound(w http.ResponseWriter, r *http.Request) error {
 
 	w.WriteHeader(http.StatusNotFound)
 	return p.Layout(web.NotFoundPage()).Render(r.Context(), w)
+}
+
+func handleResetPasswordForm(w http.ResponseWriter, r *http.Request) error {
+	code := r.PathValue("resetCode")
+	p := web.NewPage("Reset Password", "Welcome to the reset password page", nil)
+
+	return p.Layout(web.ResetPassword(code, "", "")).Render(r.Context(), w)
 }
