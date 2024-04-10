@@ -10,12 +10,16 @@ css GardenCreateLink() {
 	margin: 0;
 }
 
-templ GardenListing(gardens []*models.Garden, query string) {
+templ GardenListing(gardens []*models.Garden, query string, demo bool) {
 	<section>
 		<nav class={ Nav() }>
 			@Search("/gardens", query, "gardens")
 			<a hx-boost="true" class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href="/gardens/new">Add</a>
 		</nav>
+		if demo {
+			<p class={ FullSpan(), Underline() }>This is a demo account, anything done here can and will be deleted periodically.</p>
+			<p class={ FullSpan(), Underline() }>Please sign in to start saving things.</p>
+		}
 		<section id="gardens" class={ Listing() }>
 			if len(gardens) == 0 {
 				<p class={ FullSpan() }>No gardens yet, click "Add" to get started!</p>

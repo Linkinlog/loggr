@@ -211,8 +211,8 @@ func ContainerHeader() templ.CSSClass {
 
 func LandingContainer() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
-	templ_7745c5c3_CSSBuilder.WriteString(`min-height:82vh;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1.3rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:70vh;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:var(--landing-font);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:1rem;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`LandingContainer`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
@@ -423,6 +423,16 @@ func InventoryItemName() templ.CSSClass {
 	}
 }
 
+func Underline() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:underline;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`Underline`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
 func Error() templ.CSSClass {
 	var templ_7745c5c3_CSSBuilder strings.Builder
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-accent-red);`)
@@ -439,6 +449,17 @@ func Info() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-accent-green);`)
 	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:underline;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`Info`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func Link() templ.CSSClass {
+	var templ_7745c5c3_CSSBuilder strings.Builder
+	templ_7745c5c3_CSSBuilder.WriteString(`color:var(--color-accent-red);`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:underline;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`Link`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -478,7 +499,7 @@ func globalStyles() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\n        :root {\n            --color-primary: #002A32;\n            --color-secondary: #C9C19F;\n            --color-accent-green: #4B5842;\n            --color-accent-red: #764248;\n            --color-accent-grey: #888DA7;\n            --font-family: \"Outfit\", sans-serif;\n            --border-radius: 0.5rem;\n            --box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);\n            --font-size: 1rem;\n            --grid-cols: 1fr;\n            --overflow-width: 5rem;\n\n            color: var(--color-secondary);\n            background-color: var(--color-primary);\n            font-size: var(--font-size);\n\n            color-scheme: dark;\n            font-synthesis: none;\n            font-optical-sizing: auto;\n            text-rendering: optimizeLegibility;\n            -webkit-font-smoothing: antialiased;\n            -moz-osx-font-smoothing: grayscale;\n        }\n\n        * {\n            font-family: var(--font-family);\n        }\n\n        body {\n          margin: 0;\n          display: flex;\n          place-items: center;\n        }\n\n        @media (min-width: 768px) {\n            :root {\n                --font-size: 1.2rem;\n                --grid-cols: 1fr 1fr;\n            }\n\n            body {\n                padding: 0 25%;\n            }\n        }\n\n        #app {\n          width: 90vw;\n          height: 100%;\n          margin: 0 auto;\n          padding: 0.75rem;\n          text-align: center;\n        }\n\n        .hover-primary{\n          transition: all .5s;\n        }\n\n        .hover-secondary{\n          transition: all .5s;\n        }\n\n        .hover-secondary:hover{\n          background-color: var(--color-secondary);\n          border: 1px solid var(--color-accent-green);\n          color: var(--color-primary);\n          transition: all .5s;\n          transform : translateY(-0.2rem);\n        }\n\n        .hover-primary:hover{\n          background-color: var(--color-primary);\n          border: 1px solid var(--color-accent-red);\n          color: var(--color-secondary);\n          transition: all .5s;\n          transform : translateY(-0.2rem);\n        }\n\n        .htmx-indicator {\n          display: none;\n        }\n        .htmx-request .htmx-indicator {\n          display: block;\n        }\n        .htmx-request.htmx-indicator {\n          display: block;\n        }\n    </style>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style type=\"text/css\">\n        :root {\n            --color-primary: #002A32;\n            --color-secondary: #C9C19F;\n            --color-accent-green: #4B5842;\n            --color-accent-red: #764248;\n            --color-accent-grey: #888DA7;\n            --font-family: \"Outfit\", sans-serif;\n            --border-radius: 0.5rem;\n            --box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);\n            --font-size: 1rem;\n            --landing-font: 0.8rem;\n            --grid-cols: 1fr;\n            --overflow-width: 5rem;\n\n            color: var(--color-secondary);\n            background-color: var(--color-primary);\n            font-size: var(--font-size);\n\n            color-scheme: dark;\n            font-synthesis: none;\n            font-optical-sizing: auto;\n            text-rendering: optimizeLegibility;\n            -webkit-font-smoothing: antialiased;\n            -moz-osx-font-smoothing: grayscale;\n        }\n\n        * {\n            font-family: var(--font-family);\n        }\n\n        body {\n          margin: 0;\n          display: flex;\n          place-items: center;\n        }\n\n        @media (min-width: 768px) {\n            :root {\n                --font-size: 1.2rem;\n                --landing-font: 1.3rem;\n                --grid-cols: 1fr 1fr;\n            }\n\n            body {\n                padding: 0 25%;\n            }\n        }\n\n        #app {\n          width: 90vw;\n          height: 100%;\n          margin: 0 auto;\n          padding: 0.75rem;\n          text-align: center;\n        }\n\n        .hover-primary{\n          transition: all .5s;\n        }\n\n        .hover-secondary{\n          transition: all .5s;\n        }\n\n        .hover-secondary:hover{\n          background-color: var(--color-secondary);\n          border: 1px solid var(--color-accent-green);\n          color: var(--color-primary);\n          transition: all .5s;\n          transform : translateY(-0.2rem);\n        }\n\n        .hover-primary:hover{\n          background-color: var(--color-accent-grey);\n          border: 1px solid var(--color-accent-red);\n          color: var(--color-primary);\n          transition: all .5s;\n          transform : translateY(-0.2rem);\n        }\n\n        .htmx-indicator {\n          display: none;\n        }\n        .htmx-request .htmx-indicator {\n          display: block;\n        }\n        .htmx-request.htmx-indicator {\n          display: block;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -523,8 +544,10 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		BtnSecondary():       {},
 		SpaceBetween():       {},
 		InventoryItemName():  {},
+		Underline():          {},
 		Error():              {},
 		Info():               {},
+		Link():               {},
 		Padded():             {},
 		FullSpan():           {},
 		// base.templ

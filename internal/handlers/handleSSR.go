@@ -291,7 +291,9 @@ func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error 
 	p := web.NewPage("Gardens", "Welcome to the gardens page", u)
 
 	gardens := s.defaultGardens
+	demo := true
 	if u != nil {
+		demo = false
 		var err error
 		gardens, err = s.u.GetGardensForUser(u.Id)
 		if err != nil {
@@ -308,7 +310,7 @@ func (s *SSR) handleGardenListing(w http.ResponseWriter, r *http.Request) error 
 		gardens = models.SearchGardens(gardens, query)
 	}
 
-	return p.Layout(web.GardenListing(gardens, query)).Render(r.Context(), w)
+	return p.Layout(web.GardenListing(gardens, query, demo)).Render(r.Context(), w)
 }
 
 func handleNewGardenForm(w http.ResponseWriter, r *http.Request) error {

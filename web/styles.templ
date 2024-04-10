@@ -103,8 +103,8 @@ css ContainerHeader() {
 }
 
 css LandingContainer() {
-	min-height: 82vh;
-	font-size: 1.3rem;
+	min-height: 70vh;
+	font-size: var(--landing-font);
 	padding: 1rem;
 }
 
@@ -220,6 +220,10 @@ css InventoryItemName() {
 	height: 1rem;
 }
 
+css Underline() {
+	text-decoration: underline;
+}
+
 css Error() {
 	color: var(--color-accent-red);
 	text-decoration: underline;
@@ -227,6 +231,11 @@ css Error() {
 
 css Info() {
 	color: var(--color-accent-green);
+	text-decoration: underline;
+}
+
+css Link() {
+	color: var(--color-accent-red);
 	text-decoration: underline;
 }
 
@@ -250,6 +259,7 @@ templ globalStyles() {
             --border-radius: 0.5rem;
             --box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
             --font-size: 1rem;
+            --landing-font: 0.8rem;
             --grid-cols: 1fr;
             --overflow-width: 5rem;
 
@@ -278,6 +288,7 @@ templ globalStyles() {
         @media (min-width: 768px) {
             :root {
                 --font-size: 1.2rem;
+                --landing-font: 1.3rem;
                 --grid-cols: 1fr 1fr;
             }
 
@@ -311,9 +322,9 @@ templ globalStyles() {
         }
 
         .hover-primary:hover{
-          background-color: var(--color-primary);
+          background-color: var(--color-accent-grey);
           border: 1px solid var(--color-accent-red);
-          color: var(--color-secondary);
+          color: var(--color-primary);
           transition: all .5s;
           transform : translateY(-0.2rem);
         }
@@ -364,8 +375,10 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		BtnSecondary():       {},
 		SpaceBetween():       {},
 		InventoryItemName():  {},
+		Underline():          {},
 		Error():              {},
 		Info():               {},
+		Link():               {},
 		Padded():             {},
 		FullSpan():           {},
 		// base.templ

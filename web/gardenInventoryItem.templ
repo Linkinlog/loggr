@@ -51,7 +51,6 @@ templ GardenInventoryItem(g string, i *models.Item) {
 templ inventoryItemFields(i *models.Item) {
 	for i, f := range i.Fields {
 		if f !=  "" {
-			<label class={ InputLabel() } for={ "field-" + fmt.Sprint(i+1) }>Field { fmt.Sprint(i+1) }</label>
 			<p id={ "field-" + fmt.Sprint(i+1) } class={ ContainerSecondary(), Padded(), FieldLabel() }>{ f }</p>
 		}
 	}

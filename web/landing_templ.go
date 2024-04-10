@@ -40,6 +40,7 @@ func Cta() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`min-width:7rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:2rem;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:2rem;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:1.3rem;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`Cta`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,

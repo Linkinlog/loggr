@@ -41,7 +41,51 @@ func About() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h1>Meet the Mind Behind Loggr</h1><p>Welcome to Loggr, where a passion for gardening meets a love for innovation. I'm the sole creator behind this endeavor, driven by a desire to make garden management simpler and more enjoyable.</p><p>My journey with Loggr began with a simple idea: to develop a tool tailored specifically for gardeners like myself. What started as a personal project quickly evolved into Loggr as I dedicated myself to building it from the ground up.</p><p>At Loggr, I'm not just a developer - I'm a gardening enthusiast, a plant lover, and an outdoor adventurer. I understand the joys and challenges of gardening firsthand, and I'm committed to providing fellow enthusiasts with the tools they need to succeed.</p><p>So whether you're a seasoned pro or just getting your hands dirty, join me on this exciting journey as we continue to grow, evolve, and cultivate the future of gardening with Loggr. Let's dig in together! 🌱</p></section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h1>Meet the Mind Behind Loggr</h1><p>Welcome to Loggr, where a passion for gardening meets a love for innovation. I'm the sole creator behind this endeavor, driven by a desire to make garden management simpler and more enjoyable.</p><p>My journey with Loggr began with a simple idea: to develop a tool tailored specifically for gardeners like myself. What started as a personal project quickly evolved into Loggr as I dedicated myself to building it from the ground up.</p><p>At Loggr, I'm not just a developer - I'm a gardening enthusiast, a plant lover, and an outdoor adventurer. I understand the joys and challenges of gardening firsthand, and I'm committed to providing fellow enthusiasts with the tools they need to succeed.</p><p>So whether you're a seasoned pro or just getting your hands dirty, join me on this exciting journey as we continue to grow, evolve, and cultivate the future of gardening with Loggr. Let's dig in together! 🌱</p><p>Interested in learning more about Loggr? Check out the ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 = []any{Link()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var4).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/about.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" href=\"https://github.com/linkinlog/loggr\">Source Code</a> to learn more, and feel free to ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var6 = []any{Link()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var6).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/about.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" href=\"mailto:loggr@dahlton.org\">email me</a> with any questions or feedback. I'd love to hear from you!</p></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
