@@ -40,6 +40,7 @@ func main() {
 		last_name TEXT NOT NULL,
 		email TEXT NOT NULL,
 		password TEXT NOT NULL,
+		image TEXT NOT NULL,
 		reset_code TEXT NOT NULL
 	);
 

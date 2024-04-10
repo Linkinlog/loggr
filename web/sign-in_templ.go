@@ -241,7 +241,7 @@ func SignIn(err string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var16 = []any{Btn(), SignInBtn(), "hover-secondary"}
+		var templ_7745c5c3_Var16 = []any{Btn(), SignInBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var16...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

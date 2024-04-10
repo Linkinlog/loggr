@@ -36,7 +36,7 @@ templ SignUp(err string) {
 			<input type="password" id="password" name="password" placeholder="hunter2" class={ Input(), InputSmall() } required/>
 			<a hx-boost="true" class={ PasswordLink() } href="/auth/sign-in">Already have an account? Sign in here</a>
 			@HxIndicator()
-			<button class={ Btn(), SignUpBtn(), "hover-secondary" } type="submit">Sign Up</button>
+			<button class={ Btn(), SignUpBtn(), "hover" } type="submit">Sign Up</button>
 			if err != "" {
 				<p class={ Error() }>{ err }</p>
 			}

@@ -70,7 +70,7 @@ func GardenListing(gardens []*models.Garden, query string, demo bool) templ.Comp
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 = []any{BtnSecondary(), GardenCreateLink(), "hover-primary"}
+		var templ_7745c5c3_Var4 = []any{BtnSecondary(), GardenCreateLink(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -133,7 +133,7 @@ func GardenListing(gardens []*models.Garden, query string, demo bool) templ.Comp
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Please sign in to start saving things.</p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Please sign in for full functionality.</p>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

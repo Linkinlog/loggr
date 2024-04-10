@@ -31,6 +31,7 @@ To get started with Loggr, follow these steps:
 3. **Install Dependencies**: No external dependencies are required.
 4. **Run the Application**: Make commands are provided for building and running the application:
    - `make build`: Builds the application.
+   - `make migrate`: Runs the SQL setup.
    - `make dev`: Runs the application.
    - `make clean`: Cleans up the build directory.
 5. **Access the Application**: Open your web browser and navigate to `http://localhost` at the port specified in `.env` to access Loggr.

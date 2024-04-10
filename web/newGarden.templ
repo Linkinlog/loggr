@@ -20,7 +20,7 @@ templ NewGarden(name, location, description, err string) {
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary(), Padded() }>
 				@gardenFieldsInputs(location, description)
-				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Create</button>
+				<button class={ BtnSecondary(), CreateBtn(), "hover" } type="submit">Create</button>
 			</section>
 		</form>
 	</section>

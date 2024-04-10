@@ -32,7 +32,7 @@ templ GardenInventoryItem(g string, i *models.Item) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader() }>
 			<h2>{ i.Name }</h2>
-			<a hx-boost="true" class={ Btn(), EditBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g + "/inventory/" + i.Id + "/edit") }>Edit</a>
+			<a hx-boost="true" class={ Btn(), EditBtn(), "hover" } href={ templ.URL("/gardens/" + g + "/inventory/" + i.Id + "/edit") }>Edit</a>
 		</section>
 		<img class={ ItemImg() } src={ i.Image } alt={ i.Name }/>
 		<section class={ ItemAndType() }>

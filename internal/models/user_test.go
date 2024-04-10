@@ -26,7 +26,7 @@ func TestNewUser(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			_, err := models.NewUser(tc.name, tc.email, tc.password)
+			_, err := models.NewUser(tc.name, tc.email, tc.password, "")
 			if (err != nil) != tc.wantErr {
 				t.Fatalf("NewUser(%q, %q, %q) = %v, wantErr %v", tc.name, tc.email, tc.password, err, tc.wantErr)
 			}
@@ -36,7 +36,7 @@ func TestNewUser(t *testing.T) {
 
 func TestUser_UserFromContext(t *testing.T) {
 	t.Parallel()
-	u, err := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, err := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	assert.Nil(t, err)
 
 	user, err := models.UserFromContext(context.WithValue(context.Background(), models.UserCtxKey("user"), u))
@@ -47,7 +47,7 @@ func TestUser_UserFromContext(t *testing.T) {
 
 func TestUser_ToContext(t *testing.T) {
 	t.Parallel()
-	u, err := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, err := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	assert.Nil(t, err)
 
 	ctx := u.ToContext(context.Background())
@@ -58,7 +58,7 @@ func TestUser_ToContext(t *testing.T) {
 
 func TestUser_String(t *testing.T) {
 	t.Parallel()
-	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123", "")
 	assert.Nil(t, err)
 
 	assert.Equal(t, "Batman Forever", u.String())
@@ -66,7 +66,7 @@ func TestUser_String(t *testing.T) {
 
 func TestUser_Id(t *testing.T) {
 	t.Parallel()
-	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123", "")
 	assert.Nil(t, err)
 
 	assert.NotEmpty(t, u.Id)
@@ -74,7 +74,7 @@ func TestUser_Id(t *testing.T) {
 
 func TestUser_Password(t *testing.T) {
 	t.Parallel()
-	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123", "")
 	assert.Nil(t, err)
 
 	assert.NotEmpty(t, u.Password)
@@ -83,7 +83,7 @@ func TestUser_Password(t *testing.T) {
 func TestUser_CheckPassword(t *testing.T) {
 	t.Parallel()
 	password := "password123"
-	u, err := models.NewUser("Batman", "batman@hotmail.com", password)
+	u, err := models.NewUser("Batman", "batman@hotmail.com", password, "")
 	if err != nil {
 		t.Fatalf("NewUser failed: %v", err)
 	}
@@ -114,7 +114,7 @@ func TestUser_CheckPassword(t *testing.T) {
 
 func TestUser_ChangePassword(t *testing.T) {
 	t.Parallel()
-	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123")
+	u, err := models.NewUser("Batman Forever", "batman@hotmail.com", "password123", "")
 	assert.Nil(t, err)
 
 	newPassword := "newPassword123"

@@ -158,9 +158,6 @@ css FieldLabel() {
 }
 
 css CreateBtn() {
-	background-color: var(--color-secondary);
-	color: var(--color-primary);
-	border: 1px solid var(--color-accent-green);
 	width: 7rem;
 	min-height: 3rem;
 	margin: 2rem;
@@ -247,6 +244,14 @@ css FullSpan() {
 	grid-column: span 2;
 }
 
+css NoMargin() {
+	margin: 0;
+}
+
+css AlignLeft() {
+	text-align: left;
+}
+
 templ globalStyles() {
 	<style type="text/css">
         :root {
@@ -305,23 +310,11 @@ templ globalStyles() {
           text-align: center;
         }
 
-        .hover-primary{
+        .hover{
           transition: all .5s;
         }
 
-        .hover-secondary{
-          transition: all .5s;
-        }
-
-        .hover-secondary:hover{
-          background-color: var(--color-secondary);
-          border: 1px solid var(--color-accent-green);
-          color: var(--color-primary);
-          transition: all .5s;
-          transform : translateY(-0.2rem);
-        }
-
-        .hover-primary:hover{
+        .hover:hover{
           background-color: var(--color-accent-grey);
           border: 1px solid var(--color-accent-red);
           color: var(--color-primary);
@@ -381,6 +374,8 @@ func stylesMap() map[templ.CSSClass]struct{} {
 		Link():               {},
 		Padded():             {},
 		FullSpan():           {},
+		NoMargin():           {},
+		AlignLeft():          {},
 		// base.templ
 		HeaderLink():  {},
 		HeaderBrand(): {},

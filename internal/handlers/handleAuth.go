@@ -185,7 +185,7 @@ func (s *SSR) handleSignUp(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	u, err := models.NewUser(name, email, password)
+	u, err := models.NewUser(name, email, password, "/assets/imageNotFound.webp")
 	if err != nil {
 		p := web.NewPage("Sign Up", "Welcome to the sign up page", nil)
 

@@ -144,7 +144,7 @@ func Garden(g *models.Garden, inventory []*models.Item, query string) templ.Comp
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var7 = []any{Btn(), EditBtn(), "hover-secondary"}
+		var templ_7745c5c3_Var7 = []any{Btn(), EditBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var7...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

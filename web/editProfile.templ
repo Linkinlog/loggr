@@ -1,0 +1,34 @@
+package web
+
+import "github.com/Linkinlog/loggr/internal/models"
+
+templ EditProfileForm(u models.User, err string) {
+	<section class={ ContainerSecondary(), Padded() }>
+		<section class={ ContainerHeader() }>
+			<h1>Edit Profile</h1>
+			if err != "" {
+				<p class={ Error() }>{ err }</p>
+			}
+			<a hx-boost="true" hx-confirm="Are you sure you want to delete this garden?" class={ BtnWarn(), DeleteBtn(), "hover" } href={ templ.URL("/profile/delete") }>Delete</a>
+		</section>
+		<form
+			hx-boost="true"
+			action={ templ.URL("/profile/") }
+			method="post"
+			hx-indicator="#loading"
+			enctype="multipart/form-data"
+		>
+			@HxIndicator()
+			@ImageUploader(u.Image)
+			<section class={ ContainerPrimary(), Padded() }>
+				<label class={ InputLabel() } for="name">Name</label>
+				<input type="text" id="name" name="name" placeholder="dahlton example" class={ InputSecondary(), InputSmall() } value={ u.String() } required/>
+				<label class={ InputLabel() } for="email">Email</label>
+				<input type="email" id="email" name="email" placeholder="dahlton@example.com" class={ InputSecondary(), InputSmall() } value={ u.Email } required/>
+				<label class={ InputLabel() } for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="hunter2" class={ InputSecondary(), InputSmall() }/>
+				<button class={ BtnSecondary(), CreateBtn(), "hover" } type="submit">Update</button>
+			</section>
+		</form>
+	</section>
+}

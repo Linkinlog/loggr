@@ -69,7 +69,7 @@ func EditGarden(g *models.Garden, err string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{BtnWarn(), DeleteBtn(), "hover-secondary"}
+		var templ_7745c5c3_Var6 = []any{BtnWarn(), DeleteBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -263,7 +263,7 @@ func EditGarden(g *models.Garden, err string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var22 = []any{Btn(), CreateBtn(), "hover-primary"}
+		var templ_7745c5c3_Var22 = []any{Btn(), CreateBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var22...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

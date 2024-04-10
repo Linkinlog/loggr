@@ -41,7 +41,7 @@ templ ImageUploader(img string) {
         }
     </script>
 	<section class={ UploaderContainer() }>
-		<label class={ Btn(), ImageUploaderLabel(), "hover-secondary" } for="gardenPic">Upload Photo</label>
+		<label class={ Btn(), ImageUploaderLabel(), "hover" } for="gardenPic">Upload Photo</label>
 		<input onchange="previewImage(event)" id="gardenPic" type="file" accept="image/*" name="image" hidden/>
 		<img id="previewGarden" class={ GardenPic() } src={ getImg(img) } alt="Garden Picture"/>
 	</section>

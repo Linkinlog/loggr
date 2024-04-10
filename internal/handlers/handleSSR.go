@@ -78,6 +78,8 @@ func (s *SSR) ServeHTTP() error {
 	mux.Handle("POST /auth/", http.StripPrefix("/auth", s.serveAuth()))
 	mux.Handle("GET /gardens/", http.StripPrefix("/gardens", s.serveGardens()))
 	mux.Handle("POST /gardens/", http.StripPrefix("/gardens", s.serveGardens()))
+	mux.Handle("GET /profile/", http.StripPrefix("/profile", s.serveProfiles()))
+	mux.Handle("POST /profile/", http.StripPrefix("/profile", s.serveProfiles()))
 	mux.Handle("GET /about", s.wrapHandler(handleAbout))
 
 	mux.Handle("GET /assets/", http.StripPrefix("/assets/", http.FileServer(http.FS(assets.NewAssets()))))

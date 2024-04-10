@@ -7,7 +7,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func NewUser(name, email string, passwordString string) (*User, error) {
+func NewUser(name, email, passwordString, image string) (*User, error) {
 	password, err := bcrypt.GenerateFromPassword([]byte(passwordString), bcrypt.MinCost)
 	if err != nil {
 		return nil, err
@@ -28,12 +28,13 @@ func NewUser(name, email string, passwordString string) (*User, error) {
 		LastName:  lastName,
 		Email:     email,
 		Password:  password,
+		Image:     image,
 	}, nil
 }
 
 func UserFromContext(ctx context.Context) (*User, error) {
 	user, ok := ctx.Value(UserCtxKey("user")).(*User)
-	if !ok {
+	if !ok || user == nil {
 		return nil, NoUserInContext
 	}
 
@@ -45,6 +46,7 @@ type User struct {
 	FirstName string `db:"first_name"`
 	LastName  string `db:"last_name"`
 	Email     string `db:"email"`
+	Image     string `db:"image"`
 	Password  []byte `db:"password"`
 	ResetCode string `db:"reset_code"`
 }
@@ -56,6 +58,9 @@ func (u *User) ToContext(ctx context.Context) context.Context {
 }
 
 func (u *User) String() string {
+	if u.LastName == "" {
+		return u.FirstName
+	}
 	return u.FirstName + " " + u.LastName
 }
 

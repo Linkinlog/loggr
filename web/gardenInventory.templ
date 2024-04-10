@@ -7,7 +7,7 @@ templ GardenInventory(id, query string, items []*models.Item) {
 	<section class={ ContainerPrimary(), Padded() }>
 		<nav class={ Nav() }>
 			@Search("/gardens/"+id+"/inventory", query, "inventory")
-			<a hx-boost="true" class={ BtnSecondary(), GardenCreateLink(), "hover-primary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", id)) }>Add</a>
+			<a hx-boost="true" class={ BtnSecondary(), GardenCreateLink(), "hover" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/new", id)) }>Add</a>
 		</nav>
 		<section id="inventory" class={ InventoryListing() }>
 			if len(items) == 0 {

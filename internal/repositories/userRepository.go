@@ -29,9 +29,9 @@ func (ur *UserRepository) Add(u *models.User) (string, error) {
 	if u == nil {
 		return "", ErrNilUser
 	}
-	query := `INSERT INTO users (id, first_name, last_name, email, password, reset_code) VALUES (?, ?, ?, ?, ?, ?)`
+	query := `INSERT INTO users (id, first_name, last_name, email, password, image, reset_code) VALUES (?, ?, ?, ?, ?, ?, ?)`
 
-	_, err := ur.db.Exec(query, u.Id, u.FirstName, u.LastName, u.Email, string(u.Password), u.ResetCode)
+	_, err := ur.db.Exec(query, u.Id, u.FirstName, u.LastName, u.Email, string(u.Password), u.Image, u.ResetCode)
 
 	return u.Id, err
 }
@@ -99,9 +99,9 @@ func (ur *UserRepository) Update(id string, u *models.User) error {
 	if u == nil {
 		return ErrNilUser
 	}
-	query := `UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?`
+	query := `UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, image = ? WHERE id = ?`
 
-	_, err := ur.db.Exec(query, u.FirstName, u.LastName, u.Email, u.Password, id)
+	_, err := ur.db.Exec(query, u.FirstName, u.LastName, u.Email, u.Password, u.Image, id)
 
 	return err
 }

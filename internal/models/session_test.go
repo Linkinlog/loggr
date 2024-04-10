@@ -9,7 +9,7 @@ import (
 
 func TestNewSession(t *testing.T) {
 	t.Parallel()
-	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	s := models.NewSession(u)
 
 	assert.NotNil(t, s)
@@ -18,7 +18,7 @@ func TestNewSession(t *testing.T) {
 
 func TestSession_Id(t *testing.T) {
 	t.Parallel()
-	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	s := models.NewSession(u)
 
 	assert.NotEmpty(t, s.Id)
@@ -26,7 +26,7 @@ func TestSession_Id(t *testing.T) {
 
 func TestSession_TTL(t *testing.T) {
 	t.Parallel()
-	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	s := models.NewSession(u)
 
 	assert.NotZero(t, s.TTL())
@@ -34,7 +34,7 @@ func TestSession_TTL(t *testing.T) {
 
 func TestSession_ToCookie(t *testing.T) {
 	t.Parallel()
-	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	s := models.NewSession(u)
 
 	cookie := s.ToCookie()
@@ -45,7 +45,7 @@ func TestSession_ToCookie(t *testing.T) {
 
 func TestSession_Expired(t *testing.T) {
 	t.Parallel()
-	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123")
+	u, _ := models.NewUser("Batman", "batman@hotmail.com", "password123", "")
 	s := models.NewSession(u)
 
 	assert.False(t, s.Expired())

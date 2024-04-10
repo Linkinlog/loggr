@@ -23,6 +23,7 @@ func setupUserRepository() (*repositories.UserRepository, *models.User, *models.
 		last_name TEXT NOT NULL,
 		email TEXT NOT NULL,
 		password TEXT NOT NULL,
+		image TEXT NOT NULL,
 		reset_code TEXT NOT NULL
 	);
 CREATE TABLE IF NOT EXISTS gardens (
@@ -37,8 +38,8 @@ CREATE TABLE IF NOT EXISTS gardens (
 
 	store.MustExec(schema)
 
-	u, _ := models.NewUser("Batman", "idk@lol.com", "password123")
-	store.MustExec("INSERT INTO users (id, first_name, last_name, email, password, reset_code) VALUES (?, ?, ?, ?, ?, ?)", u.Id, u.FirstName, u.LastName, u.Email, string(u.Password), u.ResetCode)
+	u, _ := models.NewUser("Batman", "idk@lol.com", "password123", "")
+	store.MustExec("INSERT INTO users (id, first_name, last_name, email, password, image, reset_code) VALUES (?, ?, ?, ?, ?, ?, ?)", u.Id, u.FirstName, u.LastName, u.Email, string(u.Password), u.Image, u.ResetCode)
 
 	g := models.NewGarden("garden 1", "location 1", "description 1", "https://image.com", []*models.Item{})
 
@@ -62,7 +63,7 @@ func TestUserRepository_Add(t *testing.T) {
 	t.Parallel()
 	ur, _, _ := setupUserRepository()
 
-	u, _ := models.NewUser("Robin", "idk@lol.com", "password123")
+	u, _ := models.NewUser("Robin", "idk@lol.com", "password123", "")
 	id, err := ur.Add(u)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, id)

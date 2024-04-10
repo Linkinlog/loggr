@@ -7,7 +7,7 @@ templ EditGardenInventoryItemForm(g string, i *models.Item, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader(), Padded() }>
 			<h2>New Garden Inventory Item</h2>
-			<a hx-boost="true" hx-confirm="Are you sure you want to delete this item?" class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id)) }>Delete</a>
+			<a hx-boost="true" hx-confirm="Are you sure you want to delete this item?" class={ BtnWarn(), DeleteBtn(), "hover" } href={ templ.URL(fmt.Sprintf("/gardens/%s/inventory/%s/delete", g, i.Id)) }>Delete</a>
 		</section>
 		if err != "" {
 			<p class={ Error() }>{ err }</p>
@@ -38,7 +38,7 @@ templ EditGardenInventoryItemForm(g string, i *models.Item, err string) {
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary(), Padded() }>
 				@inventoryItemFieldEditInputs(i)
-				<button class={ BtnSecondary(), CreateBtn(), "hover-primary" } type="submit">Update</button>
+				<button class={ BtnSecondary(), CreateBtn(), "hover" } type="submit">Update</button>
 			</section>
 		</form>
 	</section>

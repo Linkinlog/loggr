@@ -1,0 +1,17 @@
+package web
+
+import "github.com/Linkinlog/loggr/internal/models"
+
+templ Profile(u models.User) {
+	<section class={ ContainerSecondary(), Padded() }>
+		<section class={ ContainerHeader() }>
+			<h1>{ u.String() }</h1>
+			<a hx-boost="true" class={ Btn(), EditBtn(), "hover" } href={ templ.URL("/profile/edit") }>Edit</a>
+		</section>
+		<img class={ GardenImg() } src={ u.Image } alt={ u.String() }/>
+		<section>
+			<p class={ InputLabel(), ItemLabel() }>Email</p>
+			<p class={ ContainerPrimary(), Padded(), NoMargin(), AlignLeft() }>{ u.Email }</p>
+		</section>
+	</section>
+}

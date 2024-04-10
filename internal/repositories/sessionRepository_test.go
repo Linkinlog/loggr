@@ -34,7 +34,7 @@ func setupSessionRepository() (*repositories.SessionRepository, *models.Session)
 
 	store.MustExec(schema)
 
-	u, _ := models.NewUser("Batman", "idk@aol.com", "password123")
+	u, _ := models.NewUser("Batman", "idk@aol.com", "password123", "")
 	s := models.NewSession(u)
 	store.MustExec("INSERT INTO sessions (id, user_id) VALUES (?, ?)", s.Id, s.User.Id)
 	store.MustExec("INSERT INTO users (id, first_name, last_name, email, password, reset_code) VALUES (?, ?, ?, ?, ?, ?)", u.Id, u.FirstName, u.LastName, u.Email, string(u.Password), u.ResetCode)
@@ -57,7 +57,7 @@ func TestSessionRepository_Add(t *testing.T) {
 	t.Parallel()
 	sr, _ := setupSessionRepository()
 
-	u, _ := models.NewUser("Robin", "", "")
+	u, _ := models.NewUser("Robin", "", "", "")
 	s := models.NewSession(u)
 	err := sr.Add(s)
 	assert.NoError(t, err)

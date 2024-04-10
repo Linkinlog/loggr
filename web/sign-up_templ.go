@@ -262,7 +262,7 @@ func SignUp(err string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var20 = []any{Btn(), SignUpBtn(), "hover-secondary"}
+		var templ_7745c5c3_Var20 = []any{Btn(), SignUpBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var20...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

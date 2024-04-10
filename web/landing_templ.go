@@ -123,16 +123,16 @@ func Landing() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li>Create personalized gardens with ease</li><li>Track inventory items efficiently</li><li>Store location and description for each garden</li><li>Flexible fields for customizable inventory items</li><li>Collaborate with ease, whether you're a solo gardener or part of a team</li></ul><h2>Join us today and watch your garden dreams blossom into reality!</h2>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><li>Create personalized gardens with ease</li><li>Track inventory items efficiently</li><li>Store location and description for each garden</li><li>Flexible fields for customizable inventory items</li><li>Collaborate with ease, whether you're a solo gardener or part of a team</li>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var8 = []any{Btn(), Cta(), "hover-secondary"}
+		var templ_7745c5c3_Var8 = []any{Underline()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var8...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a hx-boost=\"true\" href=\"/auth/sign-up\" class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -142,6 +142,28 @@ func Landing() templ.Component {
 			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/landing.templ`, Line: 1, Col: 0}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Coming Soon: Fully document every item in your garden with custom field names</li></ul><h2>Join us today and watch your garden dreams blossom into reality!</h2>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var10 = []any{Btn(), Cta(), "hover"}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var10...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a hx-boost=\"true\" href=\"/auth/sign-up\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var11 string
+		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var10).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/landing.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

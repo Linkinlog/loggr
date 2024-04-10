@@ -70,7 +70,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item, err string) templ.Com
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{BtnWarn(), DeleteBtn(), "hover-secondary"}
+		var templ_7745c5c3_Var6 = []any{BtnWarn(), DeleteBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -399,7 +399,7 @@ func EditGardenInventoryItemForm(g string, i *models.Item, err string) templ.Com
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var32 = []any{BtnSecondary(), CreateBtn(), "hover-primary"}
+		var templ_7745c5c3_Var32 = []any{BtnSecondary(), CreateBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var32...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

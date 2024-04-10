@@ -6,7 +6,7 @@ templ EditGarden(g *models.Garden, err string) {
 	<section class={ ContainerSecondary(), Padded() }>
 		<section class={ ContainerHeader(), Padded() }>
 			<h1>Edit Garden</h1>
-			<a hx-boost="true" hx-confirm="Are you sure you want to delete this garden?" class={ BtnWarn(), DeleteBtn(), "hover-secondary" } href={ templ.URL("/gardens/" + g.Id + "/delete") }>Delete</a>
+			<a hx-boost="true" hx-confirm="Are you sure you want to delete this garden?" class={ BtnWarn(), DeleteBtn(), "hover" } href={ templ.URL("/gardens/" + g.Id + "/delete") }>Delete</a>
 		</section>
 		if err != "" {
 			<p class={ Error() }>{ err }</p>
@@ -25,7 +25,7 @@ templ EditGarden(g *models.Garden, err string) {
 			<p class={ FieldDescriptor() }>Fields</p>
 			<section class={ ContainerPrimary(), Padded() }>
 				@gardenFieldsEditInputs(g)
-				<button class={ Btn(), CreateBtn(), "hover-primary" } type="submit">Update</button>
+				<button class={ Btn(), CreateBtn(), "hover" } type="submit">Update</button>
 			</section>
 		</form>
 	</section>

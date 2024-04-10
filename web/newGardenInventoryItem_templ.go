@@ -346,7 +346,7 @@ func NewGardenInventoryItemForm(id, name, field1, field2, field3, field4, field5
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var27 = []any{BtnSecondary(), CreateBtn(), "hover-primary"}
+		var templ_7745c5c3_Var27 = []any{BtnSecondary(), CreateBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var27...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

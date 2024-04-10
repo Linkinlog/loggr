@@ -185,7 +185,7 @@ func ForgotPassword(err, info string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var14 = []any{Btn(), ForgotPasswordBtn(), "hover-secondary"}
+		var templ_7745c5c3_Var14 = []any{Btn(), ForgotPasswordBtn(), "hover"}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var14...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
