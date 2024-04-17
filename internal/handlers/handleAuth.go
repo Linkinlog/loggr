@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Linkinlog/loggr/internal/models"
+	"github.com/Linkinlog/loggr/internal/services"
 	"github.com/Linkinlog/loggr/web"
 )
 
@@ -96,7 +97,7 @@ func (s *SSR) handleForgotPassword(w http.ResponseWriter, r *http.Request) error
 		Path:   "/auth/reset-password/" + code,
 	}
 
-	if resp, err := s.ms.SendResetPassword(email, resetLink.String()); err != nil {
+	if resp, err := s.ms.SendEmailWithTemplate(email, resetLink.String(), services.ResetPasswordTemplate); err != nil {
 		err = fmt.Errorf("error sending email: %w, response %s", err, resp)
 		return err
 	}
@@ -204,6 +205,16 @@ func (s *SSR) handleSignUp(w http.ResponseWriter, r *http.Request) error {
 	sess := models.NewSession(u)
 	err = s.s.Add(sess)
 	if err != nil {
+		return err
+	}
+
+	if resp, err := s.ms.SendEmailWithTemplate(email, u.String(), services.NewUserTemplate); err != nil {
+		err = fmt.Errorf("error sending email: %w, response %s", err, resp)
+		return err
+	}
+	// i like to know too :(
+	if resp, err := s.ms.SendEmailWithTemplate("dahlton@dahlton.org", u.String(), services.NewUserTemplate); err != nil {
+		err = fmt.Errorf("error sending email: %w, response %s", err, resp)
 		return err
 	}
 
