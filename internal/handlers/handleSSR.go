@@ -138,7 +138,7 @@ func (s *SSR) wrapHandler(handler func(http.ResponseWriter, *http.Request) error
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			s.logger.Error("error handling request", "error", err.Error(), "time", execTime)
 		}
-		s.logger.Info("hit", "status", wr.s, "method", r.Method, "path", r.URL.Path, "time", execTime.String())
+		s.logger.Info("hit", "status", wr.s, "method", r.Method, "path", r.URL.Path, "time", execTime.String(), "source", r.Header.Get("Cf-Connecting-IP"))
 	}
 }
 
